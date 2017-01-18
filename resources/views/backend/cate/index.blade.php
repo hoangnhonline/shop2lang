@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Danh mục con của : <span class="cate-name">{{ $loaiSp->name_vi }}</span>
+    Danh mục con của : <span class="cate-name">{{ $detailLoai->name_vi }}</span>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
