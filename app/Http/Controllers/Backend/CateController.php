@@ -22,10 +22,12 @@ class CateController extends Controller
     public function index(Request $request)
     {
         $loaiSpArr = LoaiSp::all();
-        $loaiSp = LoaiSp::whereRaw('1')->first();
-        $loai_id = $request->loai_id ? $request->loai_id : $loaiSp->loai_id;
+        $detailLoai = LoaiSp::find(5);
+      
+        $loai_id = $request->loai_id ? $request->loai_id : $detailLoai->id;
+      
         $items = Cate::where('loai_id', $loai_id)->orderBy('display_order')->get();        
-        return view('backend.cate.index', compact( 'items', 'loaiSpArr', 'loaiSp', 'loai_id'));
+        return view('backend.cate.index', compact( 'items', 'loaiSpArr', 'detailLoai', 'loai_id'));
     }
     /**
     * Show the form for creating a new resource.
