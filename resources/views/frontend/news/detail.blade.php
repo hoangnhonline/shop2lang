@@ -31,7 +31,7 @@
 
                 <div class="ttin_tag">
                   <div class="top_tt">
-                    <img src="images/icon_ttin_tag.png" class="ttin_left_tag">
+                    <img src="{{ URL::asset('assets/images/icon_ttin_tag.png') }}" class="ttin_left_tag">
                     <div class="chu_tag">
                       <a href="#">dây nịt nam</a>,
                       <a href="#">day nit nam</a>,
