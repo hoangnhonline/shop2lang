@@ -31,6 +31,7 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/js/slideshow/settings.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/theme.css') }}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/responsive.css') }}" media="all"/>
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 <body>
 <div class="wrap">
@@ -56,6 +57,8 @@
 <script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.revolution.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.plugins.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/theme.js') }}"></script>
+<input type="hidden" id="route-add-cart" value="{{ route('them-sanpham') }}">
+<input type="hidden" id="route-cart" value="{{ route('gio-hang') }}">
 @yield('javascript')
 </body>
 </html>

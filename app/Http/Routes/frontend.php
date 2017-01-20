@@ -1,4 +1,23 @@
 <?php
+Route::group(['prefix' => 'social-auth'], function () {
+    Route::group(['prefix' => 'facebook'], function () {
+        Route::get('redirect/', ['as' => 'fb-auth', 'uses' => 'SocialAuthController@redirect']);
+        Route::get('callback/', ['as' => 'fb-callback', 'uses' => 'SocialAuthController@callback']);
+        Route::post('fb-login', ['as' => 'ajax-login-by-fb', 'uses' => 'SocialAuthController@fbLogin']);
+    });
+
+    Route::group(['prefix' => 'google'], function () {
+        Route::get('redirect/', ['as' => 'gg-auth', 'uses' => 'SocialAuthController@googleRedirect']);
+        Route::get('callback/', ['as' => 'gg-callback', 'uses' => 'SocialAuthController@googleCallback']);
+    });
+
+});
+
+Route::group(['prefix' => 'authentication'], function () {
+    Route::post('check_login', ['as' => 'auth-login', 'uses' => 'AuthenticationController@checkLogin']);
+    Route::post('login_ajax', ['as' =>  'auth-login-ajax', 'uses' => 'AuthenticationController@checkLoginAjax']);
+    Route::get('/user-logout', ['as' => 'user-logout', 'uses' => 'AuthenticationController@logout']);
+});
 
 Route::group(['namespace' => 'Frontend'], function()
 {
@@ -32,4 +51,28 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('lien-he.html', ['as' => 'contact-vi', 'uses' => 'HomeController@contact']);
     Route::get('{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
 
+    Route::group(['prefix' => 'thanh-toan'], function () {
+        Route::get('gio-hang', ['as' => 'gio-hang', 'uses' => 'CartController@index']);
+        Route::get('xoa-gio-hang', ['as' => 'xoa-gio-hang', 'uses' => 'CartController@deleteAll']);
+        Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);
+        Route::get('shipping-step-2', ['as' => 'shipping-step-2', 'uses' => 'CartController@shippingStep2']);
+        Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
+        Route::post('update-sanpham', ['as' => 'update-sanpham', 'uses' => 'CartController@update']);
+        Route::post('them-sanpham', ['as' => 'them-sanpham', 'uses' => 'CartController@addProduct']);
+        Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
+        Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
+    });
+
+    Route::group(['prefix' => 'tai-khoan'], function () {
+        Route::get('don-hang-cua-toi', ['as' => 'order-history', 'uses' => 'OrderController@history']);
+        Route::get('thong-bao-cua-toi', ['as' => 'notification', 'uses' => 'CustomerController@notification']);
+        Route::get('thong-tin-tai-khoan', ['as' => 'account-info', 'uses' => 'CustomerController@accountInfo']);
+        Route::get('doi-mat-khau', ['as' => 'change-password', 'uses' => 'CustomerController@changePassword']);
+        Route::post('save-new-password', ['as' => 'save-new-password', 'uses' => 'CustomerController@saveNewPassword']);
+        Route::get('/chi-tiet-don-hang/{order_id}', ['as' => 'order-detail', 'uses' => 'OrderController@detail']);
+        Route::post('/huy-don-hang', ['as' => 'order-cancel', 'uses' => 'OrderController@huy']);
+        Route::post('/forget-password', ['as' => 'forget-password', 'uses' => 'CustomerController@forgetPassword']);
+        Route::get('/reset-password/{key}', ['as' => 'reset-password', 'uses' => 'CustomerController@resetPassword']);
+        Route::post('save-reset-password', ['as' => 'save-reset-password', 'uses' => 'CustomerController@saveResetPassword']);
+    });
 });

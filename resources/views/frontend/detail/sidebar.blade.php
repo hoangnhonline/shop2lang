@@ -5,7 +5,7 @@
 				<h2 class="widget-title">{{ trans('text.category') }}</h2>
 				<ul>
 					@foreach($loaiSp as $loai)
-					<li><a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loai->slug_vi]) : route('danh-muc-cha', [$loai->slug_en]) }}" title="{{ $lang == 'vi' ? $loai->name_vi : $loai->name_en }}"> {{ $lang == 'vi' ? $loai->name_vi : $loai->name_en }}</a></li>
+					<li><a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loai->slug_vi]) : route('danh-muc-cha', [$loai->slug_en]) }}" title="{{ $lang == 'vi' ? $loai->name_vi : $loai->name_en }}" {{ isset($rs) && $rs->id == $loai->id ? "class=active" : "" }}> {{ $lang == 'vi' ? $loai->name_vi : $loai->name_en }}</a></li>
 					@endforeach					
 				</ul>
 			</div>

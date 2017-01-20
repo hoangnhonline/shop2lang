@@ -96,10 +96,11 @@
           <div class="item-product5">
             <div class="product-thumb product-thumb5">
               <a href="#" class="product-thumb-link">
-                <img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}"  width="268" height="300"/>                
+                <img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}"  width="268" height="300"/>
+                <img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}"  width="268" height="300"/>              
               </a>
               <div class="product-info-cart">                
-                <a href="{{ $lang == 'vi' ? route('chi-tiet-vi',['slug' => $product->slug_vi, 'id' => $product->id]) : route('chi-tiet-en', ['slug' => $product->slug_en, 'id' => $product->id]) }}" class="addcart-link"><i class="fa fa-shopping-basket"></i>  Mua hàng</a>
+                <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> Mua hàng</a>
               </div>
             </div>
             <div class="product-info5">
