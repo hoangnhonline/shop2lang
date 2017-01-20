@@ -1,3 +1,6 @@
+<?php 
+$loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')->get();
+?>
 <div id="header">
   <div class="header3 header5 header11">
     <div class="container">
@@ -9,17 +12,7 @@
         </div>
         <div class="col-md-6 col-sm-5 col-xs-12">
           <div class="smart-search search-form3 search-form5">
-            <div class="select-category">
-              <a href="#" class="category-toggle-link">All</a>
-              <ul class="list-category-toggle sub-menu-top">
-                <li><a href="#">Computer &amp; Office</a></li>
-                <li><a href="#">Elextronics</a></li>
-                <li><a href="#">Jewelry &amp; Watches</a></li>
-                <li><a href="#">Home &amp; Garden</a></li>
-                <li><a href="#">Bags &amp; Shoes</a></li>
-                <li><a href="#">Kids &amp; Baby</a></li>
-              </ul>
-            </div>
+            
             <form class="smart-search-form">
               <input type="text"  name="search" value="i’m shopping for..." onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" />
               <input type="submit" value="" />
@@ -75,28 +68,7 @@
                         <span class="qty-up">+</span>
                       </div>
                     </div>
-                  </li>
-                  <li>
-                    <div class="mini-cart-edit">
-                      <a class="delete-mini-cart-item" href="#"><i class="fa fa-trash-o"></i></a>
-                      <a class="edit-mini-cart-item" href="#"><i class="fa fa-pencil"></i></a>
-                    </div>
-                    <div class="mini-cart-thumb">
-                      <a href="#"><img alt="" src="{{ URL::asset('assets/images/mini-cart-thumb.png') }}"></a>
-                    </div>
-                    <div class="mini-cart-info">
-                      <h3><a href="#">Burberry Pink &amp; black</a></h3>
-                      <div class="info-price">
-                        <span>$59.52</span>
-                        <del>$17.96</del>
-                      </div>
-                      <div class="qty-product">
-                        <span class="qty-down">-</span>
-                        <span class="qty-num">1</span>
-                        <span class="qty-up">+</span>
-                      </div>
-                    </div>
-                  </li>
+                  </li>                 
                 </ul>
                 <div class="mini-cart-total">
                   <label>TOTAL</label>
@@ -122,13 +94,24 @@
             <ul>
               <li>
                 <a href="{{ route('home') }}">{{ trans('text.home') }}</a>                
-              </li>
-              <li class="menu-item-has-children">
-                <a href="grid.html">Fashion</a>
-                <ul class="sub-menu">
-                  <li><a href="home-1.html">Home 1</a></li>                  
-                </ul>
               </li>              
+              @foreach($loaiSpList as $loaiSp) 
+              <?php 
+              $loai_id = $loaiSp->id;
+              $cateList = DB::table('cate')->where('loai_id', $loai_id)->orderBy('display_order')->get();
+              
+              ?>
+              <li class="@if(!empty($cateList)) menu-item-has-children @endif">
+                <a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loaiSp->slug_vi]) : route('danh-muc-cha', [$loaiSp->slug_en]) }}">{{ $lang == 'vi' ? $loaiSp->name_vi : $loaiSp->name_en }}</a>
+                @if(!empty($cateList))
+                <ul class="sub-menu">
+                  @foreach($cateList as $cate)
+                  <li><a href="{{ $lang == 'vi' ? route('danh-muc-con', [$loaiSp->slug_vi, $cate->slug_vi]) : route('danh-muc-con', [$loaiSp->slug_en, $cate->slug_en]) }}">{{ $lang == 'vi' ? $cate->name_vi : $cate->name_en }}</a></li>                  
+                  @endforeach
+                </ul>
+                @endif
+              </li>
+              @endforeach
             </ul>
             <a href="#" class="toggle-mobile-menu"><span> </span></a>
           </nav>
@@ -136,204 +119,32 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-12 hidden-xs hidden-sm">
           <div class="category-dropdown hidden-dropdown right-category-dropdown">
-            <h2 class="title-category-dropdown"><span>Categories</span></h2>
+            <h2 class="title-category-dropdown"><span>Danh mục</span></h2>
             <div class="wrap-category-dropdown">
               <ul class="list-category-dropdown">
-                <li class="has-cat-mega">
-                  <a href="#">Mobiles &amp; Tablets</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat1.png') }}">
-                  <div class="cat-mega-menu cat-mega-style1">
+                @foreach($loaiSpList as $loaiSp) 
+                <?php 
+                $loai_id = $loaiSp->id;
+                $cateList = DB::table('cate')->where('loai_id', $loai_id)->orderBy('display_order')->get();
+                
+                ?>
+                <li class="@if(!empty($cateList)) has-cat-mega @endif">
+                  <a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loaiSp->slug_vi]) : route('danh-muc-cha', [$loaiSp->slug_en]) }}">{{ $lang == 'vi' ? $loaiSp->name_vi : $loaiSp->name_en }}</a>               
+                  @if(!empty($cateList))
+                  <div class="cat-mega-menu cat-mega-style1" style="width:300px">
                     <div class="row">
-                      <div class="col-md-4 col-sm-3">
+                      <div class="col-md-12 col-sm-3">
                         <div class="list-cat-mega-menu">
-                          <h2 class="title-cat-mega-menu">Women’s</h2>
-                          <ul>
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Coats &amp; Jackets</a></li>
-                            <li><a href="#">Blouses &amp; Shirts</a></li>
-                            <li><a href="#">Tops &amp; Tees</a></li>
-                            <li><a href="#">Hoodies &amp; Sweatshirts</a></li>
-                            <li><a href="#">Intimates</a></li>
-                            <li><a href="#">Swimwear</a></li>
-                            <li><a href="#">Pants &amp; Capris</a></li>
-                            <li><a href="#">Sweaters</a></li>
-                            <li><a href="#">Accessories</a></li>
-                          </ul>
+                          @foreach($cateList as $cate)
+                          <h2 class="title-cat-mega-menu"><a href="{{ $lang == 'vi' ? route('danh-muc-con', [$loaiSp->slug_vi, $cate->slug_vi]) : route('danh-muc-con', [$loaiSp->slug_en, $cate->slug_en]) }}">{{ $lang == 'vi' ? $cate->name_vi : $cate->name_en }}</a></h2>
+                          @endforeach
                         </div>
-                      </div>
-                      <div class="col-md-4 col-sm-3">
-                        <div class="list-cat-mega-menu">
-                          <h2 class="title-cat-mega-menu">Men’s</h2>
-                          <ul>
-                            <li><a href="#">Tops &amp; Tees</a></li>
-                            <li><a href="#">Coats &amp; Jackets</a></li>
-                            <li><a href="#">Underwear</a></li>
-                            <li><a href="#">Shirts</a></li>
-                            <li><a href="#">Hoodies &amp; Sweatshirts</a></li>
-                            <li><a href="#">Jeans</a></li>
-                            <li><a href="#">Pants</a></li>
-                            <li><a href="#">Suits &amp; Blazer</a></li>
-                            <li><a href="#">Shorts</a></li>
-                            <li><a href="#">Accessories</a></li>
-                          </ul>
-                        </div>
-                      </div>
-                      <div class="col-md-4 col-sm-3">
-                        <div class="zoom-image-thumb">
-                          <a href="#"><img alt="" src="{{ URL::asset('assets/images/cat-mega-thumb.png') }}"></a>
-                        </div>
-                      </div>
+                      </div> 
                     </div>
                   </div> 
-                </li>
-                <li class="has-cat-mega">
-                  <a href="#">Computers</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat2.png') }}">
-                  <div class="cat-mega-menu cat-mega-style2">
-                    <h2 class="title-cat-mega-menu">Special products</h2>
-                    <div class="row">
-                      <div class="col-md-4 col-sm-3">
-                        <div class="item-category-featured-product first-item">
-                          <div class="product-thumb">
-                            <a class="product-thumb-link" href="#">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/3.jpg') }}" class="first-thumb">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/4.jpg') }}" class="second-thumb">
-                            </a>
-                            <div class="product-info-cart">
-                              <div class="product-extra-link">
-                                <a class="wishlist-link" href="#"><i class="fa fa-heart-o"></i></a>
-                                <a class="compare-link" href="#"><i class="fa fa-toggle-on"></i></a>
-                                <a class="quickview-link" href="#"><i class="fa fa-search"></i></a>
-                              </div>
-                              <a class="addcart-link" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-                            </div>
-                          </div>
-                          <div class="product-info">
-                            <h3 class="title-product"><a href="#">Burberry Pink & black </a></h3>
-                            <div class="info-price">
-                              <span>$59.52 </span>
-                              <del>$17.96</del>
-                            </div>
-                            <div class="product-rating">
-                              <div class="inner-rating"></div>
-                              <span>(3s)</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 col-sm-3">
-                        <div class="item-category-featured-product">
-                          <div class="product-thumb">
-                            <a class="product-thumb-link" href="#">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/21.jpg') }}" class="first-thumb">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/22.jpg') }}" class="second-thumb">
-                            </a>
-                            <div class="product-info-cart">
-                              <div class="product-extra-link">
-                                <a class="wishlist-link" href="#"><i class="fa fa-heart-o"></i></a>
-                                <a class="compare-link" href="#"><i class="fa fa-toggle-on"></i></a>
-                                <a class="quickview-link" href="#"><i class="fa fa-search"></i></a>
-                              </div>
-                              <a class="addcart-link" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-                            </div>
-                          </div>
-                          <div class="product-info">
-                            <h3 class="title-product"><a href="#">Burberry Pink & black </a></h3>
-                            <div class="info-price">
-                              <span>$59.52 </span>
-                              <del>$17.96</del>
-                            </div>
-                            <div class="product-rating">
-                              <div class="inner-rating"></div>
-                              <span>(3s)</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 col-sm-3">
-                        <div class="item-category-featured-product">
-                          <div class="product-thumb">
-                            <a class="product-thumb-link" href="#">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/11.jpg') }}" class="first-thumb">
-                              <img alt="" src="{{ URL::asset('assets/images/photos/extras/12.jpg') }}" class="second-thumb">
-                            </a>
-                            <div class="product-info-cart">
-                              <div class="product-extra-link">
-                                <a class="wishlist-link" href="#"><i class="fa fa-heart-o"></i></a>
-                                <a class="compare-link" href="#"><i class="fa fa-toggle-on"></i></a>
-                                <a class="quickview-link" href="#"><i class="fa fa-search"></i></a>
-                              </div>
-                              <a class="addcart-link" href="#"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
-                            </div>
-                          </div>
-                          <div class="product-info">
-                            <h3 class="title-product"><a href="#">Burberry Pink & black </a></h3>
-                            <div class="info-price">
-                              <span>$59.52 </span>
-                              <del>$17.96</del>
-                            </div>
-                            <div class="product-rating">
-                              <div class="inner-rating"></div>
-                              <span>(3s)</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <a href="#">Electronics</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat3.png') }}">
-                </li>
-                <li>
-                  <a href="#">Fashion</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat4.png') }}">
-                </li>
-                <li>
-                  <a href="#">Footwear</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat5.png') }}">
-                </li>
-                <li>
-                  <a href="#">Jewelry &amp; Watches</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat6.png') }}">
-                </li>
-                <li>
-                  <a href="#">Home &amp; Kitchen</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat7.png') }}">
-                </li>
-                <li>
-                  <a href="#">Home Appliances</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat8.png') }}">
-                </li>
-                <li>
-                  <a href="#">Beauty &amp; Perfumes</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat9.png') }}">
-                </li>
-                <li>
-                  <a href="#">Sports &amp; Outdoors</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat10.png') }}">
-                </li>
-                <li style="display: none;">
-                  <a href="#">Computers</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat2.png') }}">
-                </li>
-                <li style="display: none;">
-                  <a href="#">Electronics</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat3.png') }}">
-                </li>
-                <li style="display: none;">
-                  <a href="#">Fashion</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat4.png') }}">
-                </li>
-                <li style="display: none;">
-                  <a href="#">Footwear</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat5.png') }}">
-                </li>
-                <li style="display: none;">
-                  <a href="#">Jewelry &amp; Watches</a>
-                  <img alt="" src="{{ URL::asset('assets/images/cat6.png') }}">
-                </li>
+                  @endif
+                </li>                
+                @endforeach
               </ul>
               <a class="expand-category-link" href="#"></a>
             </div>

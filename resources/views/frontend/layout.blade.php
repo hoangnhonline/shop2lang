@@ -56,5 +56,6 @@
 <script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.revolution.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/slideshow/jquery.themepunch.plugins.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('assets/js/theme.js') }}"></script>
+@yield('javascript')
 </body>
 </html>

@@ -23,8 +23,8 @@ use Helper, File, Session, Auth, Hash, App;
 class HomeController extends Controller
 {
     
-    public static $loaiSp = []; 
-    public static $loaiSpArrKey = [];    
+    public static $loaiSpList = []; 
+    public static $loaiSpListArrKey = [];    
 
     public function __construct(){
 
@@ -39,7 +39,7 @@ class HomeController extends Controller
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $productArr = [];
         
-        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
+        $loaiSpList = LoaiSp::where('status', 1)->orderBy('display_order')->get();
         //public static function getList($is_hot, $is_sale, $cate_id, $loai_id, $limit
         $newProduct = Product::getList(0, 0, 0, 0, 4);        
         $hotProduct = Product::getList(1, 0, 0, 0, 4);
@@ -52,7 +52,7 @@ class HomeController extends Controller
         $lang_id = $lang == 'vi' ? 1 : 2;
         $articlesList = Articles::where('status', 1)->where('lang_id', $lang_id)->orderBy('id', 'desc')->limit(4)->get();        
 
-        foreach( $loaiSp as $loai){
+        foreach( $loaiSpList as $loai){
             $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
             $productArr[$loai->slug_vi] = Product::where(['status' => 1, 'loai_id' => $loai->id])
                                 ->join('product_img', 'thumbnail_id', '=', 'product_img.id')
@@ -76,7 +76,7 @@ class HomeController extends Controller
         }    
         //$articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
                 
-        return view('frontend.home.index', compact('loaiSp', 'cateList', 'productArr', 'socialImage', 'seo', 'newProduct', 'hotProduct', 'saleProduct', 'lang', 'albumList', 'videoList', 'articlesList'));
+        return view('frontend.home.index', compact('loaiSpList', 'cateList', 'productArr', 'socialImage', 'seo', 'newProduct', 'hotProduct', 'saleProduct', 'lang', 'albumList', 'videoList', 'articlesList'));
     }
 
     
