@@ -1,20 +1,10 @@
 @extends('frontend.layout')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
-@include('frontend.partials.meta')
 @section('content')
 <div class="columns-container">
     <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="{{ route('gio-hang') }}" title="Giỏ hàng">Giỏ hàng</a>
-        </div>
+        <!-- breadcrumb -->        
         <!-- ./breadcrumb -->
-        <div class="page-content container">
+        <div class="page-content container" style="margin-top:50px">
           <!-- row -->
           <div class="cart-page row">
 
@@ -49,14 +39,14 @@
                     </div>
                     <div class="col-lg-6 col-md-6 c2 col-xs-9">
                       <p class="name">
-                      <a href="" target="_blank">{{ $product->name }}</a>
+                      <a href="" target="_blank">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a>
                       </p>
                       <div class="row visible-xs-block visible-sm-block">
                         <div class="col-xs-6 col-sm-8">
                           @if($product->is_sale)
-                          <p class="price">{{ number_format($price) }}&nbsp;₫</p>
+                          <p class="price">{{ number_format($price) }}$</p>
                           @else
-                          <p class="price">{{ number_format($price) }}&nbsp;₫</p>
+                          <p class="price">{{ number_format($price) }}$</p>
                           @endif
                         </div>
                         <div class="col-xs-6 col-sm-4 cart-col-3 quantity-block">
@@ -80,9 +70,9 @@
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block">
                       
                       @if($product->is_sale)
-                      <p class="price">{{number_format($price)}}&nbsp;₫</p>
+                      <p class="price">{{number_format($price)}}$</p>
                       @else
-                      <p class="price">{{number_format($price)}}&nbsp;₫</p>
+                      <p class="price">{{number_format($price)}}$</p>
                       @endif
 
 
@@ -102,7 +92,7 @@
                       </select>
                     </div>                   
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block end">
-                      <p class="price3">{{number_format($getlistProduct[$product->id]*$price)}}&nbsp;₫</p>
+                      <p class="price3">{{number_format($getlistProduct[$product->id]*$price)}}$</p>
                     </div>
                   </div><!-- end /.shopping-cart-item -->
                   <?php $total += $getlistProduct[$product->id]*($price); ?>
@@ -132,8 +122,8 @@
                   <div class="visible-lg-block">
                     <div class="panel panel-default fee">
                       <div class="panel-body">
-                        <p class="total">Tổng cộng: <span>{{ number_format($total) }}&nbsp;₫</span></p>
-                        <p class="total2">Thành tiền: <span>{{ number_format($total) }}&nbsp;₫ </span></p>
+                        <p class="total">Tổng cộng: <span>{{ number_format($total) }}$</span></p>
+                        <p class="total2">Thành tiền: <span>{{ number_format($total) }}$ </span></p>
                         @if($total > 0)
                         <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
                         @endif
@@ -147,8 +137,8 @@
                   <div class="visible-xs-block">
                     <div class="panel panel-default fee">
                       <div class="panel-body">
-                        <p class="total">Tổng cộng: <span>{{ number_format($total) }}&nbsp;₫</span></p>
-                        <p class="total2">Thành tiền: <span>{{ number_format($total) }}&nbsp;₫ </span></p>
+                        <p class="total">Tổng cộng: <span>{{ number_format($total) }}$</span></p>
+                        <p class="total2">Thành tiền: <span>{{ number_format($total) }}$ </span></p>
                         @if( $total > 0)  
                         <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
                         @endif
@@ -173,7 +163,6 @@
   }
 </style>
 @endsection
-@include('frontend.partials.footer')
 @section('javascript')
    <script type="text/javascript">
     $(document).ready(function() {

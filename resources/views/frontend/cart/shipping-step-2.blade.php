@@ -1,24 +1,10 @@
 @extends('frontend.layout')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
-@include('frontend.partials.meta')
 @section('content')
-<?php 
-$vangLaiArr = Session::get('vanglai');
-?>
 <!-- page wapper-->
 <div class="columns-container">
     <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="#" title="Giỏ hàng">Giỏ hàng</a>
-        </div>
-        <!-- ./breadcrumb -->
-        <div class="page-content">
+       
+        <div class="page-content" style="margin-top:20px">
           <!-- row -->
           <div class="shipping-address-page">
 
@@ -52,16 +38,16 @@ $vangLaiArr = Session::get('vanglai');
                 </div>
 
                 <div class="row row-style-2">
-                  <div class="col-lg-8 has-padding">
+                  <div class="col-md-8 has-padding">
                     <div class="panel panel-default address-list">
-                      <div class="panel-body">
+                      <div class="panel-body" style="padding:0px 0px">
                         <form id="form-address" method="post" action="">
-                          <h5 class="visible-lg-block"> Chọn địa chỉ giao hàng có sẵn bên dưới: </h5>                          
+                          <h5 class="visible-lg-block" style="margin-top:20px"> Chọn địa chỉ giao hàng có sẵn bên dưới: </h5>                          
                           <div class="row row-address-list">
                             <div class="col-lg-6 col-md-6 col-sm-6 item">
                               <div class="panel panel-default address-item is-default">
                                 <div class="panel-body">
-                                  @if($is_vanglai == 0)
+                                
                                   <p class="name">{{ $customer->full_name }}</p>
                                   <p class="address">
                                       @if( isset( $customer->tinh->name ))
@@ -76,22 +62,7 @@ $vangLaiArr = Session::get('vanglai');
                                       {{$customer->address}}
                                   </p>
                                   <p class="phone">Điện thoại: {{ $customer->phone }}</p>
-                                  @else
-                                  <p class="name">{{ $vangLaiArr['full_name'] }}</p>
-                                  <p class="address">
-                                      @if( isset( $vangLaiArr['city_id'] ))
-                                        {{ Helper::getName($vangLaiArr['city_id'], 'city') }},
-                                      @endif
-                                      @if( isset( $vangLaiArr['district_id'] ))
-                                        {{ Helper::getName($vangLaiArr['district_id'], 'district') }},
-                                      @endif
-                                       @if( isset( $vangLaiArr['ward_id'] ))
-                                        {{ Helper::getName($vangLaiArr['ward_id'], 'ward') }},
-                                      @endif
-                                      {{  $vangLaiArr['address'] }}
-                                  </p>
-                                  <p class="phone">Điện thoại: {{ isset( $vangLaiArr['phone'] ) ?  $vangLaiArr['phone'] : $customer->phone }}</p>
-                                  @endif
+                                 
                                   <p class="action">
                                     <button type="button" class="btn btn-default btn-custom1 saving-address is-red" onclick="location.href='{{route('shipping-step-3')}}'"> Giao đến địa chỉ này </button>
                                     <button type="button" class="btn btn-default btn-custom1 edit-address">Sửa</button>
@@ -106,29 +77,21 @@ $vangLaiArr = Session::get('vanglai');
                     <div class="panel panel-default address-form is-edit">
                       <div class="panel-heading hidden-lg">Cập nhật địa chỉ giao hàng mới</div>
                       <div class="panel-body">
-                        <form class="form-horizontal bv-form" role="form" id="address-info" novalidate>
-                          <button type="submit" class="bv-hidden-submit" style="width: 0px; height: 0px;"></button>
+                        <form class="form-horizontal bv-form" role="form" id="address-info" novalidate>                         
                           <div class="form-group row">
                             <label for="full_name" class="col-lg-4 control-label visible-lg-block">Họ tên </label>
                             <div class="col-lg-8 input-wrap has-feedback">
-                                <input type="text" name="full_name" class="form-control address" id="full_name" value="{{ $is_vanglai == 1 && isset($vangLaiArr['full_name']) ? $vangLaiArr['full_name'] : $customer->full_name }}" placeholder="Nhập họ tên" data-bv-field="full_name">
+                                <input type="text" name="full_name" class="form-control address" id="full_name" value="{{ $customer->full_name }}" placeholder="Nhập họ tên" data-bv-field="full_name">
                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Họ và tên</small>
                            </div>
                           </div>
                           <div class="form-group row">
                             <label for="telephone" class="col-lg-4 control-label visible-lg-block">Điện thoại di động</label>
                             <div class="col-lg-8 input-wrap has-feedback">
-                              <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{ $is_vanglai == 1 && isset($vangLaiArr['phone']) ? $vangLaiArr['phone'] : $customer->phone}}" placeholder="Nhập số điện thoại" data-bv-field="telephone">
+                              <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{ $customer->phone}}" placeholder="Nhập số điện thoại" data-bv-field="telephone">
                               <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Số điện thoại từ 9 - 15 chữ số</small></div>
                           </div>
-                          @if($is_vanglai == 1)
-                          <div class="form-group row">
-                            <label for="telephone" class="col-lg-4 control-label visible-lg-block">Email</label>
-                            <div class="col-lg-8 input-wrap has-feedback">
-                              <input type="email" name="email" class="form-control address" id="email_form" value="{{ $is_vanglai == 1 && isset($vangLaiArr['email']) ? $vangLaiArr['email'] : $customer->email}}" placeholder="Nhập email" data-bv-field="email">
-                              <small class="help-block" data-bv-validator="notEmpty" data-bv-for="email_form" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập email hợp lệ</small></div>
-                          </div>
-                          @endif
+                          
                           <div class="form-group row">
                             <label for="city_id" class="col-lg-4 control-label visible-lg-block">Tỉnh/Thành phố</label>
                             <div class="col-lg-8 input-wrap has-feedback">
@@ -136,7 +99,7 @@ $vangLaiArr = Session::get('vanglai');
                                 <option value="">Chọn Tỉnh/Thành phố</option>
                                 @foreach($listCity as $city)
                                   <option value="{{$city->id}}"
-                                  @if(($customer->city_id == $city->id) || ($is_vanglai == 1 && isset($vangLaiArr['city_id']) && $vangLaiArr['city_id'] == $city->id))
+                                  @if($customer->city_id == $city->id)
                                   selected
                                   @endif
                                   >{{$city->name}}</option>
@@ -163,7 +126,7 @@ $vangLaiArr = Session::get('vanglai');
                           <div class="form-group row">
                             <label for="street" class="col-lg-4 control-label visible-lg-block">Địa chỉ</label>
                             <div class="col-lg-8 input-wrap has-feedback">
-                              <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:50px">{{ $is_vanglai == 1 && isset($vangLaiArr['address']) ? $vangLaiArr['address'] : $customer->address }}</textarea>
+                              <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:50px">{{ $customer->address }}</textarea>
                                <span class="help-block"></span> <small class="help-block" data-bv-validator="notEmpty" data-bv-for="street" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Địa chỉ</small></div>
                           </div>
                           <div class="form-group row form-group-radio group-radio-k-address">
@@ -175,7 +138,7 @@ $vangLaiArr = Session::get('vanglai');
                             <div class="col-lg-8 input-wrap has-feedback">
                                 <label class="checkbox-inline">
                                   <input type="radio" name="delivery_address_type" value="0" data-bv-field="delivery_address_type"
-                                  @if($customer->address_type == 0 || ($is_vanglai == 1 && isset($vangLaiArr['address_type']) && $vangLaiArr['address_type'] == 0))
+                                  @if($customer->address_type == 0)
                                   checked
                                   @endif
                                   >
@@ -184,7 +147,7 @@ $vangLaiArr = Session::get('vanglai');
 
                                 <label class="checkbox-inline">
                                   <input type="radio" name="delivery_address_type" value="1" data-bv-field="delivery_address_type"
-                                  @if($customer->address_type == 1 || ($is_vanglai == 1 && isset($vangLaiArr['address_type']) && $vangLaiArr['address_type'] == 1))
+                                  @if($customer->address_type == 1)
                                   checked
                                   @endif
                                   >
@@ -197,7 +160,7 @@ $vangLaiArr = Session::get('vanglai');
                               @if(!Session::has('new-register'))
                               <button type="button" class="btn btn-default btn-custom2 visible-lg-inline-block js-hide">Hủy bỏ</button>
                               @endif
-                              <div id="btn-address" class="btn btn-primary btn-custom3" value="update">{{ $is_vanglai == 1 ? "Tiếp tục" : "Cập nhật"}}</div>
+                              <div id="btn-address" class="btn btn-primary btn-custom3" value="update">Cập nhật</div>
                             </div>
                           </div>
                         </form>
@@ -205,16 +168,16 @@ $vangLaiArr = Session::get('vanglai');
                     </div>
                     <div class="shiping_plan"></div>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-md-4">
                     <div id="panel-cart">
                       <div class="panel panel-default cart">
                         <div class="panel-body">
-                          <div class="order"> <span class="title">Đơn Hàng</span> <span class="title">( {{ array_sum($getlistProduct) }} SP )</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
+                          <div class="order"> <span class="title">Đơn Hàng</span> <span class="title">( {{ array_sum($getlistProduct) }} SP )</span> <a href="{{ route('gio-hang') }}" class="btn btn-default btn-custom1">Sửa</a> </div>
                           <div class="product">
                             <?php $total = 0; ?>
                             @foreach($arrProductInfo as $product)
                             <div class="item">
-                              <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{$product->name}}</a></p>
+                              <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></p>
                               <p class="price"> <span>
                               <?php 
                               if( $product->price_sale > 0 && $product->is_sale == 1){
@@ -222,7 +185,7 @@ $vangLaiArr = Session::get('vanglai');
                               }else{
                                 echo number_format($getlistProduct[$product->id] * $product->price);
                               }
-                              ?>&nbsp;₫ </span> </p>
+                              ?>$ </span> </p>
                             </div>
                             <?php                             
                             if( $product->price_sale > 0 && $product->is_sale == 1){
@@ -233,9 +196,9 @@ $vangLaiArr = Session::get('vanglai');
                             ?>
                             @endforeach
                           </div>
-                          <p class="total"> Tạm Tính: <span>{{ number_format($total) }}&nbsp;₫</span> </p>
+                          <p class="total"> Tạm Tính: <span>{{ number_format($total) }}$</span> </p>
                           <p class="shipping"> Phí vận chuyển: <span>Chưa có</span> </p>
-                          <p class="total2"> Thành tiền: <span>{{number_format( $total )}}&nbsp;₫ </span> </p>
+                          <p class="total2"> Thành tiền: <span>{{number_format( $total )}}$ </span> </p>
                           <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
                         </div>
                       </div>
@@ -249,44 +212,31 @@ $vangLaiArr = Session::get('vanglai');
     </div>
 </div>
 @endsection
-@include('frontend.partials.footer')
 @section('javascript')
    <script type="text/javascript">
     $(document).ready(function() {
 
-      var customer_district_id = '{{ $is_vanglai== 1 && isset($vangLaiArr['district_id']) ? $vangLaiArr['district_id'] : $customer->district_id }}';
-      var customer_ward_id = '{{ $is_vanglai== 1 && isset($vangLaiArr['ward_id']) ? $vangLaiArr['ward_id'] :  $customer->ward_id }}';
+      var customer_district_id = '{{ $customer->district_id }}';
+      var customer_ward_id = '{{ $customer->ward_id }}';
 
       $('.edit-address').click(function() {
         $('.address-form').show();
       });
-      @if($is_vanglai == 0)
+   
 
-        @if(Session::has('new-register') || Session::has('register') ||
-           !$customer->full_name ||
-           !$customer->email ||
-           !$customer->address ||
-           !$customer->phone ||
-           !$customer->district_id ||
-           !$customer->city_id ||
-           !$customer->ward_id
-          )        
-          $('.address-form').show();
-          $('#form-address').hide();
-        @endif
-      @else
-          @if(empty($vangLaiArr) ||
-             !$vangLaiArr['full_name'] ||
-             (!$vangLaiArr['email'] && !$vangLaiArr['phone']) ||
-             !$vangLaiArr['address'] ||     
-             !$vangLaiArr['district_id'] ||
-             !$vangLaiArr['city_id'] ||
-             !$vangLaiArr['ward_id']
-            )
-            $('.address-form').show();
-            $('#form-address').hide();
-          @endif      
+      @if(Session::has('new-register') || Session::has('register') ||
+         !$customer->full_name ||
+         !$customer->email ||
+         !$customer->address ||
+         !$customer->phone ||
+         !$customer->district_id ||
+         !$customer->city_id ||
+         !$customer->ward_id
+        )        
+        $('.address-form').show();
+        $('#form-address').hide();
       @endif
+      
 
       $('#btn-address').click(function() {
         $(this).attr('disabled', '');
@@ -341,11 +291,7 @@ $vangLaiArr = Session::get('vanglai');
         }
 
 
-        var list = ['full_name', 'city_id', 'district_id', 'ward_id', 'street', 'telephone'
-        @if($is_vanglai == 1)
-        , 'email_form'
-        @endif
-        ];
+        var list = ['full_name', 'city_id', 'district_id', 'ward_id', 'street', 'telephone' ];
 
         for( i in list ) {
             $('#' + list[i]).next().hide();
@@ -370,10 +316,6 @@ $vangLaiArr = Session::get('vanglai');
               ward_id : ward_id,
               address : street,
               phone : telephone,
-              @if($is_vanglai==1)
-              email : email,
-              vang_lai : 1,
-              @endif
               address_type : $('input[name=delivery_address_type]:checked').val()
             },
             success : function(data){

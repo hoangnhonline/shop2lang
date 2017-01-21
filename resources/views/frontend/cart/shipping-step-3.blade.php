@@ -1,13 +1,5 @@
 @extends('frontend.layout')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
-@include('frontend.partials.meta')
 @section('content')
-<?php 
-$vangLaiArr  = Session::get('vanglai');
-?>
 <!-- page wapper-->
 <div class="columns-container">
     <div class="container" id="columns">
@@ -52,17 +44,17 @@ $vangLaiArr  = Session::get('vanglai');
                 </div>
 
                 <div class="row row-style-2">
-                  <div class="col-lg-8 has-padding">
+                  <div class="col-md-8 has-padding">
                     <div class="panel panel-default payment">
                       <div class="panel-body">
                         <form class="form-horizontal hide-block" role="form" id="form-payment" action="{{ route('dat-hang') }}" method="post">
                           {{ csrf_field() }}                        
-                          
+                          <div class="form-group row">
+                            <h4 class="col-lg-12 is-mt">Chọn hình thức thanh toán :</h4>
+                          </div>
                           <ul class="wc_payment_methods payment_methods methods">
                                    
-                          <div class="form-group row">
-                            <h4 class="col-lg-12 is-mt">Hình thức thanh toán :</h4>
-                          </div>
+                          
                           <li class="wc_payment_method payment_method_bacs">
                              <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="2"  checked="checked">
                              <label for="payment_method_bacs">
@@ -98,7 +90,7 @@ $vangLaiArr  = Session::get('vanglai');
                              <div class="payment_box payment_method_cod" style="display: block;">
                                 <p>Quý khách có thể trả tiền mặt khi giao hàng</p>
                              </div>
-                             <p style="color:red;padding-left:20px;margin-top:-5px; margin-bottom:10px">Phí Thu Hộ: <strong>{{ number_format($phi_cod) }}&nbsp;₫</strong></p>
+                             <!--<p style="color:red;padding-left:20px;margin-top:-5px; margin-bottom:10px">Phí Thu Hộ: <strong>{{ number_format($phi_cod) }}$</strong></p>-->
                           </li>
                                                     
                           </ul>
@@ -117,30 +109,14 @@ $vangLaiArr  = Session::get('vanglai');
                       </div>
                     </div>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-md-4">
                     <div class="panel panel-default cart">
                       <div class="panel-body">
                         <div class="order"> <span class="title"> Địa chỉ giao hàng </span> <a href="{{route('shipping-step-2')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
                         <div class="information">
-                          @if($is_vanglai == 1)
-                            <h6>{{ $vangLaiArr['full_name'] }}</h6>
-                            <p class="end">
-                                @if( isset( $vangLaiArr['city_id'] ))
-                                  {{ Helper::getName($vangLaiArr['city_id'], 'city') }},
-                                @endif
-                                @if( isset( $vangLaiArr['district_id'] ))
-                                  {{ Helper::getName($vangLaiArr['district_id'], 'district') }},
-                                @endif
-                                 @if( isset( $vangLaiArr['ward_id'] ))
-                                  {{ Helper::getName($vangLaiArr['ward_id'], 'ward') }},
-                                @endif
-                                {{  $vangLaiArr['address'] }}
-                                <br>
-                                ĐT: {{ $vangLaiArr['phone'] }}<br>
-                            </p>                            
-                          @else
-                            <h6>{{ $customer->full_name }}</h6>
-                            <p class="end">
+                          
+                          <h6>{{ $customer->full_name }}</h6>
+                          <p class="end">
                             @if(isset( $customer->tinh->name ))
                               {{ $customer->tinh->name }},
                             @endif
@@ -151,9 +127,9 @@ $vangLaiArr  = Session::get('vanglai');
                               {{ $customer->xa->name }},
                             @endif
                             {{ $customer->address }}<br>
-                              ĐT: {{ $customer->phone }}<br>
-                              </p>
-                            @endif
+                            ĐT: {{ $customer->phone }}<br>
+                            </p>
+                       
                         </div>
                       </div>
                     </div>
@@ -165,22 +141,22 @@ $vangLaiArr  = Session::get('vanglai');
                           	<?php $total = 0; ?>
                           	@foreach($arrProductInfo as $product)
                             <div class="item">
-                              <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="#" target="_blank" class="link">{{ $product->name }}</a></p>
+                              <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="#" target="_blank" class="link">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></p>
                               <p class="price">
                               <?php $price = $product->is_sale ? $product->price_sale : $product->price; ?>
 
-                                <span>{{ number_format( $getlistProduct[$product->id]*$price ) }}&nbsp;₫ </span>
+                                <span>{{ number_format( $getlistProduct[$product->id]*$price ) }}$ </span>
                                 </p>
                             </div>                            
                         	@endforeach
                           </div>                                                    
-                          <p class="shipping" style="border-bottom: 1px solid #c9c9c9;padding-bottom:5px"> Phí vận chuyển: <span id="phi_giao">{{ number_format( $phi_giao_hang ) }}&nbsp;₫</span> </p>                        
+                          <p class="shipping" style="border-bottom: 1px solid #c9c9c9;padding-bottom:5px"> Phí vận chuyển: <span id="phi_giao">{{ number_format( $phi_giao_hang ) }}$</span> </p>                        
                           <input type="hidden" id="phiCod" value="{{ $phi_cod }}">
-                          <p class="total"> Tạm tính: <span id="total_amount" style="font-weight:bold">{{ number_format( $totalAmount) }}&nbsp;₫ </span> </p>
-                          <p class="shipping" id="p_phi_cod" style="display:none"> Phí Thu Hộ: <span >{{ number_format( $phi_cod ) }}&nbsp;₫</span> </p>
+                          <p class="total"> Tạm tính: <span id="total_amount" style="font-weight:bold">{{ number_format( $totalAmount) }}$ </span> </p>
+                          <!--<p class="shipping" id="p_phi_cod" style="display:none"> Phí thu hộ: <span >{{ number_format( $phi_cod ) }}$</span> </p>-->
                           
-                          <p class="total2" id="have_cod" id="p_phi_cod" style="display:none"> Thành tiền: <span id="total_amount">{{ number_format( $totalAmount + $phi_cod) }}&nbsp;₫ </span> </p>
-                          <p class="total2" id="no_cod" > Thành tiền: <span id="total_amount">{{ number_format( $totalAmount ) }}&nbsp;₫ </span> </p>
+                          <p class="total2" id="have_cod" id="p_phi_cod" style="display:none"> Thành tiền: <span id="total_amount">{{ number_format( $totalAmount + $phi_cod) }}$ </span> </p>
+                          <p class="total2" id="no_cod" > Thành tiền: <span id="total_amount">{{ number_format( $totalAmount ) }}$ </span> </p>
 
                           <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
                         </div>
@@ -204,7 +180,6 @@ $vangLaiArr  = Session::get('vanglai');
     </div>
 </div>
 @endsection
-@include('frontend.partials.footer')
 @section('javascript')
    <script type="text/javascript">
     $(document).ready(function() {

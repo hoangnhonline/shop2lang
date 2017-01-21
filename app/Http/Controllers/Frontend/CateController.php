@@ -30,6 +30,7 @@ class CateController extends Controller
     */
     public function index(Request $request)
     {   
+
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';     
         $productArr = [];
         $slug = $request->slug;        
@@ -134,7 +135,7 @@ class CateController extends Controller
     }
 
     public function cate(Request $request)
-    {
+    {        
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $productArr = [];
         $slugLoaiSp = $request->slugLoaiSp;

@@ -23,6 +23,8 @@ Route::group(['namespace' => 'Frontend'], function()
 {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
     Route::get('/lang/set-lang', ['as' => 'set-lang', 'uses' => 'HomeController@setLang']);
+     Route::post('/dang-ki-newsletter', ['as' => 'register.newsletter', 'uses' => 'HomeController@registerNews']);
+    Route::get('/cap-nhat-thong-tin', ['as' => 'cap-nhat-thong-tin', 'uses' => 'CartController@updateUserInformation']);
     Route::get('/{slug}', ['as' => 'danh-muc-cha', 'uses' => 'CateController@index']);
     Route::post('/send-contact', ['as' => 'send-contact', 'uses' => 'ContactController@store']);
     Route::post('/set-service', ['as' => 'set-service', 'uses' => 'CartController@setService']);    
@@ -44,13 +46,6 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('news.html', ['as' => 'news-en', 'uses' => 'NewsController@index']);
     Route::get('tin-tuc.html', ['as' => 'news-vi', 'uses' => 'NewsController@index']);
 
-    Route::get('{slugLoaiSp}/{slug}/', ['as' => 'danh-muc-con', 'uses' => 'CateController@cate']);    
-    
-    Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);   
-    Route::get('contact.html', ['as' => 'contact-en', 'uses' => 'HomeController@contact']);
-    Route::get('lien-he.html', ['as' => 'contact-vi', 'uses' => 'HomeController@contact']);
-    Route::get('{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
-
     Route::group(['prefix' => 'thanh-toan'], function () {
         Route::get('gio-hang', ['as' => 'gio-hang', 'uses' => 'CartController@index']);
         Route::get('xoa-gio-hang', ['as' => 'xoa-gio-hang', 'uses' => 'CartController@deleteAll']);
@@ -62,6 +57,15 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
         Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
     });
+    
+    Route::get('{slugLoaiSp}/{slug}/', ['as' => 'danh-muc-con', 'uses' => 'CateController@cate']);    
+    
+    Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);   
+    Route::get('contact.html', ['as' => 'contact-en', 'uses' => 'HomeController@contact']);
+    Route::get('lien-he.html', ['as' => 'contact-vi', 'uses' => 'HomeController@contact']);
+    Route::get('{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
+
+    
 
     Route::group(['prefix' => 'tai-khoan'], function () {
         Route::get('don-hang-cua-toi', ['as' => 'order-history', 'uses' => 'OrderController@history']);
@@ -74,5 +78,12 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::post('/forget-password', ['as' => 'forget-password', 'uses' => 'CustomerController@forgetPassword']);
         Route::get('/reset-password/{key}', ['as' => 'reset-password', 'uses' => 'CustomerController@resetPassword']);
         Route::post('save-reset-password', ['as' => 'save-reset-password', 'uses' => 'CustomerController@saveResetPassword']);
+   
     });
+    Route::post('/get-district', ['as' => 'get-district', 'uses' => 'DistrictController@getDistrict']);
+    Route::post('/get-ward', ['as' => 'get-ward', 'uses' => 'WardController@getWard']);
+    Route::post('/customer/update', ['as' => 'update-customer', 'uses' => 'CustomerController@update']);
+    Route::post('/customer/register', ['as' => 'register-customer', 'uses' => 'CustomerController@register']);
+    Route::post('/customer/register-ajax', ['as' => 'register-customer-ajax', 'uses' => 'CustomerController@registerAjax']);
+    Route::post('/customer/checkemail', ['as' => 'checkemail-customer', 'uses' => 'CustomerController@isEmailExist']);    
 });

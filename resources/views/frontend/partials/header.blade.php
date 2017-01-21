@@ -2,15 +2,15 @@
 $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')->get();
 ?>
 <div id="header">
-  <div class="header3 header5 header11">
+  <div class="header3 header5 header11" style="padding:5px;padding-bottom:10px">
     <div class="container">
       <div class="row">
         <div class="col-md-3 col-sm-3 col-xs-12">
           <div class="logo5">
-            <a href="index.html"><img src="{{ URL::asset('assets/images/logo.png') }}" alt="" /></a>
+            <a href="{{ route('home') }}"><img src="{{ URL::asset('assets/images/logo.png') }}" alt="Logo NS" height="80px" /></a>
           </div>
         </div>
-        <div class="col-md-6 col-sm-5 col-xs-12">
+        <div class="col-md-6 col-sm-5 col-xs-12" style="padding-top:20px">
           <div class="smart-search search-form3 search-form5">
             
             <form class="smart-search-form">
@@ -19,18 +19,27 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
             </form>
           </div>
         </div>
-        <div class="col-md-3 col-sm-4 col-xs-12">
+        <div class="col-md-3 col-sm-4 col-xs-12"  style="padding-top:20px">
           <div class="wrap-cart-info3">
             <ul class="top-info top-info3">
               <li class="top-account has-child">
                 <a href="#"><i class="fa fa-user"></i></a>
-                <ul class="sub-menu-top">
+                <!--<ul class="sub-menu-top">
                   <li><a href="#"><i class="fa fa-user"></i> Account Info</a></li>
                   <li><a href="#"><i class="fa fa-heart-o"></i> Wish List</a></li>
                   <li><a href="#"><i class="fa fa-toggle-on"></i> Compare</a></li>
                   <li><a href="#"><i class="fa fa-unlock-alt"></i> Sign in</a></li>
                   <li><a href="#"><i class="fa fa-sign-in"></i> Checkout</a></li>
-                </ul>
+                </ul>-->
+                <ul class="user-ajax-guest sub-menu-top">
+                    <li id="login_link"><a class="user-name-login" title="Đăng Nhập" href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalLoginFrom"><i class="fa fa-sign-in"></i> Đăng nhập</a></li>
+                    <li id="login_fb_link" class="login-by-facebook-popup">
+                    <a data-url="#" title="Đăng nhập bằng Facebook" class="user-name-loginfb"><i class="fa fa-facebook-square"></i><span>Đăng nhập bằng</span><span> Facebook</span></a>
+                    </li>
+                    <li class="user-name-register">
+                      <a title="Tạo tài khoản mới" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterFrom"><i class="fa fa-user"></i><span>Tạo tài khoản</span></a>
+                    </li>
+                  </ul>
               </li>
               <li class="top-language has-child">
                 <a href="javascript:void(0);" class="language-selected"><img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt"/></a>

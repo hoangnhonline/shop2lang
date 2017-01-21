@@ -1,21 +1,9 @@
 @extends('frontend.layout')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
-@include('frontend.partials.meta')
 @section('content')
 
 <!-- page wapper-->
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="#" title="Giỏ hàng">Giỏ hàng</a>
-        </div>
-        <!-- ./breadcrumb -->
+<div class="columns-container" style="margin-top:20px">
+    <div class="container" id="columns">    
         <div class="page-content">
           <!-- row -->
           <div class="shipping-address-page">
@@ -50,222 +38,182 @@
                 </div>
 
                 <div class="row row-style-2">
-                  <div class="col-lg-8 has-padding">
-                    <div class="panel panel-default payment">
-                      <div class="panel-body">
-                        <div class="payment-top hidden-lg">
-                          <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
-                          <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" > <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
-                        </div>
-
-                        <div class="payment-left">
-                          <div class="form-group-row row row-style-3">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                              <label>
-                                  <input type="radio" name="radioChooseMethodLogin" id="radioIsUserIcho" value="1" checked>
-                              </label>
-                            </div>
-                            <div class="col-lg-5 col-md-11 col-sm-11 col-xs-10">
-                              <label for="radioIsUserIcho" class="control-label is-large">Tôi là thành viên iCho.vn</label>
-                            </div>
-                          </div>
-                          <div class="form-group-row row row-style-3">
-                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2">
-                              <label>
-                                  <input type="radio" name="radioChooseMethodLogin" id="radioIsNotUserIcho" value="0">
-                              </label>
-                            </div>
-                            <div class="col-lg-5 col-md-11 col-sm-11 col-xs-10">
-                              <label for="radioIsNotUserIcho" class="control-label is-large">Tôi là khách hàng mới</label>
-                            </div>
-                          </div>
-
-                          <div class="form-group-row row row-style-3 end is-no-hover">
-                            <div class="col-lg-5 col-lg-offset-1 col-md-12 col-sm-12 col-xs-12">
-                               <button style="display:none;width:100%;margin-bottom:10px" type="button" class="btn btn-default" id="btnVangLai">Thanh toán như khách vãng lai</button>
-                              <div class="panel panel-default payment-sub">
-                                <div class="panel-body">
-                                  <!-- login widget -->
-                                 
-                                  <div id="login-form">
-
-                                    <form class="content bv-form" method="POST"
-                                    action="{{route('auth-login')}}" novalidate>
-                                      {{csrf_field()}}
-                                      @if(Session::has('error'))
-                                        <div class="alert alert-danger">
-                                            {{ Session::get('error') }}
-                                        </div>
-                                      @endif
-                                      <button type="submit" class="bv-hidden-submit" style="display: none; width: 0px; height: 0px;"></button>
-                                      <input type="hidden" name="checkout_step" value="1">
-                                      <div class="form-group has-feedback" id="popup_login">
-                                        <label class="control-label">Email</label>
-                                        <input id="login_email" type="text" class="form-control login" name="email" placeholder="Nhập Email" data-bv-field="email">
-                                        <small class="help-block" data-bv-validator="notEmpty" data-bv-for="email" data-bv-result="INVALID" style="display:none">Vui lòng nhập Email</small><small class="help-block" data-bv-validator="regexp" data-bv-for="email" data-bv-result="VALID" style="display: none;">Email không hợp lệ</small></div>
-                                      <div class="form-group has-feedback" id="popup_password">
-                                        <label class="control-label">Mật khẩu</label>
-                                        <input type="password" id="login_password" class="form-control login" name="password" placeholder="Nhập mật khẩu" autocomplete="off" data-bv-field="password">
-                                       <small class="help-block" data-bv-validator="notEmpty" data-bv-for="password" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Mật khẩu</small></div>
-                                      <div class="login-ajax-captcha" style="display:none">
-                                        <div id="login-checkout-recaptcha"></div>
-                                        <span class="help-block ajax-message"></span> </div>
-                                      <div class="form-group" id="error_captcha" style="margin-bottom: 15px;color:red;font-style:italic"> <span class="help-block ajax-message"></span> </div>
-                                      <div class="form-group last">
-                                        {{-- <p class="reset">Quên mật khẩu? Khôi phục mật khẩu <a data-toggle="modal" data-target="#reset-password-form" href="javascript:(void);" class="link">tại đây</a></p> --}}
-                                        <button type="submit" id="login_popup_submit" class="btn btn-danger btn-block">Đăng nhập</button>
-                                      </div>
-                                    </form>
-                                  </div>
-                                  <!-- login widget -->
-
-                                  <!-- Register widget -->
-
-                                  <div id="register-form">
-                                     
-                                     <div class="clearfix"></div>
-                                    <form id="register_popup_form" class="content bv-form" method="POST" novalidate>
-                                      {{ csrf_field() }}
-                                      <button type="submit" class="bv-hidden-submit" style="display: block; width: 0px; height: 0px;"></button>
-                                      <div form-group="" id="general_error"> <span></span> </div>
-
-                                      <div class="form-group" id="register_email">
-                                        <label class="control-label" for="email"><strong>Email:</strong></label>
-                                        <div class="input-wrap has-feedback
-                                        @if(Session::has('validate'))
-                                          has-error
-                                        @endif
-
-                                        ">
-                                          <input type="text" class="form-control register register-email-input " name="email" id="email_register_1" placeholder="Nhập Email" data-bv-field="email">
-                                          <small class="help-block" data-bv-validator="notEmpty" data-bv-for="email" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Email</small>
-                                          @if(Session::has('validate'))
-                                           <small class="help-block" data-bv-validator="remote" data-bv-for="email" data-bv-result="NOT_VALIDATED">Email đã tồn tại</small>
-                                          @endif
-                                          </div>
-                                      </div>
-                                      <div class="form-group" id="register_password">
-                                        <label class="control-label" for="pasword"><strong>Mật khẩu:</strong></label>
-                                        <div class="input-wrap has-feedback">
-                                          <input type="password" class="form-control register" name="password" id="password_register_1" placeholder="Mật khẩu từ 6 đến 32 ký tự" autocomplete="off" data-bv-field="password">
-                                          <small class="help-block" data-bv-validator="notEmpty" data-bv-for="password" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Mật khẩu</small><small class="help-block" data-bv-validator="stringLength" data-bv-for="password" data-bv-result="NOT_VALIDATED" style="display: none;">Mật khẩu phải dài từ 6 đến 32 ký tự</small></div>
-                                      </div>
-                                      <div class="form-group" id="register_name">
-                                        <label class="control-label">Họ tên</label>
-                                        <div class="input-wrap has-feedback">
-                                          <input type="text" class="form-control register" name="full_name" id="full_name_register_1" placeholder="Nhập họ tên" data-bv-field="full_name">
-                                          <small class="help-block" data-bv-validator="notEmpty" data-bv-for="full_name" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Họ tên</small></div>
-                                      </div>
-                                      <div class="form-group policy-group">
-                                        <div class="input-wrap">
-                                          <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#" class="link">điều kiện sử dụng và chính sách của iCho</a>.</p>
-                                        </div>
-                                      </div>
-                                      <div class="form-group last">
-                                        <div id="register_popup_submit_1" class="btn btn-danger btn-block">Đăng ký</div>
-                                      </div>
-                                    </form>
-                                  </div>
-                                  <!-- Register widget -->
-
-                                  <!-- reset password -->
-                                  <div class="modal" id="reset-password-form" tabindex="-1" role="dialog">
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                          <div class="head">
-                                            <h2>Quên mật khẩu?</h2>
-                                            <p> <span>Vui lòng gửi email. Chúng tôi sẽ gửi link khởi tạo mật khẩu mới qua email của bạn.</span> </p>
-                                          </div>
-                                        </div>
-                                        <div class="modal-body">
-                                          <form method="POST" action="" class="content" id="reset_popup_form">
-                                            <div id="forgot_successful"> <span></span> </div>
-                                            <div class="form-group" id="forgot_pass">
-                                              <input type="text" name="email" id="email" class="form-control" value="" required="required" placeholder="Nhập email">
-                                              <span class="help-block"></span> </div>
-                                            <div class="form-group last">
-                                              <button type="button" id="reset_form_submit" class="btn btn-info">Gửi</button>
-                                            </div>
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- end reset password -->
-
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="payment-right visible-lg-block">
-                          <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
-                          <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup"> <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
-                        </div>
+                  <div class="payment-right visible-lg-block">
+                    <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
+                    <div class="form-group last"> 
+                      <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup"> 
+                        <i class="fa fa-facebook"></i> 
+                        <span>Đăng nhập bằng</span>
+                        <span> Facebook</span> 
+                      </a> 
+                    </div>
+                  </div><!--payment-right visible-lg-block-->
+                  <div class="payment-top hidden-lg">
+                    <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
+                    <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" > <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
+                  </div><!--payment-top hidden-lg-->
+                  <div class="clearfix"></div>
+                  <div class="col-md-8 has-padding">
+                    
+                      
+                        
+                        <div class="box-login-register-arround">
+                          
+                          <!-- required for floating -->
+                          <!-- Nav tabs -->
+                          <ul class="nav-register">
+                              <li class="active">
+                                <a href="#home" alt="login-form" data-toggle="tab">
+                                  <span>Đăng nhập</span>
+                                  <i>Đã là thành viên Tiki</i>
+                                </a>
+                              </li>
+                              <li><a href="#profile" data-toggle="tab" alt="register-form">
+                                <span>Tạo tài khoản</span>
+                              <i>Dành cho khách hàng mới</i>
+                              </a></li>                                
+                          </ul>
+                         
+                          <div class="register-content">
+                              <!-- Tab panes -->
+                              
+                              @include('frontend.cart.blocks.login-form')
+                        
+                              @include('frontend.cart.blocks.register-form')
+                        
+                              
+                          </div><!--register-content-->                 
+                        </div>                             
                         <div class="clearfix"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div id="panel-cart">
-                      <div class="panel panel-default cart">
-                        <div class="panel-body">
-                          <div class="order"> <span class="title">Đơn Hàng</span> <span class="title">( {{ array_sum($getlistProduct) }} SP )</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
-                          <div class="product">
-                            <?php $total = 0; ?>
-                            @foreach($arrProductInfo as $product)
-                            <div class="item">
-                              <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{$product->name}}</a></p>
-                              <p class="price"> <span>
-                              <?php 
-                              if( $product->price_sale > 0 && $product->is_sale == 1){
-                                echo number_format($getlistProduct[$product->id] * $product->price_sale);  
-                              }else{
-                                echo number_format($getlistProduct[$product->id] * $product->price);
-                              }
-                              ?>&nbsp;₫ </span> </p>
-                            </div>
-                            <?php                             
-                            if( $product->price_sale > 0 && $product->is_sale == 1){
-                              $total = $total += $getlistProduct[$product->id]*($product->price_sale);  
-                            }else{
-                              $total = $total += $getlistProduct[$product->id]*($product->price);                             
-                            }
-                            ?>
-                            @endforeach
-                          </div>
-                          <p class="total"> Tạm Tính: <span>{{ number_format($total) }}&nbsp;₫</span> </p>                          
-                          <p class="shipping"> Phí vận chuyển: <span>Chưa có</span> </p>
-                          <p class="total2"> Thành tiền: <span>{{number_format( $total )}}&nbsp;₫ </span> </p>
-                          <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  </div><!--col-lg-8 has-padding-->
+                  @include('frontend.cart.blocks.reset-password-form')
+                  <div class="col-md-4">
+                    @include('frontend.cart.blocks.panel-cart')
+                  </div><!--col-lg-4-->
                 </div><!-- /.row -->
             </div><!-- ./shipping-address-page-->
         </div><!-- /.page-content -->
     </div>
 </div>
+<style type="text/css">
+.nav-register {
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    margin-bottom: 15px;
+}  
+.nav-register li a i {
+    color: #818181;
+    font-size: 11px;
+    font-style: normal;
+}
+.nav-register li a span {
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+@media (min-width: 1200px){
+  .register-content {
+      width: 484px;
+  }
+  .nav-register{
+    width: 329px !important;
+  }
+}
+@media (min-width: 992px){
+  .register-content {
+      width: 350px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1024px){
+  .nav-register{
+    width: 200px !important;
+  }
+} 
+@media (min-width: 768px){
+  .register-content {
+      float: right;
+      background: #fff;
+      border-left: 1px solid #ccc;
+      padding: 15px 25px 5px;
+      width: 439px;
+  }
+}
+@media (min-width: 768px){
+  .nav-register {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 280px;
+    z-index: 4;
+    border: none;
+}
+.box-login-register-arround {
+    border: 1px solid #ddd;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: #f1f1f1;
+    overflow: hidden;
+    min-height: 120px;
+    position: relative;
+}
+  .nav-register li {
+      border-bottom: 1px solid #ccc;
+      position: relative;
+      width: 100%;
+      float: none;
+  }
+  .nav-register li.active, .nav-register li:hover {
+      background: #fff;
+  }
+  .nav-register li.active:before, nav-register li:hover:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 100%;
+      border: 2px solid #00b6f0;
+  }
+  .nav-register li a:hover, .nav-register li a:link {
+      text-decoration: none;
+  }
+  .nav-register li.active a, .nav-register li:hover a {
+    border-bottom: none;
+  }
+  .nav-register li:first-child a {
+      border-right: none;
+  }
+  .nav-register li a {
+      padding: 10px 10px 10px 20px;
+      display: inline-block;
+      color: #4a4a4a;
+      width: 100%;
+  }
+  .nav-register li a {
+      display: block;
+      width: 100%;
+      padding: 10px 1px;
+      color: #434343;
+      text-align: center;
+      position: relative;
+  }
+}
+</style>
 @endsection
-@include('frontend.partials.footer')
 @section('javascript')
    <script type="text/javascript">
-    function setServicesFee(){        
-        $.ajax({
-          url: "{{ route('set-service') }}",
-          method: "POST"         
-        });
-    }
-
+   
     $(document).ready(function() {
-      $('#btnVangLai').click(function(){
-        setServicesFee();
-        location.href = "{{ route('shipping-step-2') }}";
-      });
+      $('.nav-register li a').click(function(){
+        var alt = $(this).attr('alt');
+        $('.member-form').hide();
+        $('.register-content #' + alt).show();
+      });      
       $('#login-form > .bv-form').submit(function() {
         var error = [];
         var list_check = ['login_email', 'login_password'];
@@ -295,21 +243,12 @@
         return true;
       });
 
-      $('#radioIsNotUserIcho').on('ifChecked', function(event){
-       $('#register-form').show();
-       $('#login-form').hide();
-        $('#btnVangLai').show();
-      });
-      $('#radioIsUserIcho').on('ifChecked', function(event){
-       $('#register-form').hide();
-       $('#login-form').show();
-
-      });
+      
 
       @if(Session::has('validate') || Session::has('fb_id'))
-        $('#register-form').show();
-        $('#login-form').hide();
-        $('#radioIsNotUserIcho').iCheck('check');
+       // $('#register-form').show();
+       // $('#login-form').hide();
+       // $('#radioIsNotUserIcho').iCheck('check');
         $('#email').hide();
         // $('#full_name').val();
         @if(Session::has('fb_name'))

@@ -87,6 +87,7 @@ class HomeController extends Controller
     */
     public function search(Request $request)
     {
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $tu_khoa = $request->keyword;       
 
         $productArr = Product::where('alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)
@@ -98,6 +99,7 @@ class HomeController extends Controller
         return view('frontend.search.index', compact('productArr', 'tu_khoa', 'seo'));
     }
     public function ajaxTab(Request $request){
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $table = $request->type ? $request->type : 'category';
         $id = $request->id;
 

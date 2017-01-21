@@ -1,24 +1,10 @@
 @extends('frontend.layout')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
 @include('frontend.partials.meta')
 @section('content')
-<?php 
-$vangLaiArr = Session::get('vanglai');
-?>
 <div class="columns-container">
     <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="#" title="Return to Home">Home</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="#" title="Giỏ hàng">Đặt hàng thành công</a>
-        </div>
-        <!-- ./breadcrumb -->      
-             
-        <div class="page-content">
+                    
+        <div class="page-content" style="margin-top:50px">
           <!-- row -->
           <div class="shipping-address-page">
               
@@ -38,8 +24,8 @@ $vangLaiArr = Session::get('vanglai');
                             <p>Bạn có thể xem lại <a href="{{ route('order-history') }}">đơn hàng của tôi</a></p>
                             @endif
                             <p> <img src="{{ URL::asset('assets/images/thanh-cong.png') }}" alt="" height="25" width="30"> Thời gian dự kiến giao hàng vào {{ $arrDate['fromdate']}} - {{ $arrDate['todate'] }}, không giao ngày Thứ Bảy &amp; Chủ Nhật. </p><br>
-                            @if(($is_vanglai == 1 && $vangLaiArr['email'] != '') || (isset($customer) && $customer->email != ''))
-                            <p> Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>{{ $is_vanglai == 1 ? $vangLaiArr['email'] : $customer->email }}</span>. Nếu
+                            @if((isset($customer) && $customer->email != ''))
+                            <p> Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>{{ $customer->email }}</span>. Nếu
                               không tìm thấy vui lòng kiểm tra trong hộp thư <strong>Spam</strong> hoặc <strong>Junk Folder</strong>. </p>
                               @endif
                               <br>
@@ -73,4 +59,3 @@ $vangLaiArr = Session::get('vanglai');
     </div>
 </div>
 @endsection
-@include('frontend.partials.footer')

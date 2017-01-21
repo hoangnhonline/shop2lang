@@ -41,18 +41,20 @@ class CartController extends Controller
 
     }
     public function index(Request $request)
-    {        
+    {   
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';     
         if(!Session::has('products')) {
             return redirect()->route('home');
         }
-
+        
         $getlistProduct = Session::get('products');
         $listProductId = array_keys($getlistProduct);
-        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
-        return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo'));
+        
+        return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo', 'lang'));
     }
 
     public function update(Request $request)
@@ -84,6 +86,7 @@ class CartController extends Controller
 
     public function shippingStep1(Request $request)
     {
+         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $getlistProduct = Session::get('products');
         //$chon_dich_vu = $request->chon_dich_vu;
         $so_dich_vu = $request->so_dich_vu;
@@ -114,33 +117,18 @@ class CartController extends Controller
         
         $listProductId = array_keys($getlistProduct);
 
-        /*$chon_dich_vu = $request->chon_dich_vu;
-        $so_dich_vu = $request->so_dich_vu;
-        $phi_dich_vu = $request->phi_dich_vu;
-
-        
-        $service_fee = [];
-        $totalServiceFee = 0;
-        foreach($listProductId as $product_id){
-            if(isset($chon_dich_vu[$product_id]) && $chon_dich_vu[$product_id] == 1){
-                $service_fee[$product_id]['fee'] = $so_dich_vu[$product_id]*$phi_dich_vu[$product_id];
-                $service_fee[$product_id]['so_luong'] = $so_dich_vu[$product_id];
-                $service_fee[$product_id]['don_gia_dich_vu'] = $phi_dich_vu[$product_id];
-                $totalServiceFee+= $service_fee[$product_id]['fee'];
-            }
-        }
-        */
-        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+       
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
-
-        //$service_fee = Session::get('service_fee') ? Session::get('service_fee') : 0;
+        
         $seo = Helper::seo();
-        return view('frontend.cart.shipping-step-1', compact('arrProductInfo', 'getlistProduct' , 'seo' ));
+        return view('frontend.cart.shipping-step-1', compact('arrProductInfo', 'getlistProduct' , 'seo', 'lang'));
     }
 
     public function shippingStep2(Request $request)
     {
+         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $is_vanglai = Session::get('is_vanglai') ? Session::get('is_vanglai') : 0;
         $getlistProduct = Session::get('products');
         if($is_vanglai == 0){
@@ -150,37 +138,24 @@ class CartController extends Controller
         }
 
         $listProductId = $getlistProduct ? array_keys($getlistProduct) : [];
-        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $listCity = City::orderBy('display_order')->get();
 
         $userId = Session::get('userId');
         $customer = Customer::find($userId);
-
-        // check info
-        // if(!$customer->full_name ||
-        //    !$customer->email ||
-        //    !$customer->address ||
-        //    !$customer->phone ||
-        //    !$customer->district_id ||
-        //    !$customer->city_id ||
-        //    !$customer->ward_id
-        // ) {
-        //     Session::flash('update-information', true);
-        //     return redirect()->route('cap-nhat-thong-tin');
-        // }
-        // end
-        //$totalServiceFee = Session::get('totalServiceFee') ? Session::get('totalServiceFee') : 0;
+     
         $totalServiceFee = 0;
         if(is_null($customer)) $customer = new Customer;
         $seo = Helper::seo();
         
-        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'is_vanglai', 'getlistProduct', 'arrProductInfo'));
+        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'is_vanglai', 'getlistProduct', 'arrProductInfo', 'lang'));
     }
 
     public function updateUserInformation(Request $request)
     {
+         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $getlistProduct = Session::get('products');
 
         $listProductId = $getlistProduct ? array_keys($getlistProduct) : [];
@@ -192,7 +167,7 @@ class CartController extends Controller
 
         if(is_null($customer)) $customer = new Customer;
         $seo = Helper::seo();
-        return view('frontend.cart.register-infor', compact('customer', 'listCity', 'seo'));
+        return view('frontend.cart.register-infor', compact('customer', 'listCity', 'seo', 'lang'));
     }
 
     public function setService(Request $request){
@@ -203,6 +178,7 @@ class CartController extends Controller
 
     public function shippingStep3(Request $request)
     {
+         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $userId = Session::get('userId');
         $customer = Customer::find($userId);
         
@@ -232,7 +208,7 @@ class CartController extends Controller
 
         $listProductId = array_keys($getlistProduct);
 
-        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $totalCanNang = 0;
@@ -257,9 +233,10 @@ class CartController extends Controller
             $total += $getlistProduct[$product->id]*$price;                            
         }        
         $totalAmount = $total + $totalServiceFee + $phi_giao_hang;        
-        $phi_cod = Helper::calCod($totalAmount, $city_id);                
+        //$phi_cod = Helper::calCod($totalAmount, $city_id);                
+        $phi_cod = 0;                
         
-        return view('frontend.cart.shipping-step-3', compact('arrProductInfo', 'getlistProduct', 'customer', 'phi_giao_hang', 'seo', 'is_vanglai', 'phi_cod', 'totalAmount'));
+        return view('frontend.cart.shipping-step-3', compact('arrProductInfo', 'getlistProduct', 'customer', 'phi_giao_hang', 'seo', 'is_vanglai', 'phi_cod', 'totalAmount', 'lang'));
     }
 
     public function order(Request $request)
@@ -279,7 +256,7 @@ class CartController extends Controller
         
 
         $vangLaiArr = Session::get('vanglai');
-        $arrProductInfo = SanPham::whereIn('product.id', $listProductId)
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $order['tong_tien'] = 0;
@@ -302,7 +279,8 @@ class CartController extends Controller
         // check if ho chi minh free else 150k
 
         $order['phi_giao_hang'] = (int) $request->phi_giao_hang;
-        $order['phi_cod'] = (int) $request->phi_cod;
+        //$order['phi_cod'] = (int) $request->phi_cod;
+        $order['phi_cod'] = 0;
         //$order['service_fee'] = Session::get('totalServiceFee') ? Session::get('totalServiceFee') : 0;
         $order['service_fee'] = 0;
         foreach ($arrProductInfo as $product) {
@@ -310,6 +288,7 @@ class CartController extends Controller
             $order['tong_tien'] += $price * $getlistProduct[$product->id];
         }
 
+        //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $city_id = isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] :  $customer->city_id;
         $arrDate = Helper::calDayDelivery( $city_id );
@@ -358,7 +337,7 @@ class CartController extends Controller
                 }                
 
             }else{
-                $tmpModelProduct = SanPham::find($product->id);
+                $tmpModelProduct = Product::find($product->id);
                 $tmpSL = $tmpModelProduct->so_luong_tam > 0 ? $tmpModelProduct->so_luong_tam - 1 : 0;
                 $tmpModelProduct->update(['so_luong_tam' => $tmpSL]);
             }
@@ -375,7 +354,7 @@ class CartController extends Controller
         }
         // send email
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
-       // $emailArr = [];
+        $emailArr = [];
         if(!empty($emailArr)){
             Mail::send('frontend.email.cart',
                 [
@@ -403,6 +382,7 @@ class CartController extends Controller
 
     public function success(Request $request){
 
+         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $getlistProduct = Session::get('products');
         $is_vanglai = Session::get('is_vanglai') ? Session::get('is_vanglai') : 0;
         $vangLaiArr = Session::get('vanglai');
@@ -431,7 +411,7 @@ class CartController extends Controller
 
         $seo = Helper::seo();
 
-        return view('frontend.cart.success', compact('order_id', 'customer', 'arrDate', 'seo', 'is_vanglai', 'vangLaiArr'));
+        return view('frontend.cart.success', compact('order_id', 'customer', 'arrDate', 'seo', 'is_vanglai', 'vangLaiArr', 'lang'));
     }
 
     public function deleteAll(){
