@@ -1327,7 +1327,7 @@ $.ajax({
     id: product_id
   },
   success : function(data){
-    //location.href = $('#route-cart').val();
+    location.href = $('#route-cart').val();
   },
   error : function(e) {
     
