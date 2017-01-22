@@ -35,10 +35,11 @@ class AuthenticationController extends Controller
 
         $customer = Customer::where('email', $request->email)->first();
         if(is_null($customer) || !password_verify($request->password, $customer->password) ) {
-        	Session::flash('error', 'Email hoặc mật khẩu không đúng.');
+            Session::flash('error', 'Email hoặc mật khẩu không đúng.');
         } else {
-        	Session::put('login', true);
+            Session::put('login', true);
             Session::put('userId', $customer->id);
+            Session::put('facebook_id', $customer->facebook_id);
             Session::put('username', $customer->full_name);
             Session::put('avatar', $customer->image_url);
             Session::forget('vanglai');
@@ -58,6 +59,7 @@ class AuthenticationController extends Controller
         } else {
             Session::put('login', true);
             Session::put('userId', $customer->id);
+            Session::put('facebook_id', $customer->facebook_id);
             Session::put('username', $customer->full_name);
             Session::put('avatar', $customer->image_url);
             return response()->json(['error' => 0]);
@@ -72,7 +74,16 @@ class AuthenticationController extends Controller
         Session::forget('userId');
         Session::forget('username');
         Session::forget('avatar');
+        Session::forget('facebook_id');
         Session::forget('vanglai');
+        Session::put('products', []);
+        Session::put('order_id', '');
+        Session::forget('is_vanglai');        
+        Session::forget('service_fee');
+        Session::forget('totalServiceFee');
+        Session::forget('event_id');
+        Session::forget('order_id');
+        Session::forget('new-register');
         return redirect()->route('home');
     }
 }

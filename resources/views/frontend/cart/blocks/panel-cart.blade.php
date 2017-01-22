@@ -14,7 +14,7 @@
           }else{
             echo number_format($getlistProduct[$product->id] * $product->price);
           }
-          ?>&nbsp;₫ </span> </p>
+          ?>$ </span> </p>
         </div>
         <?php                             
         if( $product->price_sale > 0 && $product->is_sale == 1){
@@ -25,9 +25,9 @@
         ?>
         @endforeach
       </div>
-      <p class="total"> Tạm Tính: <span>{{ number_format($total) }}&nbsp;₫</span> </p>                          
+      <p class="total"> Tạm Tính: <span>{{ number_format($total) }}$</span> </p>                          
       <p class="shipping"> Phí vận chuyển: <span>Chưa có</span> </p>
-      <p class="total2"> Thành tiền: <span>{{number_format( $total )}}&nbsp;₫ </span> </p>
+      <p class="total2"> Thành tiền: <span>{{number_format( $total )}}$ </span> </p>
       <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
     </div>
   </div>

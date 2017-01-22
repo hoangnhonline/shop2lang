@@ -107,10 +107,10 @@
               <h3 class="title-product"><a href="{{ $lang == 'vi' ? route('chi-tiet-vi',['slug' => $product->slug_vi, 'id' => $product->id]) : route('chi-tiet-en', ['slug' => $product->slug_en, 'id' => $product->id]) }}">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></h3>
               <div class="info-price">
                 @if($product->is_sale == 1 && $product->price_sale > 0)
-                  <span>{{ number_format($product->price_sale) }}</span>
-                  <del>{{ number_format($product->price) }}</del>
+                  <span>{{ number_format($product->price_sale) }}$</span>
+                  <del>{{ number_format($product->price) }}$</del>
                 @else
-                  <span>{{ number_format($product->price) }}</span>
+                  <span>{{ number_format($product->price) }}$</span>
                 @endif               
               </div>             
             </div>

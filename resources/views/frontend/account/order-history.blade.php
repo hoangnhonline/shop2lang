@@ -1,22 +1,12 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
-@section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
-  @endsection
+
 @section('content')
-<div class="columns-container">
-    <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="" title="Đơn hàng của tôi">Đơn hàng của tôi</a>
-        </div>
-        <!-- ./breadcrumb -->
+<div class="content-shop left-sidebar">
+    <div class="container">
         <div class="row">
-            @include ('frontend.account.sidebar')
-            <div class="center_column col-xs-12 col-sm-9" id="center_column">
+            <div class="col-md-9 col-sm-8 col-xs-12 main-content">
+                <div class="main-content-shop">                 
                     <h1 class="page-heading">
                         <span class="page-heading-title2">Danh sách đơn hàng của tôi</span>
                     </h1>
@@ -25,14 +15,14 @@
                         <table class="table-responsive table table-bordered">
                             <thead>
                             <tr>
-                                <th>
+                                <th style="text-align:center">
                                     <span class="hidden-xs hidden-sm hidden-md">Mã ĐH</span>
                                     <span class="hidden-lg">Code</span>
                                 </th>
                                 <th>Ngày mua</th>
                                 <th>Sản phẩm</th>
                                 <th style="text-align:right">Tổng tiền</th>
-                                <th>
+                                <th style="text-align:center">
                                     <span class="hidden-xs hidden-sm hidden-md">Trạng thái đơn hàng</span>
                                     <span class="hidden-lg">Trạng thái</span>
                                 </th>
@@ -47,10 +37,10 @@
                                     <td>                                        
                                     @foreach($order->order_detail()->get() as $detail)
                                     
-                                    <p>{{ Helper::getName($detail->sp_id, 'san_pham') }}</p>
+                                    <p>{{ Helper::getName($detail->sp_id, 'product') }}</p>
                                     @endforeach
                                     </td>
-                                    <td style="text-align:right">{{ number_format($order->tong_tien) }}&nbsp;₫</td>                                    
+                                    <td style="text-align:right">{{ number_format($order->tong_tien) }}$</td>                                    
                                     <td style="text-align:center">
                                         <span class="order-status">
                                             {{ $status[$order->status] }}
@@ -61,10 +51,15 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+                <!-- End Main Content Shop -->
             </div>
-        </div><!-- /.page-content -->
+            @include('frontend.account.sidebar')
+            
+        </div>
     </div>
 </div>
+
 <style type="text/css">    
     .dashboard-order.have-margin {
         margin-bottom: 20px;
@@ -80,13 +75,4 @@
     }
 </style>
 <div class="clearfix"></div>
-@endsection
-
-@include('frontend.partials.footer')
-@section('javascript')
-   <script type="text/javascript">
-    $(document).ready(function() {
-
-    });
-  </script>
 @endsection

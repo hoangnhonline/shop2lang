@@ -5,14 +5,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model  {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'customers';
+  /**
+   * The database table used by the model.
+   *
+   * @var string
+   */
+  protected $table = 'customers';
 
-	 /**
+   /**
      * Indicates if the model should be timestamped.
      *
      * @var bool

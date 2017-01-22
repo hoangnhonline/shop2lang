@@ -1,7 +1,35 @@
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto-Regular.eot);
+    src: url(../fonts/Roboto-Regular.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto-Regular.woff) format("woff"), url(../fonts/Roboto-Regular.ttf) format("truetype"), url(../fonts/Roboto-Regular.svg#svgFontName) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: Roboto-Bold;
+    src: url(../fonts/Roboto-Bold.eot);
+    src: url(../fonts/Roboto-Bold.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto-Bold.woff) format("woff"), url(../fonts/Roboto-Bold.ttf) format("truetype"), url(../fonts/Roboto-Bold.svg#svgFontName) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: Roboto-Medium;
+    src: url(../fonts/Roboto-Medium.eot);
+    src: url(../fonts/Roboto-Medium.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto-Medium.woff) format("woff"), url(../fonts/Roboto-Medium.ttf) format("truetype"), url(../fonts/Roboto-Medium.svg#svgFontName) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
+@font-face {
+    font-family: Roboto-Light;
+    src: url(../fonts/Roboto-Light.eot);
+    src: url(../fonts/Roboto-Light.eot?#iefix) format("embedded-opentype"), url(../fonts/Roboto-Light.woff) format("woff"), url(../fonts/Roboto-Light.ttf) format("truetype"), url(../fonts/Roboto-Light.svg#svgFontName) format("svg");
+    font-weight: 400;
+    font-style: normal
+}
 /*General*/
 body {
     color: #333;
-    font-family: "Open Sans",sans-serif;
+    font-family: Roboto,sans-serif;
     font-size: 14px;
     line-height: inherit;
     margin: 0;
@@ -143,13 +171,13 @@ blockquote {
     border: medium none;
 }
 .sub-menu-top {
-    background: #fafafa none repeat scroll 0 0;
+    background: #FFF none repeat scroll 0 0;
     border: 10px solid #fff;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
     position: absolute;
     right: 0;
     top: 100%;
-    width: 170px;
+    width: 240px;
     z-index: 99;
 	-webkit-transition:all 0.3s ease-out 0s;
 	transition:all 0.3s ease-out 0s;
@@ -157,6 +185,19 @@ blockquote {
 	visibility:hidden;
 	margin-top:30px;
     text-align: left;
+}
+.sub-menu-top li{
+    display: block;
+    position: relative;
+}
+.sub-menu-top li a{
+    display: block;
+    padding: 7px 10px;
+    text-align: center;
+}
+#login_fb_link, 
+#login_link {
+    
 }
 .top-info .has-child:hover .sub-menu-top {
     margin-top: 2px;
@@ -167,16 +208,16 @@ blockquote {
     margin-right: 5px;
 }
 .sub-menu-top  li {
-    border-bottom: 1px solid #fff;
-    padding: 5px 10px;
+    border-bottom: 1px solid #fff;    
 	-webkit-transition:all 0.3s ease-out 0s;
 	transition:all 0.3s ease-out 0s;
-}
-.sub-menu-top  li:hover {
-    background:#28AA4A;
+    margin-bottom: 5px;
 }
 .sub-menu-top  li:hover a{
-	color:#fff;
+	color: #FFF;
+}
+.sub-menu-top.left  li:hover a{
+    color:#28AA4A;
 }
 .sub-menu-top  li:last-child{
 	border:none;
@@ -500,7 +541,7 @@ blockquote {
 	margin:0;
 }
 .wrap-category-dropdown .expand-category-link {
-    background: #f9bc02 none repeat scroll 0 0;
+    background: #28AA4A none repeat scroll 0 0;
     color: #fff;
     display: block;
     font-family: fontawesome;
@@ -991,13 +1032,15 @@ blockquote {
 .title-product {
     font-size: 14px;
     font-weight: 700;
-    margin: 0 0 8px;
+    margin: 0px;
+    height: 32px;
+    overflow-y: hidden;
 }
 .title-product  a:hover{
 	color:#28AA4A;
 }
 .product-info {
-    padding: 20px;
+    padding: 10px;
 }
 .product-rating {
     background: rgba(0, 0, 0, 0) url("../images/grid/bg-rate.png") repeat-x scroll 0 0;
@@ -5318,9 +5361,6 @@ blockquote {
 .main-nav.main-nav3 {
     background: transparent none repeat scroll 0 0;
     margin: 0;
-}
-.top-info3 .sub-menu-top li:hover {
-    background: #fdd922 none repeat scroll 0 0;
 }
 .mini-cart3 .mini-cart-view {
 }

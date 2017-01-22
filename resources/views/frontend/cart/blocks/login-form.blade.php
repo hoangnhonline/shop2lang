@@ -23,7 +23,7 @@
     <div class="form-group" id="error_captcha" style="margin-bottom: 15px;color:red;font-style:italic"> <span class="help-block ajax-message"></span> </div>
     <div class="form-group last">
       {{-- <p class="reset">Quên mật khẩu? Khôi phục mật khẩu <a data-toggle="modal" data-target="#reset-password-form" href="javascript:(void);" class="link">tại đây</a></p> --}}
-      <button type="submit" id="login_popup_submit" class="btn btn-danger btn-block">Đăng nhập</button>
+      <button type="submit" id="login_popup_submit" class="btn btn-info btn-block btn-member">Đăng nhập</button>
     </div>
   </form>
 </div><!--login form-->

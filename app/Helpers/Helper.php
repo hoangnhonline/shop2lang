@@ -2,7 +2,7 @@
 namespace App\Helpers;
 use App\Helpers\simple_html_dom;
 use App\Models\City;
-use DB;
+use DB, Session;
 
 class Helper
 {
@@ -71,8 +71,11 @@ class Helper
         return $arr = ['date_from' => date('Y-m-d', $from_date), 'date_to' => date('Y-m-d', $to_date)];
     }
     public static function getName( $id, $table){
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $rs = DB::table($table)->where('id', $id)->first();
-
+        if($table == "product" && $rs){
+            return $lang == 'vi' ? $rs->name_vi : $rs->name_en;
+        }
         return $rs ? $rs->name : "";
     }
     public static function calDayDelivery( $city_id ){

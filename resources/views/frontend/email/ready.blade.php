@@ -17,9 +17,9 @@
                     <tr>
                       <td><h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0"> Cảm ơn
                           quý khách {{$customer->full_name}}
-                          đã đặt hàng tại iCho.vn,</h1>
-                        <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"> iCho.vn rất vui thông báo đơn hàng #{{$order->id}} của quý khách đã
-                          được tiếp nhận và đang trong quá trình xử lý. iCho.vn sẽ thông báo đến quý khách
+                          đã đặt hàng tại shop.com,</h1>
+                        <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"> shop.com rất vui thông báo đơn hàng #{{$order->id}} của quý khách đã
+                          được tiếp nhận và đang trong quá trình xử lý. shop.com sẽ thông báo đến quý khách
                           ngay khi hàng chuẩn bị được giao. </p>
                         <h3 style="font-size:13px;font-weight:bold;color:#ec1c24;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd"> Thông tin đơn hàng #{{$order->id}} <span style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{date('d')}} Tháng {{date('m')}} Năm {{date('Y')}} {{date('H:i:s')}})</span> </h3></td>
                     </tr>
@@ -64,7 +64,7 @@
                                   gian giao
                                   hàng dự
                                   kiến:</strong> dự kiến giao hàng vào {{ $arrDate['fromdate'] }} - {{ $arrDate['todate'] }} <br>
-                                  <strong>Phí vận chuyển: </strong> {{ number_format($phi_van_chuyen) }}&nbsp;₫ <br>
+                                  <strong>Phí vận chuyển: </strong> {{ number_format($phi_van_chuyen) }}$ <br>
                                   >
                                 </p></td>
                            
@@ -93,19 +93,19 @@
                           <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Tổng giá trị sản phẩm chưa giảm</td>
-                              <td align="right" style="padding:5px 9px"><span>{{number_format($order->tong_tien)}}&nbsp;₫</span></td>
+                              <td align="right" style="padding:5px 9px"><span>{{number_format($order->tong_tien)}}$</span></td>
                             </tr>
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Giảm giá </td>
-                              <td align="right" style="padding:5px 9px"><span>0&nbsp;₫</span></td>
+                              <td align="right" style="padding:5px 9px"><span>0$</span></td>
                             </tr>
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Chi phí vận chuyển</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($phi_giao_hang) }}&nbsp;₫</span></td>
+                              <td align="right" style="padding:5px 9px"><span>{{ number_format($phi_giao_hang) }}$</span></td>
                             </tr>
                             <tr bgcolor="#eee">
                               <td colspan="4" align="right" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big></strong></td>
-                              <td align="right" style="padding:7px 9px"><strong><big><span>{{number_format($order->tong_tien)}}&nbsp;₫</span></big></strong></td>
+                              <td align="right" style="padding:7px 9px"><strong><big><span>{{number_format($order->tong_tien)}}$</span></big></strong></td>
                             </tr>
                           </tfoot>
                         </table>

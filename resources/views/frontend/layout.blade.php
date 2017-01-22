@@ -33,7 +33,7 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/responsive.css') }}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/custom.css') }}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/sweet.css') }}" media="all"/>
-  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/square/red.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/square/green.css') }}" rel="stylesheet">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 <body>
@@ -138,12 +138,12 @@
               </div>
               <div class="form-group">
                   <label class="checkbox-inline" style="padding-left:0px">
-                    <input type="checkbox"> Nhận các thông tin và chương trình khuyến mãi của iCho.vn qua email.
+                    <input type="checkbox"> Nhận các thông tin và chương trình khuyến mãi của shop.com qua email.
                   </label>
               </div>
               <div class="form-group policy-group">
                 <div class="input-wrap">
-                  <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#">điều kiện sử dụng và chính sách của iCho.vn</a>.</p>
+                  <p class="policy">Khi bạn nhấn Đăng ký, bạn  đã đồng ý thực hiện mọi giao dịch mua bán theo <a target="_blank" href="#">điều kiện sử dụng và chính sách của shop.com</a>.</p>
                 </div>
               </div>
               <div class="form-group last">
@@ -154,7 +154,7 @@
             </div>
 
             <div class="col-sm-6">
-              <p class="text" style="margin-bottom:5px">Đăng nhập vào iCho.vn bằng facebook</p>
+              <p class="text" style="margin-bottom:5px">Đăng nhập vào shop.com bằng facebook</p>
               <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" title="Đăng nhập bằng Facebook" data-url="#"> <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
             </div>
           </form>
@@ -202,6 +202,8 @@
 <input type="hidden" id="route-add-to-cart" value="{{ route('them-sanpham') }}" />
 <input type="hidden" id="route-cart" value="{{ route('gio-hang') }}" />
 <input type="hidden" id="route-auth-login-ajax" value="{{ route('auth-login-ajax') }}">
+<input type="hidden" id="route-set-lang" value="{{ route('set-lang') }}">
+<input type="hidden" id="route-home" value="{{ route('home') }}">
 @yield('javascript')
 </body>
 </html>

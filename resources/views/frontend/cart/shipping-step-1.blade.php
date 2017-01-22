@@ -177,7 +177,7 @@
       top: 0;
       width: 2px;
       height: 100%;
-      border: 2px solid #00b6f0;
+      border: 2px solid #28AA4A;
   }
   .nav-register li a:hover, .nav-register li a:link {
       text-decoration: none;

@@ -28,14 +28,14 @@
                                                     <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> Mua hàng</a>
                                                 </div>
                                             </div>
-                                            <div class="product-info">
+                                            <div class="product-info product-info5">
                                                 <h3 class="title-product"><a href="{{ $lang == 'vi' ? route('chi-tiet-vi',['slug' => $product->slug_vi, 'id' => $product->id]) : route('chi-tiet-en', ['slug' => $product->slug_en, 'id' => $product->id]) }}">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></h3>
                                                 <div class="info-price">
                                                     @if($product->is_sale == 1 && $product->price_sale > 0)
-                                                      <span>{{ number_format($product->price_sale) }}</span>
-                                                      <del>{{ number_format($product->price) }}</del>
+                                                      <span>{{ number_format($product->price_sale) }}$</span>
+                                                      <del>{{ number_format($product->price) }}$</del>
                                                     @else
-                                                      <span>{{ number_format($product->price) }}</span>
+                                                      <span>{{ number_format($product->price) }}$</span>
                                                     @endif 
                                                 </div>
                                                 

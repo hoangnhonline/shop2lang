@@ -57,17 +57,7 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
         Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
     });
-    
-    Route::get('{slugLoaiSp}/{slug}/', ['as' => 'danh-muc-con', 'uses' => 'CateController@cate']);    
-    
-    Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);   
-    Route::get('contact.html', ['as' => 'contact-en', 'uses' => 'HomeController@contact']);
-    Route::get('lien-he.html', ['as' => 'contact-vi', 'uses' => 'HomeController@contact']);
-    Route::get('{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
-
-    
-
-    Route::group(['prefix' => 'tai-khoan'], function () {
+     Route::group(['prefix' => 'tai-khoan'], function () {
         Route::get('don-hang-cua-toi', ['as' => 'order-history', 'uses' => 'OrderController@history']);
         Route::get('thong-bao-cua-toi', ['as' => 'notification', 'uses' => 'CustomerController@notification']);
         Route::get('thong-tin-tai-khoan', ['as' => 'account-info', 'uses' => 'CustomerController@accountInfo']);
@@ -80,6 +70,16 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::post('save-reset-password', ['as' => 'save-reset-password', 'uses' => 'CustomerController@saveResetPassword']);
    
     });
+    Route::get('{slugLoaiSp}/{slug}/', ['as' => 'danh-muc-con', 'uses' => 'CateController@cate']);    
+    
+    Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);   
+    Route::get('contact.html', ['as' => 'contact-en', 'uses' => 'HomeController@contact']);
+    Route::get('lien-he.html', ['as' => 'contact-vi', 'uses' => 'HomeController@contact']);
+    Route::get('{slug}.html', ['as' => 'pages', 'uses' => 'PageController@index']);
+
+    
+
+   
     Route::post('/get-district', ['as' => 'get-district', 'uses' => 'DistrictController@getDistrict']);
     Route::post('/get-ward', ['as' => 'get-ward', 'uses' => 'WardController@getWard']);
     Route::post('/customer/update', ['as' => 'update-customer', 'uses' => 'CustomerController@update']);
