@@ -7,7 +7,7 @@
             <div class="col-md-9 col-sm-8 col-xs-12 main-content">
                 <div class="main-content-shop">                 
                      <h1 class="page-heading">
-                    <span class="page-heading-title2">Thông tin tài khoản</span>
+                    <span class="page-heading-title2">{{ trans('text.thong-tin-tai-khoan') }}</span>
                 </h1>
                 <div class="shipping-address-page">              
                   <div class="row row-style-2">
@@ -17,24 +17,24 @@
                         <div class="panel-body">
                           <form class="form-horizontal bv-form" role="form" id="address-info" novalidate>
                             <div class="form-group row">
-                              <label for="full_name" class="col-lg-3 control-label visible-lg-block">Họ tên </label>
+                              <label for="full_name" class="col-lg-3 control-label visible-lg-block">{{ trans('text.ho-ten') }} </label>
                               <div class="col-lg-9 input-wrap has-feedback">
-                                  <input type="text" name="full_name" class="form-control address" id="full_name" value="{{$customer->full_name}}" placeholder="Nhập họ tên" data-bv-field="full_name">
-                                  <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Họ và tên</small>
+                                  <input type="text" name="full_name" class="form-control address" id="full_name" value="{{$customer->full_name}}" placeholder="{{ trans('text.nhap-ho-ten') }}" data-bv-field="full_name">
+                                  <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-nhap') }} {{ trans('text.ho-ten') }}</small>
                              </div>
                             </div>
                             <div class="form-group row">
-                              <label for="telephone" class="col-lg-3 control-label visible-lg-block">Điện thoại di động</label>
+                              <label for="telephone" class="col-lg-3 control-label visible-lg-block">{{ trans('text.dien-thoai') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
-                                <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{$customer->phone}}" placeholder="Nhập số điện thoại" data-bv-field="telephone">
-                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Số điện thoại từ 9 - 15 chữ số</small></div>
+                                <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{$customer->phone}}" placeholder="{{ trans('text.nhap-so-dien-thoai') }}" data-bv-field="telephone">
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-nhap') }} {{ trans('text.dien-thoai') }}</small></div>
                             </div>
 
                             <div class="form-group row">
-                              <label for="city_id" class="col-lg-3 control-label visible-lg-block">Tỉnh/Thành phố</label>
+                              <label for="city_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.tinh-thanh-pho') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="city_id" class="form-control address" id="city_id" data-bv-field="city_id">
-                                  <option value="">Chọn Tỉnh/Thành phố</option>
+                                  <option value="">{{ trans('text.chon') }} {{ trans('text.tinh-thanh-pho') }}</option>
                                   @foreach($listCity as $city)
                                     <option value="{{$city->id}}"
                                     @if($customer->city_id == $city->id)
@@ -43,36 +43,32 @@
                                     >{{$city->name}}</option>
                                   @endforeach
                                 </select>
-                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="city_id" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn Tỉnh/Thành phố</small></div>
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="city_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.tinh-thanh-pho') }}</small></div>
                             </div>
                             <div class="form-group row">
-                              <label for="district_id" class="col-lg-3 control-label visible-lg-block">Quận/Huyện</label>
+                              <label for="district_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.quan-huyen') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="district_id" class="form-control address" id="district_id">
-                                  <option value="0">Chọn Quận/Huyện</option>                              
+                                  <option value="0">{{ trans('text.chon') }} {{ trans('text.quan-huyen') }}</option>                              
                                 </select>
-                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="district_id" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn Quận/Huyện</small></div>
+                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="district_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.quan-huyen') }}</small></div>
                             </div>
                             <div class="form-group row">
-                              <label for="ward_id" class="col-lg-3 control-label visible-lg-block">Phường/Xã</label>
+                              <label for="ward_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.phuong-xa') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="ward_id" class="form-control address" id="ward_id">
-                                  <option value="0">Chọn Phường/Xã</option>
+                                  <option value="0">{{ trans('text.chon') }} {{ trans('text.phuong-xa') }}</option>
                                 </select>
-                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="ward_id" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn Phường/Xã</small></div>
+                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="ward_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.phuong-xa') }}</small></div>
                             </div>
                             <div class="form-group row">
-                              <label for="street" class="col-lg-3 control-label visible-lg-block">Địa chỉ</label>
+                              <label for="street" class="col-lg-3 control-label visible-lg-block">{{ trans('text.dia-chi') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
-                                <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:50px">{{ $customer->address }}</textarea>
-                                 <span class="help-block"></span> <small class="help-block" data-bv-validator="notEmpty" data-bv-for="street" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Địa chỉ</small></div>
-                            </div>
+                                <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:80px">{{ $customer->address }}</textarea>
+                                 <span class="help-block"></span> <small class="help-block" data-bv-validator="notEmpty" data-bv-for="street" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-nhap') }} {{ trans('text.dia-chi') }}</small></div>
+                            </div>                         
                             <div class="form-group row form-group-radio group-radio-k-address">
-                              <label class="col-lg-3 control-label visible-lg-block"></label>
-                              <div class="col-lg-9 input-wrap"> <span style="font-size: 11px;font-style: italic;">Để nhận hàng thuận tiện hơn, bạn vui lòng cho iCho biết loại địa chỉ.</span> </div>
-                            </div>
-                            <div class="form-group row form-group-radio group-radio-k-address">
-                              <label class="col-lg-3 control-label visible-lg-block">Loại địa chỉ</label>
+                              <label class="col-lg-3 control-label visible-lg-block">{{ trans('text.loai-dia-chi') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                   <label class="checkbox-inline">
                                     <input type="radio" name="delivery_address_type" value="0" data-bv-field="delivery_address_type"
@@ -80,7 +76,7 @@
                                     checked
                                     @endif
                                     >
-                                     Nhà riêng / Chung cư
+                                     {{ trans('text.nha-rieng-chung-cu') }}
                                   </label>
 
                                   <label class="checkbox-inline">
@@ -89,14 +85,14 @@
                                     checked
                                     @endif
                                     >
-                                     Cơ quan / Công ty
+                                     {{ trans('text.co-quan-cong-ty') }}
                                   </label>
                               </div>
                             </div>
                             <div class="form-group row end">
                               <div class="col-lg-3"></div>
                               <div class="col-lg-9">
-                                <div id="btn-address" class="btn btn-primary btn-custom3" value="update" style="width:120px">Cập nhật</div>
+                                <div id="btn-address" class="btn btn-primary btn-custom3" value="update" style="width:120px">{{ trans('text.cap-nhat') }}</div>
                               </div>
                             </div>
                           </form>
@@ -165,7 +161,7 @@
 
         if(!city_id) {
           $('#district_id').empty();
-          $('#district_id').append('<option value="0">Chọn Quận/Huyện</option>');
+          $('#district_id').append('<option value="0">{{ trans('text.chon') }} {{ trans('text.quan-huyen') }}</option>');
           return;
         }
 
@@ -177,7 +173,7 @@
           },
           success : function(list_ward){
             $('#district_id').empty();
-            $('#district_id').append('<option value="0">Chọn Quận/Huyện</option>');
+            $('#district_id').append('<option value="0">{{ trans('text.chon') }} {{ trans('text.quan-huyen') }}</option>');
 
             for(i in list_ward) {
               $('#district_id').append('<option value="'+list_ward[i].id+'">'+list_ward[i].name+'</option>');
@@ -193,7 +189,7 @@
       function getWard(district_id) {
 
         if(!district_id) {
-          $('#ward_id').html('<option value="0">Chọn Phường/Xã</option>');
+          $('#ward_id').html('<option value="0">{{ trans('text.chon') }} {{ trans('text.phuong-xa') }}</option>');
           return;
         }
 
@@ -205,7 +201,7 @@
           },
           success : function(list_ward){
             $('#ward_id').empty();
-            $('#ward_id').append('<option value="0">Chọn Phường/Xã</option>');
+            $('#ward_id').append('<option value="0">{{ trans('text.chon') }} {{ trans('text.phuong-xa') }}</option>');
 
             for(i in list_ward) {
               $('#ward_id').append('<option value="'+list_ward[i].id+'">'+list_ward[i].name+'</option>');
@@ -284,7 +280,7 @@
             },
             success : function(data){
                $('#btn-address').removeAttr('disabled');
-              swal({ title: '', text: 'Cập nhật thông tin thành công', type: 'success' });
+              swal({ title: '', text: '{{ trans('text.cap-nhat-thong-tin-thanh-cong') }}', type: 'success' });
             }
           });
         }

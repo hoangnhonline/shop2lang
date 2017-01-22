@@ -8,7 +8,7 @@
             <div class="col-md-9 col-sm-8 col-xs-12 main-content">
                 <div class="main-content-shop">                 
                     <h1 class="page-heading">
-                        <span class="page-heading-title2">Danh sách đơn hàng của tôi</span>
+                        <span class="page-heading-title2">{{ trans('text.don-hang-cua-toi') }}</span>
                     </h1>
                                
                     <div class="dashboard-order have-margin">
@@ -16,15 +16,15 @@
                             <thead>
                             <tr>
                                 <th style="text-align:center">
-                                    <span class="hidden-xs hidden-sm hidden-md">Mã ĐH</span>
-                                    <span class="hidden-lg">Code</span>
+                                    <span class="hidden-xs hidden-sm hidden-md">{{ trans('text.ma-don-hang') }}</span>
+                                    <span class="hidden-lg">{{ trans('text.ma-don-hang') }}</span>
                                 </th>
-                                <th>Ngày mua</th>
-                                <th>Sản phẩm</th>
-                                <th style="text-align:right">Tổng tiền</th>
+                                <th>{{ trans('text.ngay-mua') }}</th>
+                                <th>{{ trans('text.san-pham') }}</th>
+                                <th style="text-align:right">{{ trans('text.tong-tien') }}</th>
                                 <th style="text-align:center">
-                                    <span class="hidden-xs hidden-sm hidden-md">Trạng thái đơn hàng</span>
-                                    <span class="hidden-lg">Trạng thái</span>
+                                    <span class="hidden-xs hidden-sm hidden-md">{{ trans('text.trang-thai-don-hang') }}</span>
+                                    <span class="hidden-lg">{{ trans('text.trang-thai') }}</span>
                                 </th>
                                 <!--                            <th></th>-->
                             </tr>

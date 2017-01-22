@@ -26,7 +26,7 @@
     </div>
   </div>
   <!-- End Banner Slider -->
-  <div class="privacy-shipping privacy-shipping11">
+  <!--<div class="privacy-shipping privacy-shipping11">
     <div class="row">
       <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="item-privacy-shipping">
@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>-->
   @foreach($loaiSpList as $loaiSp)
   <!-- End Price Shipping -->
   <div class="content-popular11">
@@ -100,7 +100,7 @@
                 <img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}"  width="268" height="300"/>              
               </a>
               <div class="product-info-cart">                
-                <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> Mua hàng</a>
+                <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> {{ trans('text.mua-hang') }}</a>
               </div>
             </div>
             <div class="product-info5">

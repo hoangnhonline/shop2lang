@@ -1,7 +1,7 @@
 <div id="footer">
     <div class="footer5 footer11">
       <div class="container">
-        <div class="footer-top footer-top5">
+        <div class="footer-top footer-top5" style="margin-bottom:30px">
           <div class="logo-footer">
             <a href="#"><img alt="" src="{{ URL::asset('assets/images/logo-footer.png') }}"></a>
           </div>
@@ -21,7 +21,7 @@
           </div>
         </div>
         <!-- End Footer top -->
-        <div class="online-shipping">
+        <!--<div class="online-shipping">
           <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="item-online-shipping">
@@ -71,7 +71,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>-->
         <!-- End Online Shipping -->
         <div class="list-footer-box5">
           <div class="row">
@@ -127,7 +127,7 @@
           <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="copyright">
-                <p>Aloshop © 2016 Kutethemes Demo Store. All Rights Reserved. Powered by <a href="kutethemes.com">kutehemes.com</a></p>
+                <p>All Rights Reserved. Powered by <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a></p>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">

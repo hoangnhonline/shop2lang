@@ -14,7 +14,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
           <div class="smart-search search-form3 search-form5">
             
             <form class="smart-search-form">
-              <input type="text"  name="search" value="Nhập tên sản phẩm ..." onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" />
+              <input type="text"  name="search" value="{{ trans('text.nhap-ten-san-pham') }}" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" />
               <input type="submit" value="" />
             </form>
           </div>
@@ -26,36 +26,52 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
                 @if(!Session::get('login'))
                 <a href="#"><i class="fa fa-user"></i></a>
                 <ul class="user-ajax-guest sub-menu-top">
-                    <li id="login_link"><a class="user-name-login" title="Đăng Nhập" href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalLoginFrom"><i class="fa fa-sign-in"></i> Đăng nhập</a></li>
+                    <li id="login_link"><a class="user-name-login" title="Đăng Nhập" href="javascript:(void);" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalLoginFrom"><i class="fa fa-sign-in"></i> {{ trans('text.dang-nhap') }}</a></li>
                     <li id="login_fb_link" class="login-by-facebook-popup">
-                    <a data-url="#" title="Đăng nhập bằng Facebook" class="user-name-loginfb"><i class="fa fa-facebook-square"></i><span>Đăng nhập bằng</span><span> Facebook</span></a>
+                    <a data-url="#" title="Đăng nhập bằng Facebook" class="user-name-loginfb"><i class="fa fa-facebook-square"></i>{{ trans('text.dang-nhap-bang-facebook') }}</a>
                     </li>
                     <li class="user-name-register">
-                      <a title="Tạo tài khoản mới" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterFrom"><i class="fa fa-user"></i><span>Tạo tài khoản</span></a>
+                      <a title="Tạo tài khoản mới" class="link" data-dismiss="modal" data-toggle="modal" data-target="#modalRegisterFrom"><i class="fa fa-user"></i><span>{{ trans('text.tao-tai-khoan') }}</span></a>
                     </li>
                 </ul>
                 @else
                 @if(Session::get('facebook_id'))
                 <div class="user-avatar" style="float:left"><img alt="{{Session::get('username')}}" data-original="{{ Session::get('avatar') != '' ? Session::get('avatar') :  URL::asset('assets/images/avatar-s.png') }}" height="40" width="40" class="lazy" style="border-radius:30px;margin-top:-10px"></div>
                 @endif
-                <a href="#">Chào, {{ Session::get('username') }}</a> 
+                <a href="#">{{ trans('text.chao') }}, {{ Session::get('username') }}</a> 
                 <ul class="sub-menu-top left">
-                  <li> <a href="{{ route('account-info') }}" title="Thông tin tài khoản"><i class="fa fa-user"></i> Thông tin tài khoản </a> </li>
-                  <li> <a href="{{ route('order-history') }}" title="Đơn hàng của tôi"><i class="fa fa-heart-o"></i> Đơn hàng của tôi </a> </li>                  
+                  <li> <a href="{{ route('account-info') }}" title="{{ trans('text.thong-tin-tai-khoan') }}"><i class="fa fa-user"></i> {{ trans('text.thong-tin-tai-khoan') }} </a> </li>
+                  <li> <a href="{{ route('order-history') }}" title="{{ trans('text.don-hang-cua-toi') }}"><i class="fa fa-heart-o"></i> {{ trans('text.don-hang-cua-toi') }} </a> </li>                  
                   @if(Session::get('facebook_id') == null)
-                  <li> <a href="{{ route('change-password') }}" title="Đổi mật khẩu"><i class="fa fa-unlock-alt"></i> Đổi mật khẩu</a> </li>
+                  <li> <a href="{{ route('change-password') }}" title="{{ trans('text.doi-mat-khau') }}"><i class="fa fa-unlock-alt"></i> {{ trans('text.doi-mat-khau') }}</a> </li>
                   @endif
-                  <li> <a href="{{route('user-logout')}}" title="Thoát tài khoản"><i class="fa fa-sign-in"></i> Thoát tài khoản </a> </li>                 
+                  <li> <a href="{{route('user-logout')}}" title="{{ trans('text.thoat-tai-khoan') }}"><i class="fa fa-sign-in"></i> {{ trans('text.thoat-tai-khoan') }} </a> </li>                 
                 </ul> 
                 @endif
                 
 
               </li>
               <li class="top-language has-child">
-                <a href="javascript:void(0);" class="language-selected"><img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt"/></a>
-                <ul class="sub-menu-top">                  
-                  <li><a href="javascript:void(0);" data-lang='vi' class="lang"><img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt" />Tiếng Việt</a></li>
-                  <li><a href="javascript:void(0);" data-lang="en" class="lang"><img src="{{ URL::asset('assets/images/flag-england.jpg') }}" alt="English"  />English</a></li>                  
+                <a href="javascript:void(0);" class="language-selected">
+                  @if($lang == 'vi')
+                  <img src="{{ URL::asset('assets/images/vn.png') }}" alt="Tiếng Việt" width="14" height="11" />
+                  @else
+                  <img src="{{ URL::asset('assets/images/flag-england.jpg') }}" alt="English"  />
+                  @endif
+                </a>
+                <ul class="sub-menu-top left">                  
+                  <li>
+                    <a href="javascript:void(0);" data-lang='vi' class="lang">
+                      <img src="{{ URL::asset('assets/images/vn.png') }}"  alt="Tiếng Việt" width="14" height="11" />
+                      Tiếng Việt
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" data-lang="en" class="lang">
+                      <img src="{{ URL::asset('assets/images/flag-england.jpg') }}" alt="English"  />
+                      English
+                    </a>
+                  </li>                  
                 </ul>
               </li>              
             </ul>
@@ -94,8 +110,8 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
                   <span>$24.28</span>
                 </div>
                 <div class="mini-cart-button">
-                  <a class="mini-cart-view" href="#">view my cart </a>
-                  <a class="mini-cart-checkout" href="#">Checkout</a>
+                  <a class="mini-cart-view" href="#">{{ trans('text.gio-hang') }}</a>
+                  <a class="mini-cart-checkout" href="#">{{ trans('text.thanh-toan') }}</a>
                 </div>
               </div>
             </div>
@@ -112,7 +128,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
           <nav class="main-nav main-nav5">
             <ul>
               <li>
-                <a href="{{ route('home') }}">{{ trans('text.home') }}</a>                
+                <a href="{{ route('home') }}">{{ trans('text.trang-chu') }}</a>                
               </li>              
               @foreach($loaiSpList as $loaiSp) 
               <?php 
@@ -138,7 +154,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
         </div>
         <div class="col-md-3 col-sm-3 col-xs-12 hidden-xs hidden-sm">
           <div class="category-dropdown hidden-dropdown right-category-dropdown">
-            <h2 class="title-category-dropdown"><span>Danh mục</span></h2>
+            <h2 class="title-category-dropdown"><span>{{ trans('text.danh-muc') }}</span></h2>
             <div class="wrap-category-dropdown">
               <ul class="list-category-dropdown">
                 @foreach($loaiSpList as $loaiSp) 
