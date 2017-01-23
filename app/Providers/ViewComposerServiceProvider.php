@@ -4,7 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\Tag;
+use App\Models\Blocks;
 use App\Models\Settings;
 
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
@@ -50,8 +50,11 @@ class ViewComposerServiceProvider extends ServiceProvider
 	       	foreach( $loaiSpList as $loai){
             	$cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();         
         	} 
-
-			$view->with(['settingArr' => $settingArr, 'loaiSpList' => $loaiSpList, 'cateList' => $cateList]);
+        	$tmp = Blocks::all();
+        	foreach($tmp as $tp){
+        		$footerArr[$tp->id] = $tp;
+        	}
+			$view->with(['settingArr' => $settingArr, 'loaiSpList' => $loaiSpList, 'cateList' => $cateList, 'footerArr' => $footerArr]);
 		});
 	}
 	

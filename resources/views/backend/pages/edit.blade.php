@@ -4,11 +4,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Video      
+      Cập nhật trang
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('pages.index') }}">Video</a></li>
+      <li><a href="{{ route('pages.index') }}">Trang</a></li>
       <li class="active">Chỉnh sửa</li>
     </ol>
   </section>

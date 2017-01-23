@@ -112,6 +112,7 @@
         <ul class="treeview-menu">
           <li {{ \Request::route()->getName() == "settings.index" ? "class=active" : "" }}><a href="{{ route('settings.index') }}"><i class="fa fa-circle-o"></i> Thông tin shop.com</a></li>
           <li {{ \Request::route()->getName() == "color.index" ? "class=active" : "" }}><a href="{{ route('color.index') }}"><i class="fa fa-circle-o"></i> Color</a></li>
+          <li {{ \Request::route()->getName() == "footer.index" ? "class=active" : "" }}><a href="{{ route('footer.index') }}"><i class="fa fa-circle-o"></i> Footer</a></li>
           <li {{ in_array(\Request::route()->getName(), ['banner.index', 'banner.create', 'banner.edit', 'banner.list']) ? 'class=active' : '' }}>
             <a href="{{ route('banner.list') }}"><i class="fa fa-circle-o"></i> Banner</a>
           </li>

@@ -19,6 +19,14 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'pages.update', 'uses' => 'PagesController@update']);
         Route::get('{id}/destroy', ['as' => 'pages.destroy', 'uses' => 'PagesController@destroy']);
     });
+    Route::group(['prefix' => 'footer'], function () {
+        Route::get('/', ['as' => 'footer.index', 'uses' => 'FooterController@index']);
+        Route::get('/create', ['as' => 'footer.create', 'uses' => 'FooterController@create']);
+        Route::post('/store', ['as' => 'footer.store', 'uses' => 'FooterController@store']);
+        Route::get('{id}/edit',   ['as' => 'footer.edit', 'uses' => 'FooterController@edit']);
+        Route::post('/update', ['as' => 'footer.update', 'uses' => 'FooterController@update']);
+        Route::get('{id}/destroy', ['as' => 'footer.destroy', 'uses' => 'FooterController@destroy']);
+    });
     Route::group(['prefix' => 'text'], function () {
         Route::get('/', ['as' => 'text.index', 'uses' => 'TextController@index']);
         Route::get('/create', ['as' => 'text.create', 'uses' => 'TextController@create']);
