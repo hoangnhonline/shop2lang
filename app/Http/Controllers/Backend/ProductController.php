@@ -53,7 +53,7 @@ class ProductController extends Controller
         }
         $query->join('users', 'users.id', '=', 'product.created_user');
         $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
-        $query->join('cate', 'cate.id', '=', 'product.cate_id');
+        $query->leftJoin('cate', 'cate.id', '=', 'product.cate_id');
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
         $query->orderBy('product.id', 'desc');
         $items = $query->select(['product_img.image_url','product.*','product.id as sp_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name_vi as ten_loai', 'cate.name_vi as ten_cate'])

@@ -60,7 +60,7 @@
                           </select>
                         </div>
                           <div class="form-group col-md-6 none-padding pleft-5">
-                          <label for="email">Danh mục con<span class="red-star">*</span></label>
+                          <label for="email">Danh mục con</label>
 
                           <select class="form-control" name="cate_id" id="cate_id">
                             <option value="">--Chọn--</option>
@@ -288,10 +288,7 @@ $(document).on('click', '.remove-image', function(){
 function validateData(){
   if($('#loai_id').val() == 0){
     alert('Chưa chọn danh mục cha.'); return false;
-  }
-  if($('#cate_id').val() == 0){
-    alert('Chưa chọn danh mục con.'); return false; 
-  }
+  } 
   return true;  
 }
     $(document).ready(function(){
@@ -317,12 +314,8 @@ function validateData(){
         if( $('#loai_id').val() == 0){
           swal("Lỗi!", "Chưa chọn danh mục cha", "error");
           return false;
-        }
-       
-        if( $('#cate_id').val() == 0){
-          swal("Lỗi!", "Chưa chọn danh mục con", "error");
-          return false;
-        }  
+        }       
+        
         $('#btnSave').hide();
         $('#btnLoading').show();
       });
