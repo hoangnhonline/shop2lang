@@ -92,8 +92,10 @@
       var editor3 = CKEDITOR.replace( 'content_en',{
           language : 'vi',
           height : 200,
-          allowedContent: true
+          allowedContent: true,
       });  
+      CKEDITOR.dtd.$removeEmpty.i = 0;
     });
+
 </script>
 @stop
