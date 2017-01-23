@@ -1033,7 +1033,7 @@ blockquote {
     font-size: 14px;
     font-weight: 700;
     margin: 0px;
-    height: 32px;
+    height: 31px;
     overflow-y: hidden;
 }
 .title-product  a:hover{
@@ -1930,7 +1930,8 @@ blockquote {
     font-size: 10px;
 }
 .footer-top {
-    margin-top: 30px;
+    margin-top: 5px;
+    margin-bottom:30px;padding-left:20px;background-color:#CCC;padding-bottom:5px
 }
 .menu-footer a:hover {
     color: #28AA4A;
@@ -2747,6 +2748,7 @@ blockquote {
 .title-detail {
     font-weight: 700;
     margin: 0 0 15px;
+    font-size: 20px;
 }
 .detail-info .product-rating {
     display: inline-block;
@@ -8440,7 +8442,7 @@ ol.list-post-comment {
     height: 49px;
     line-height: 50px;
 }
-.main-nav.main-nav5 > ul > li > a:hover{
+.main-nav.main-nav5 > ul > li > a:hover, .main-nav.main-nav5 > ul > li > a.active{
 	background:#28AA4A;
 	color:#fff;
 }
@@ -8870,9 +8872,7 @@ ol.list-post-comment {
     border-top: 1px solid #28AA4A;
     margin-top: 20px;
 }
-.footer-top.footer-top5 {
-    margin-top: 35px;
-}
+
 .item-online-shipping {
     border-right: 1px solid #e5e5e5;
     margin: 0 -15px;

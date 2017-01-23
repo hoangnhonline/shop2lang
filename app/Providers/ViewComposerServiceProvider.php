@@ -45,15 +45,13 @@ class ViewComposerServiceProvider extends ServiceProvider
 		
 		view()->composer( '*' , function( $view ){			
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');	       
-	        $tagListVi = Tag::where('type', 1)->get();	        
-	        $tagListEn = Tag::where('type', 2)->get();
+	        $loaiSpList = LoaiSp::where('status', 1)->orderBy('display_order')->get();
 
-	        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
-	        foreach($loaiSp as $loai){
-	            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();            
-	        }
+	       	foreach( $loaiSpList as $loai){
+            	$cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();         
+        	} 
 
-			$view->with(['settingArr' => $settingArr, 'tagListVi' => $tagListVi, 'tagListEn' => $tagListEn, 'loaiSp' => $loaiSp, 'cateList' => $cateList]);
+			$view->with(['settingArr' => $settingArr, 'loaiSpList' => $loaiSpList, 'cateList' => $cateList]);
 		});
 	}
 	

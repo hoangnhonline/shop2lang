@@ -20,6 +20,7 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/font-awesome.min.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/font-linearicons.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">  
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/bootstrap.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/bootstrap-theme.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/jquery.fancybox.css') }}"/>
@@ -34,6 +35,7 @@
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/custom.css') }}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/sweet.css') }}" media="all"/>
   <link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/square/green.css') }}" rel="stylesheet">
+
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
 <body>

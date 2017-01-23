@@ -1,77 +1,23 @@
 <div id="footer">
     <div class="footer5 footer11">
       <div class="container">
-        <div class="footer-top footer-top5" style="margin-bottom:30px">
+        <div class="footer-top footer-top5">
           <div class="logo-footer">
-            <a href="#"><img alt="" src="{{ URL::asset('assets/images/logo-footer.png') }}"></a>
+            <a href="{{ route('home') }}"><img alt="Logo NS" src="{{ URL::asset('assets/images/logo.png') }}" height="45px"></a>
           </div>
           <div class="menu-footer">
             <ul>
-              <li><a href="#">Online Shopping</a></li>
-              <li><a href="#">Buy</a></li>
-              <li><a href="#">Sell</a></li>
-              <li><a href="#">All Promotions</a></li>
-              <li><a href="#">My Orders </a></li>
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Site Map</a></li>
-              <li><a href="#">Customer Service</a></li>
-              <li><a href="#">About </a></li>
-              <li><a href="#">Contact</a></li>
+              <li>
+                <a href="{{ route('home') }}">{{ trans('text.trang-chu') }}</a>
+              </li>
+              @foreach($loaiSpList as $loaiSp)              
+              <li>
+                <a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loaiSp->slug_vi]) : route('danh-muc-cha', [$loaiSp->slug_en]) }}">{{ $lang == 'vi' ? $loaiSp->name_vi : $loaiSp->name_en }}</a>                
+              </li>
+              @endforeach              
             </ul>
           </div>
-        </div>
-        <!-- End Footer top -->
-        <!--<div class="online-shipping">
-          <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="item-online-shipping">
-                <ul>
-                  <li><i class="fa fa-credit-card"></i></li>
-                  <li>
-                    <h3><a href="#">CREATE card</a></h3>
-                    <p>Create a free account so you can claim your $100 Reward.</p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="item-online-shipping">
-                <ul>
-                  <li><i class="fa fa-dropbox"></i></li>
-                  <li>
-                    <h3><a href="#">Order online</a></h3>
-                    <p>Hours: 8AM - 11PM </p>
-                    <span>All day in week</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="item-online-shipping">
-                <ul>
-                  <li><i class="fa fa-motorcycle"></i></li>
-                  <li>
-                    <h3><a href="#">Free Shipping</a></h3>
-                    <p>Sollicitudin mauris cursus </p>
-                    <span>On orders over $99</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-md-3 col-sm-6 col-xs-12">
-              <div class="item-online-shipping">
-                <ul>
-                  <li><i class="fa fa-cubes"></i></li>
-                  <li>
-                    <h3><a href="#">Free Returns</a></h3>
-                    <p>Nulla tempus sollicitud </p>
-                    <span>On all orders.</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>-->
+        </div>        
         <!-- End Online Shipping -->
         <div class="list-footer-box5">
           <div class="row">

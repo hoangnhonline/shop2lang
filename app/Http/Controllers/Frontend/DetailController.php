@@ -49,10 +49,10 @@ class DetailController extends Controller
         $rsCate = Cate::find( $detail->cate_id );
 
         $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();                
-                $lienquanArr = Product::where('product.cate_id', $detail->cate_id)                
+        $lienquanArr = Product::where('product.loai_id', $detail->loai_id)                
                 ->where('product.id', '<>', $detail->id)
                 ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->select('product.id as product_id', 'name_vi', 'slug_vi', 'name_en', 'slug_en', 'price', 'price_sale', 'product_img.image_url')->get();   
+                ->select('product.id as product_id', 'name_vi', 'slug_vi', 'name_en', 'slug_en', 'price', 'price_sale', 'product_img.image_url')->limit(5)->get();
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -70,7 +70,7 @@ class DetailController extends Controller
             $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
         }
         //sale product
-        $saleList = Product::where(['is_sale' => 1, 'cate_id' => $detail->cate_id])->where('price_sale', '>', 0)
+        $saleList = Product::where(['is_sale' => 1, 'loai_id' => $detail->loai_id])->where('price_sale', '>', 0)
                     ->where('product.id', '<>', $id)
                     ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                
                     ->select('product_img.image_url', 'product.*')->orderBy('id', 'desc')->limit(5)->get();

@@ -128,7 +128,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
           <nav class="main-nav main-nav5">
             <ul>
               <li>
-                <a href="{{ route('home') }}">{{ trans('text.trang-chu') }}</a>                
+                <a href="{{ route('home') }}" {{ \Request::route()->getName() == "home" ? "class=active" : "" }}>{{ trans('text.trang-chu') }}</a>                
               </li>              
               @foreach($loaiSpList as $loaiSp) 
               <?php 
@@ -137,7 +137,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
               
               ?>
               <li class="@if(!empty($cateList)) menu-item-has-children @endif">
-                <a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loaiSp->slug_vi]) : route('danh-muc-cha', [$loaiSp->slug_en]) }}">{{ $lang == 'vi' ? $loaiSp->name_vi : $loaiSp->name_en }}</a>
+                <a href="{{ $lang == 'vi' ? route('danh-muc-cha', [$loaiSp->slug_vi]) : route('danh-muc-cha', [$loaiSp->slug_en]) }}" {{ isset($rs) && $rs->id == $loaiSp->id ? "class=active" : "" }}>{{ $lang == 'vi' ? $loaiSp->name_vi : $loaiSp->name_en }}</a>
                 @if(!empty($cateList))
                 <ul class="sub-menu">
                   @foreach($cateList as $cate)
