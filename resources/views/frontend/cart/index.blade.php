@@ -1,4 +1,5 @@
 @extends('frontend.layout')
+@include('frontend.partials.meta')
 @section('content')
 <div class="columns-container">
     <div class="container" id="columns">

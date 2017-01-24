@@ -1,4 +1,5 @@
 @extends('frontend.layout')
+@include('frontend.partials.meta')
 @section('content')
 <!-- page wapper-->
 <div class="columns-container">
