@@ -76,11 +76,11 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
               </li>              
             </ul>
             <div class="mini-cart mini-cart-3">
-              <a class="header-mini-cart3 header-mini-cart5">
+              <a class="header-mini-cart3 header-mini-cart5" href="{{ route('gio-hang') }}">
                 <span class="total-mini-cart-icon"></span>
-                <span class="total-mini-cart-item">0</span>
+                <span class="total-mini-cart-item">{{Session::get('products') ? array_sum(Session::get('products')) : 0}}</span>
               </a>
-              <div class="content-mini-cart">
+              <!--<div class="content-mini-cart">
                 <h2>(2) ITEMS IN MY CART</h2>
                 <ul class="list-mini-cart-item">
                   <li>
@@ -112,7 +112,7 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
                 <div class="mini-cart-button">
                   <a class="mini-cart-view" href="#">{{ trans('text.gio-hang') }}</a>
                   <a class="mini-cart-checkout" href="#">{{ trans('text.thanh-toan') }}</a>
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
