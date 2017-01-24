@@ -112,8 +112,8 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
                 <div class="mini-cart-button">
                   <a class="mini-cart-view" href="#">{{ trans('text.gio-hang') }}</a>
                   <a class="mini-cart-checkout" href="#">{{ trans('text.thanh-toan') }}</a>
-                </div>-->
-              </div>
+                </div>
+              </div>-->
             </div>
           </div>
         </div>
