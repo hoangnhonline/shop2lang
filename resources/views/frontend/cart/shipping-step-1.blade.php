@@ -11,19 +11,19 @@
                 <div class="shipping-header">
                   <div class="row bs-wizard">
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step active">
-                      <div class="text-center bs-wizard-stepnum"> <span>Đăng Nhập</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span>{{ trans('text.dang-nhap') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
                       <span class="bs-wizard-dot">1</span> </div>
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step disabled">
-                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">Địa Chỉ Giao Hàng</span> <span class="visible-xs-inline-block">Địa Chỉ</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">{{ trans('text.dia-chi-giao-hang') }}</span> <span class="visible-xs-inline-block">{{ trans('text.dia-chi') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
                       <span class="bs-wizard-dot">2</span> </div>
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step disabled">
-                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span> <span class="visible-xs-inline-block">Thanh Toán</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">{{ trans('text.thanh-toan-va-dat-mua') }}</span> <span class="visible-xs-inline-block">{{ trans('text.thanh-toan') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
@@ -33,24 +33,25 @@
 
                 <div class="row visible-lg-block">
                   <div class="col-lg-12">
-                    <h3 style="font-size:15px">1. Khách hàng mới / Đăng nhập</h3>
+                    <h3 style="font-size:15px">1. {{ trans('text.khach-hang-moi') }} / {{ trans('text.dang-nhap') }}</h3>
                   </div>
                 </div>
 
                 <div class="row row-style-2">
                   <div class="payment-right visible-lg-block">
-                    <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
+                    <p class="text">{{ trans('text.thanh-toan-don-hang-trong-1-buoc-voi') }}:</p>
                     <div class="form-group last"> 
                       <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup"> 
                         <i class="fa fa-facebook"></i> 
-                        <span>Đăng nhập bằng</span>
-                        <span> Facebook</span> 
+                        <span>{{ trans('text.dang-nhap-bang-facebook') }}</span>                        
                       </a> 
                     </div>
                   </div><!--payment-right visible-lg-block-->
                   <div class="payment-top hidden-lg">
-                    <p class="text">Thanh toán đơn hàng trong chỉ một bước với:</p>
-                    <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" > <i class="fa fa-facebook"></i> <span>Đăng nhập bằng</span><span> Facebook</span> </a> </div>
+                    <p class="text">{{ trans('text.thanh-toan-don-hang-trong-1-buoc-voi') }}:</p>
+                    <div class="form-group last"> <a class="btn btn-block btn-social btn-facebook user-name-loginfb login-by-facebook-popup" > <i class="fa fa-facebook"></i> 
+                      <span>{{ trans('text.dang-nhap-bang-facebook') }}</span> </a> 
+                    </div>
                   </div><!--payment-top hidden-lg-->
                   <div class="clearfix"></div>
                   <div class="col-md-8 has-padding">
@@ -64,13 +65,13 @@
                           <ul class="nav-register">
                               <li class="active">
                                 <a href="#home" alt="login-form" data-toggle="tab">
-                                  <span>Đăng nhập</span>
-                                  <i>Đã là thành viên Tiki</i>
+                                  <span>{{ trans('text.dang-nhap') }}</span>
+                                  <i>{{ trans('text.da-la-thanh-vien') }}</i>
                                 </a>
                               </li>
                               <li><a href="#profile" data-toggle="tab" alt="register-form">
-                                <span>Tạo tài khoản</span>
-                              <i>Dành cho khách hàng mới</i>
+                                <span>{{ trans('text.tao-tai-khoan') }}</span>
+                              <i>{{ trans('text.danh-cho-khach-hang-moi') }}</i>
                               </a></li>                                
                           </ul>
                          

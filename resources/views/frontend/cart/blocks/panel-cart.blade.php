@@ -1,12 +1,12 @@
 <div id="panel-cart">
   <div class="panel panel-default cart">
     <div class="panel-body">
-      <div class="order"> <span class="title">Đơn Hàng</span> <span class="title">( {{ array_sum($getlistProduct) }} SP )</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
+      <div class="order"> <span class="title">{{ trans('text.don-hang') }}</span> <span class="title">( {{ array_sum($getlistProduct) }} {{ trans('text.san-pham') }} )</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">{{ trans('text.sua') }}</a> </div>
       <div class="product">
         <?php $total = 0; ?>
         @foreach($arrProductInfo as $product)
         <div class="item">
-          <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{$product->name}}</a></p>
+          <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></p>
           <p class="price"> <span>
           <?php 
           if( $product->price_sale > 0 && $product->is_sale == 1){
@@ -25,10 +25,9 @@
         ?>
         @endforeach
       </div>
-      <p class="total"> Tạm Tính: <span>{{ number_format($total) }}$</span> </p>                          
-      <p class="shipping"> Phí vận chuyển: <span>Chưa có</span> </p>
-      <p class="total2"> Thành tiền: <span>{{number_format( $total )}}$ </span> </p>
-      <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
+      <p class="total"> {{ trans('text.tam-tinh') }}: <span>{{ number_format($total) }}$</span> </p>
+      <p class="total2"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total )}}$ </span> </p>
+      <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
     </div>
   </div>
 </div><!--panel-cart-->

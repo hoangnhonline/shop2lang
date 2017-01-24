@@ -3,13 +3,6 @@
 <!-- page wapper-->
 <div class="columns-container">
     <div class="container" id="columns">
-        <!-- breadcrumb -->
-        <div class="breadcrumb clearfix">
-            <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
-            <span class="navigation-pipe">&nbsp;</span>
-            <a href="#" title="Giỏ hàng">Giỏ hàng</a>
-        </div>
-        <!-- ./breadcrumb -->
         <div class="page-content">
           <!-- row -->
           <div class="shipping-address-page">
@@ -17,19 +10,19 @@
                 <div class="shipping-header">
                   <div class="row bs-wizard">
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step complete">
-                      <div class="text-center bs-wizard-stepnum"> <span>Đăng Nhập</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span>{{ trans('text.dang-nhap') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
                       <span class="bs-wizard-dot">1</span> </div>
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step complete">
-                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">Địa Chỉ Giao Hàng</span> <span class="visible-xs-inline-block">Địa Chỉ</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">{{ trans('text.dia-chi-giao-hang') }}</span> <span class="visible-xs-inline-block">{{ trans('text.dia-chi') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
                       <span class="bs-wizard-dot">2</span> </div>
                     <div class="col-lg-4 col-md-4 col-xs-4 col-sm-4 bs-wizard-step active">
-                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">Thanh Toán &amp; Đặt Mua</span> <span class="visible-xs-inline-block">Thanh Toán</span> </div>
+                      <div class="text-center bs-wizard-stepnum"> <span class="hidden-xs">{{ trans('text.thanh-toan-va-dat-mua') }}</span> <span class="visible-xs-inline-block">{{ trans('text.thanh-toan') }}</span> </div>
                       <div class="progress">
                         <div class="progress-bar"></div>
                       </div>
@@ -39,7 +32,7 @@
 
                 <div class="row visible-lg-block">
                   <div class="col-lg-12">
-                    <h3 style="font-size:15px">3. Thanh Toán & Đặt Mua</h3>
+                    <h3 style="font-size:15px">3. {{ trans('text.thanh-toan-va-dat-mua') }}</h3>
                   </div>
                 </div>
 
@@ -50,7 +43,7 @@
                         <form class="form-horizontal hide-block" role="form" id="form-payment" action="{{ route('dat-hang') }}" method="post">
                           {{ csrf_field() }}                        
                           <div class="form-group row">
-                            <h4 class="col-lg-12 is-mt">Chọn hình thức thanh toán :</h4>
+                            <h4 class="col-lg-12 is-mt">{{ trans('text.chon-hinh-thuc-thanh-toan') }}: </h4>
                           </div>
                           <ul class="wc_payment_methods payment_methods methods">
                                    
@@ -98,7 +91,7 @@
                           <div id="bookcare-option"> </div>
                           <div class="form-group row end">
                             <div class="col-lg-6">
-                              <button type="button" id="btn-placeorder" class="btn btn-block btn-default btn-checkout">ĐẶT MUA</button>
+                              <button type="button" id="btn-placeorder" class="btn btn-block btn-default btn-checkout">{{ trans('text.dat-mua') }}</button>
                               <button type="button" class="btn btn-default" id="btnLoading" style="display:none;margin-left:15px"><i class="fa fa-spin fa-spinner"></i></button>
                               <p class="note">Bạn vui lòng kiểm tra lại đơn hàng trước khi Đặt Mua</p>
                             </div>
@@ -112,7 +105,7 @@
                   <div class="col-md-4">
                     <div class="panel panel-default cart">
                       <div class="panel-body">
-                        <div class="order"> <span class="title"> Địa chỉ giao hàng </span> <a href="{{route('shipping-step-2')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
+                        <div class="order"> <span class="title"> {{ trans('text.dia-chi-giao-hang') }} </span> <a href="{{route('shipping-step-2')}}" class="btn btn-default btn-custom1">{{ trans('text.sua') }}</a> </div>
                         <div class="information">
                           
                           <h6>{{ $customer->full_name }}</h6>
@@ -136,7 +129,7 @@
                     <div id="panel-cart">
                       <div class="panel panel-default cart">
                         <div class="panel-body">
-                          <div class="order"> <span class="title">Đơn hàng</span> <span class="title"> ({{ array_sum($getlistProduct) }} sản phẩm)</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
+                          <div class="order"> <span class="title">{{ trans('text.don-hang') }}</span> <span class="title"> ({{ array_sum($getlistProduct) }} {{ trans('text.san-pham') }})</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">{{ trans('text.sua') }}</a> </div>
                           <div class="product">
                           	<?php $total = 0; ?>
                           	@foreach($arrProductInfo as $product)
@@ -150,15 +143,15 @@
                             </div>                            
                         	@endforeach
                           </div>                                                    
-                          <p class="shipping" style="border-bottom: 1px solid #c9c9c9;padding-bottom:5px"> Phí vận chuyển: <span id="phi_giao">{{ number_format( $phi_giao_hang ) }}$</span> </p>                        
+                          <!--<p class="shipping" style="border-bottom: 1px solid #c9c9c9;padding-bottom:5px"> Phí vận chuyển: <span id="phi_giao">{{ number_format( $phi_giao_hang ) }}$</span> </p>-->
                           <input type="hidden" id="phiCod" value="{{ $phi_cod }}">
-                          <p class="total"> Tạm tính: <span id="total_amount" style="font-weight:bold">{{ number_format( $totalAmount) }}$ </span> </p>
+                          <p class="total"> {{ trans('text.tam-tinh') }}: <span id="total_amount" style="font-weight:bold">{{ number_format( $totalAmount) }}$ </span> </p>
                           <!--<p class="shipping" id="p_phi_cod" style="display:none"> Phí thu hộ: <span >{{ number_format( $phi_cod ) }}$</span> </p>-->
                           
-                          <p class="total2" id="have_cod" id="p_phi_cod" style="display:none"> Thành tiền: <span id="total_amount">{{ number_format( $totalAmount + $phi_cod) }}$ </span> </p>
-                          <p class="total2" id="no_cod" > Thành tiền: <span id="total_amount">{{ number_format( $totalAmount ) }}$ </span> </p>
+                          <p class="total2" id="have_cod" id="p_phi_cod" style="display:none"> {{ trans('text.thanh-tien') }}: <span id="total_amount">{{ number_format( $totalAmount + $phi_cod) }}$ </span> </p>
+                          <p class="total2" id="no_cod" > {{ trans('text.thanh-tien') }}: <span id="total_amount">{{ number_format( $totalAmount ) }}$ </span> </p>
 
-                          <p class="text-right"> <i>(Đã bao gồm VAT)</i> </p>
+                          <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         </div>
                       </div>
                       @if( $phi_giao_hang == 0)

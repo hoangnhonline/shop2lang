@@ -14,7 +14,7 @@
       <input id="login_email" type="text" class="form-control login" name="email" placeholder="Nhập Email" data-bv-field="email">
       <small class="help-block" data-bv-validator="notEmpty" data-bv-for="email" data-bv-result="INVALID" style="display:none">Vui lòng nhập Email</small><small class="help-block" data-bv-validator="regexp" data-bv-for="email" data-bv-result="VALID" style="display: none;">Email không hợp lệ</small></div>
     <div class="form-group has-feedback" id="popup_password">
-      <label class="control-label">Mật khẩu</label>
+      <label class="control-label">{{ trans('text.mat-khau') }}</label>
       <input type="password" id="login_password" class="form-control login" name="password" placeholder="Nhập mật khẩu" autocomplete="off" data-bv-field="password">
      <small class="help-block" data-bv-validator="notEmpty" data-bv-for="password" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Mật khẩu</small></div>
     <div class="login-ajax-captcha" style="display:none">
@@ -23,7 +23,7 @@
     <div class="form-group" id="error_captcha" style="margin-bottom: 15px;color:red;font-style:italic"> <span class="help-block ajax-message"></span> </div>
     <div class="form-group last">
       {{-- <p class="reset">Quên mật khẩu? Khôi phục mật khẩu <a data-toggle="modal" data-target="#reset-password-form" href="javascript:(void);" class="link">tại đây</a></p> --}}
-      <button type="submit" id="login_popup_submit" class="btn btn-info btn-block btn-member">Đăng nhập</button>
+      <button type="submit" id="login_popup_submit" class="btn btn-info btn-block btn-member">{{ trans('text.dang-nhap') }}</button>
     </div>
   </form>
 </div><!--login form-->
