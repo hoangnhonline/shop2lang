@@ -61,10 +61,11 @@ class DetailController extends Controller
            $seo['keywords'] = $meta['keywords_'.$lang] != '' ? $meta['keywords_'.$lang] : $detail->name_vi;
         }else{
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name_vi;
-        }               
-        
-        $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
-
+        }           
+        $socialImage = '';    
+        if($detail->thumbnail_id > 0){
+                $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
+        }
         $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
         foreach($loaiSp as $loai){
             $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
