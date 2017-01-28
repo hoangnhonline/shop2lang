@@ -21,8 +21,8 @@
                                         <div class="item-product">
                                             <div class="product-thumb">
                                                 <a class="product-thumb-link" href="{{ $lang == 'vi' ? route('chi-tiet-vi',['slug' => $product->slug_vi, 'id' => $product->id]) : route('chi-tiet-en', ['slug' => $product->slug_en, 'id' => $product->id]) }}">
-                                                    <img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" width="268" height="300">
-                                                     <img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" width="268" height="300">
+                                                    <img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >
+                                                     <img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >
                                                 </a>
                                                 <div class="product-info-cart">                                                 
                                                     <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> {{ trans('text.mua-hang') }}</a>
