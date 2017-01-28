@@ -124,7 +124,7 @@
                     <div class="panel panel-default fee">
                       <div class="panel-body">
                         <p class="total">{{ trans('text.tong-cong') }}: <span>{{ number_format($total) }}$</span></p>
-                        <p class="total2">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
+                        <p class="total">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
                         @if($total > 0)
                         <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         @endif
@@ -139,7 +139,7 @@
                     <div class="panel panel-default fee">
                       <div class="panel-body">
                         <p class="total">{{ trans('text.tong-cong') }}: <span>{{ number_format($total) }}$</span></p>
-                        <p class="total2">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
+                        <p class="total">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
                         @if( $total > 0)  
                         <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         @endif

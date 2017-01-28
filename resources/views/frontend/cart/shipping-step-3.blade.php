@@ -78,13 +78,7 @@
                              </div>
                           </li>
                             <li class="wc_payment_method payment_method_cod">
-                             <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="1" data-cod="{{ $phi_cod }}">
-                             <label for="payment_method_cod">
-                             Giao hàng và thu tiền tại nhà     </label>
-                             <div class="payment_box payment_method_cod" style="display: block;">
-                                <p>Quý khách có thể trả tiền mặt khi giao hàng</p>
-                             </div>
-                             <!--<p style="color:red;padding-left:20px;margin-top:-5px; margin-bottom:10px">Phí Thu Hộ: <strong>{{ number_format($phi_cod) }}$</strong></p>-->
+                             
                           </li>
                                                     
                           </ul>
@@ -97,7 +91,7 @@
                               <p class="note">Bạn vui lòng kiểm tra lại đơn hàng trước khi Đặt Mua</p>
                             </div>
                           </div>
-                          <input type="hidden" name="phi_giao_hang" value="{{ $phi_giao_hang }}">
+                          <input type="hidden" name="phi_giao_hang" value="0">
                           <input type="hidden" name="phi_cod" id="phi_cod" value="0">
                         </form>
                       </div>
@@ -144,25 +138,13 @@
                             </div>                            
                         	@endforeach
                           </div>                                                    
-                          <!--<p class="shipping" style="border-bottom: 1px solid #c9c9c9;padding-bottom:5px"> Phí vận chuyển: <span id="phi_giao">{{ number_format( $phi_giao_hang ) }}$</span> </p>-->
-                          <input type="hidden" id="phiCod" value="{{ $phi_cod }}">
-                          <p class="total"> {{ trans('text.tam-tinh') }}: <span id="total_amount" style="font-weight:bold">{{ number_format( $totalAmount) }}$ </span> </p>
-                          <!--<p class="shipping" id="p_phi_cod" style="display:none"> Phí thu hộ: <span >{{ number_format( $phi_cod ) }}$</span> </p>-->
-                          
-                          <p class="total2" id="have_cod" id="p_phi_cod" style="display:none"> {{ trans('text.thanh-tien') }}: <span id="total_amount">{{ number_format( $totalAmount + $phi_cod) }}$ </span> </p>
-                          <p class="total2" id="no_cod" > {{ trans('text.thanh-tien') }}: <span id="total_amount">{{ number_format( $totalAmount ) }}$ </span> </p>
+                         
+                          <input type="hidden" id="phiCod" value="0">                         
+                          <p class="total" id="no_cod" > {{ trans('text.thanh-tien') }}: <span id="total_amount">{{ number_format( $totalAmount ) }}$ </span> </p>
 
                           <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         </div>
                       </div>
-                      @if( $phi_giao_hang == 0)
-                      <div class="popover bottom tikixu">
-                        <div class="arrow"></div>
-                        <div class="popover-content">
-                          <p class="ship">Đơn hàng bạn sẽ được miễn phí vận chuyển.</p>
-                        </div>
-                      </div>
-                      @endif
                     </div>
 
                   </div>
@@ -181,30 +163,18 @@
         $(this).attr('disabled', 'disabled').html('<i class="fa fa-spin fa-spinner"></i> Đang xử lý...');        
         var payment_method = $('input[name=payment_method]:checked').val();
         $.ajax({
-          url: "{{route('dat-hang')}}",
+          url: "{{ route('dat-hang') }}",
           method: "POST",
           data : {
             payment_method : payment_method,
-            phi_giao_hang : '{{ $phi_giao_hang }}',
+            phi_giao_hang : 0,
             phi_cod : $('#phi_cod').val()
           },
           success : function(data){            
             location.href = "{{ route('thanh-cong') }}";
           }
         });
-      });
-      $('input[name=payment_method]').on('ifChecked', function(event){
-        var obj = $(this);
-        if($(this).val() == 2){
-          $('#have_cod, #p_phi_cod').hide();
-          $('#no_cod').show();
-          $('#phi_cod').val(0);
-        }else{
-          $('#have_cod, #p_phi_cod').show();
-          $('#no_cod').hide();
-          $('#phi_cod').val(obj.data('cod'));
-        }
-      });
+      });     
     })
   </script>
 @endsection

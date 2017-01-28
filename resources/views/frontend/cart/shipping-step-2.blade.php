@@ -193,10 +193,8 @@
                             }
                             ?>
                             @endforeach
-                          </div>
-                          <p class="total"> {{ trans('text.tam-tinh') }}: <span>{{ number_format($total) }}$</span> </p>
-                          <!--<p class="shipping"> {{ trans('text.phi-van-chuyen') }}: <span>Chưa có</span> </p>-->
-                          <p class="total2"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total )}}$ </span> </p>
+                          </div>                          
+                          <p class="total"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total )}}$ </span> </p>
                           <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         </div>
                       </div>

@@ -37,11 +37,7 @@
                             <div class="payment-1">
                               <h4 class="mb20">{{ trans('text.phuong-thuc-van-chuyen') }}</h4>
                               <p>Vận chuyển Tiết Kiệm (dự kiến giao hàng vào {{ $order->ngay_giao_du_kien }})</p>
-                              @if($order->phi_giao_hang > 0)
-                              <p>{{ trans('text.phi-van-chuyen') }} : {{ number_format($order->phi_giao_hang)}}$</p>
-                              @else
-                              Miễn phí vận chuyển
-                              @endif
+                              
                             </div>
 
                           </div>
@@ -82,11 +78,7 @@
                             </tr>
                             @endforeach                         
                           </tbody>
-                          <tfoot>                                                 
-                            <tr>
-                              <td colspan="3" class="text-right"><strong>{{ trans('text.phi-van-chuyen') }}</strong></td>
-                              <td><strong>{{ $order->phi_giao_hang > 0 ? number_format($order->phi_giao_hang)."$" : "Miễn phí" }}</strong></td>
-                            </tr>
+                          <tfoot>                                                                            
                             <tr>
                               <td colspan="3" class="text-right"><strong>{{ trans('text.tong-tien') }}</strong></td>
                               <td><strong>{{ number_format($order->tong_tien)}}$</strong></td>

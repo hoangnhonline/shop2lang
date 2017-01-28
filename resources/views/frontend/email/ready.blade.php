@@ -64,8 +64,7 @@
                                   gian giao
                                   hàng dự
                                   kiến:</strong> dự kiến giao hàng vào {{ $arrDate['fromdate'] }} - {{ $arrDate['todate'] }} <br>
-                                  <strong>Phí vận chuyển: </strong> {{ number_format($phi_van_chuyen) }}$ <br>
-                                  >
+                                 
                                 </p></td>
                            
                             </tr>
@@ -90,19 +89,7 @@
                           <tbody bgcolor="#eee" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
 
                           </tbody>
-                          <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Tổng giá trị sản phẩm chưa giảm</td>
-                              <td align="right" style="padding:5px 9px"><span>{{number_format($order->tong_tien)}}$</span></td>
-                            </tr>
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Giảm giá </td>
-                              <td align="right" style="padding:5px 9px"><span>0$</span></td>
-                            </tr>
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Chi phí vận chuyển</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($phi_giao_hang) }}$</span></td>
-                            </tr>
+                          <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">                                                      
                             <tr bgcolor="#eee">
                               <td colspan="4" align="right" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big></strong></td>
                               <td align="right" style="padding:7px 9px"><strong><big><span>{{number_format($order->tong_tien)}}$</span></big></strong></td>

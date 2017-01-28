@@ -221,8 +221,8 @@ class CartController extends Controller
         $city_id = $is_vanglai == 1 && isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] : $customer->city_id;
         $district_id = $is_vanglai == 1 && isset($vangLaiArr['district_id']) ? $vangLaiArr['district_id'] : $customer->district_id;    
 
-        $phi_giao_hang = Helper::phiVanChuyen( $totalCanNang, $city_id, $district_id );
-       
+        //$phi_giao_hang = Helper::phiVanChuyen( $totalCanNang, $city_id, $district_id );
+        $phi_giao_hang = 0;
         //$totalServiceFee = Session::get('totalServiceFee') ? Session::get('totalServiceFee') : 0;
         $totalServiceFee = 0;
         
@@ -278,7 +278,8 @@ class CartController extends Controller
 
         // check if ho chi minh free else 150k
 
-        $order['phi_giao_hang'] = (int) $request->phi_giao_hang;
+        //$order['phi_giao_hang'] = (int) $request->phi_giao_hang;
+        $order['phi_giao_hang'] = 0;
         //$order['phi_cod'] = (int) $request->phi_cod;
         $order['phi_cod'] = 0;
         //$order['service_fee'] = Session::get('totalServiceFee') ? Session::get('totalServiceFee') : 0;
@@ -363,7 +364,7 @@ class CartController extends Controller
                     'arrProductInfo'    => $arrProductInfo,
                     'getlistProduct'    => $getlistProduct,
                     'arrDate' => $arrDate,
-                    'phi_giao_hang' => $order['phi_giao_hang'],
+                    //'phi_giao_hang' => $order['phi_giao_hang'],
                     'method_id' => $order['method_id'],
                     'order_id' => $order_id,
                     'is_vanglai' => $is_vanglai

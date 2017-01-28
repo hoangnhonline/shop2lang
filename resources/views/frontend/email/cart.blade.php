@@ -92,11 +92,7 @@ $vangLaiArr = Session::get('vanglai');
                               ?>
 
                                <br>
-                                  <strong>Thời
-                                  gian giao
-                                  hàng dự
-                                  kiến:</strong> dự kiến giao hàng vào {{ $arrDate['fromdate'] }} - {{ $arrDate['todate'] }} <br>
-                                  <strong>Phí vận chuyển: </strong> {{ number_format($phi_giao_hang) }}$ <br>
+                                  <strong>Thời gian giao hàng dự kiến:</strong> dự kiến giao hàng vào {{ $arrDate['fromdate'] }} - {{ $arrDate['todate'] }} <br>                                  
                                   
                                 </p></td>
                             </tr>
@@ -114,7 +110,7 @@ $vangLaiArr = Session::get('vanglai');
                               <th align="left" bgcolor="#ec1c24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Sản phẩm</th>
                               <th align="left" bgcolor="#ec1c24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px"> Đơn giá</th>
                               <th align="left" bgcolor="#ec1c24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Số lượng</th>
-                              <th align="left" bgcolor="#ec1c24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Giảm giá</th>
+                             
                               <th align="right" bgcolor="#ec1c24" style="padding:6px 9px;color:#fff;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:14px">Tổng tạm</th>
                             </tr>
                           </thead>
@@ -129,26 +125,13 @@ $vangLaiArr = Session::get('vanglai');
                                 $product->name
                                 }}</span><br>
                               <td align="left" valign="top" style="padding:3px 9px"><span>{{ number_format($price) }}$</span></td>
-                              <td align="left" valign="top" style="padding:3px 9px">{{ $getlistProduct[$product->id] }}</td>
-                              <td align="left" valign="top" style="padding:3px 9px"><span>0$</span></td>
+                              <td align="left" valign="top" style="padding:3px 9px">{{ $getlistProduct[$product->id] }}</td>                              
                               <td align="right" valign="top" style="padding:3px 9px"><span>{{ number_format($price * $getlistProduct[$product->id]) }}$</span></td>
                               <?php $total += $price * $getlistProduct[$product->id] ?>
                                </tr>
                               @endforeach
                           </tbody>
-                          <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Tổng giá trị sản phẩm chưa giảm</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($total) }}$</span></td>
-                            </tr>
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Giảm giá </td>
-                              <td align="right" style="padding:5px 9px"><span>0$</span></td>
-                            </tr>
-                            <tr>
-                              <td colspan="4" align="right" style="padding:5px 9px">Chi phí vận chuyển</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($order->phi_giao_hang) }}$</span></td>
-                            </tr>
+                          <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">                                                       
                             <tr bgcolor="#eee">
                               <td colspan="4" align="right" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big></strong></td>
                               <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($order->tong_tien) }}$</span></big></strong></td>
