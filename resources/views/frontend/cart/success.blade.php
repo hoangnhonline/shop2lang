@@ -30,7 +30,7 @@
                               <br>
                             <div class="alert alert-success" role="alert">
                               <p>Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, shop.com sẽ không gọi điện cho bạn để xác nhận đơn hàng.</p>
-                            </div>                            
+                            </div>                             
                           </div>
                         </div>
                       </div>

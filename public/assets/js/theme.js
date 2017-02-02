@@ -1458,7 +1458,7 @@ $(document).ready(function () {
       if(e.keyCode==13){
         $('#btnRegTin').click();
       }
-    });
+    }); 
     $('#btnRegTin').click(function() {
         var email = $.trim($('#reg_success').val());        
         if(validateEmail(email)) {

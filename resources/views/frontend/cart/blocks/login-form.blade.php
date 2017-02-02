@@ -11,7 +11,7 @@
     <input type="hidden" name="checkout_step" value="1">
     <div class="form-group has-feedback" id="popup_login">
       <label class="control-label">Email</label>
-      <input id="login_email" type="text" class="form-control login" name="email" placeholder="Nhập Email" data-bv-field="email">
+      <input id="login_email" type="text" class="form-control login" name="email" placeholder="Nhập Email" data-bv-field="email"> 
       <small class="help-block" data-bv-validator="notEmpty" data-bv-for="email" data-bv-result="INVALID" style="display:none">Vui lòng nhập Email</small><small class="help-block" data-bv-validator="regexp" data-bv-for="email" data-bv-result="VALID" style="display: none;">Email không hợp lệ</small></div>
     <div class="form-group has-feedback" id="popup_password">
       <label class="control-label">{{ trans('text.mat-khau') }}</label>

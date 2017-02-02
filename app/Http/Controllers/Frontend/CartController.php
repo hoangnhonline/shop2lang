@@ -39,7 +39,7 @@ class CartController extends Controller
         // Session::forget('login');
         // Session::forget('userId');
 
-    }
+    } 
     public function index(Request $request)
     {   
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';     
