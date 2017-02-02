@@ -49,13 +49,15 @@
                       <span>{{ number_format($detail->price_sale) }}$</span>
                       <del>{{ number_format($detail->price) }}$</del>
                     @else
-                      <span>{{ number_format($detail->price) }}$</span>
+                      <span>{{ $detail->price > 0 ? number_format($detail->price)."$" : "Liên hệ" }}</span>
                     @endif       
                   </div>               
+                  @if($detail->price > 0)
                   <div class="attr-info">                              
                     <a class="addcart-link" href="javascript:;" data-id="{{ $detail->id }}"><i class="fa fa-shopping-cart"></i> {{ trans('text.mua-hang') }}</a>
                   <!-- End Attr Info -->
                   </div>
+                  @endif
                 </div>
                 <!-- Detail Info -->
               </div>
@@ -109,7 +111,7 @@
                           <span>{{ number_format($product->price_sale) }}$</span>
                           <del>{{ number_format($product->price) }}$</del>
                         @else
-                          <span>{{ number_format($product->price) }}$</span>
+                          <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
                         @endif
                       </div>                     
                     </div>

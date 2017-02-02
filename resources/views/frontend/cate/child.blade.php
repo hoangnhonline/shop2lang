@@ -24,9 +24,11 @@
                                                     <img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >
                                                      <img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >
                                                 </a>
+                                                @if($product->price > 0)
                                                 <div class="product-info-cart">                                                 
                                                     <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> {{ trans('text.mua-hang') }}</a>
                                                 </div>
+                                                @endif
                                             </div>
                                             <div class="product-info product-info5">
                                                 <h3 class="title-product"><a href="{{ $lang == 'vi' ? route('chi-tiet-vi',['slug' => $product->slug_vi, 'id' => $product->id]) : route('chi-tiet-en', ['slug' => $product->slug_en, 'id' => $product->id]) }}">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></h3>
@@ -35,7 +37,7 @@
                                                       <span>{{ number_format($product->price_sale) }}$</span>
                                                       <del>{{ number_format($product->price) }}$</del>
                                                     @else
-                                                      <span>{{ number_format($product->price) }}$</span>
+                                                      <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
                                                     @endif 
                                                 </div>
                                                 

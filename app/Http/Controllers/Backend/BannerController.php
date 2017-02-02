@@ -163,8 +163,9 @@ class BannerController extends Controller
     public function edit(Request $request)
     {
         $id = $request->id;
+        $lang_id = $request->lang_id;
         $detailBanner = Banner::find($id);
-        $detail = Banner::find($id);
+        $detail = Banner::find($id);        
         $object_id = $request->object_id;
         $object_type = $request->object_type;
         if( $object_type == 1){
@@ -173,7 +174,7 @@ class BannerController extends Controller
         if( $object_type == 2){
             $detail = Cate::find( $object_id );
         }
-        return view('backend.banner.edit', compact( 'detail', 'detailBanner', 'object_id', 'object_type'));
+        return view('backend.banner.edit', compact( 'detail', 'detailBanner', 'object_id', 'object_type', 'lang_id'));
     }
 
     /**

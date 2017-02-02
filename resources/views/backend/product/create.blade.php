@@ -92,7 +92,7 @@
                           </div>
                         </div>
                         <div class="form-group" >                  
-                            <label>Giá<span class="red-star">*</span></label>
+                            <label>Giá</label>
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
                         </div>
                         <div class="form-group col-md-6 none-padding" >                  

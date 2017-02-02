@@ -97,16 +97,28 @@
                           </div>
                         </div>
                         <div class="form-group" >                  
-                            <label>Giá<span class="red-star">*</span></label>
+                            <label>Giá</label>
+                            @if($detail->price > 0)
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $detail->price }}">
+                            @else
+                            <input type="text" class="form-control" name="price" id="price" value="">
+                            @endif
                         </div>
                         <div class="form-group col-md-6 none-padding" >                  
                             <label>Giá sale</label>
+                            @if($detail->price_sale > 0)
                             <input type="text" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale') ? old('price_sale') : $detail->price_sale }}">
+                            @else
+                            <input type="text" class="form-control" name="price_sale" id="price_sale" value="">
+                            @endif
                         </div>
                         <div class="form-group col-md-6 none-padding pleft-5" >                  
                             <label>Phần trăm sale (%) </label>
+                            @if($detail->sale_percent > 0)
                             <input type="text" class="form-control" name="sale_percent" id="sale_percent" value="{{ old('sale_percent') ? old('sale_percent') : $detail->sale_percent }}">
+                            @else
+                            <input type="text" class="form-control" name="sale_percent" id="sale_percent" value="">
+                            @endif
                         </div>
                         <div class="form-group" >                  
                           <label>Màu sắc</label>

@@ -401,8 +401,9 @@ blockquote {
     color: #666;
 }
 .info-price span {
-    color: #ED321E;
+    color: #28AA4A;
     margin-right: 10px;
+    font-weight: bold;
 }
 .info-price del {
     color: #999;

@@ -16,7 +16,7 @@
                 <span>{{ number_format($product->price_sale) }}$</span>
                 <del>{{ number_format($product->price) }}$</del>
               @else
-                <span>{{ number_format($product->price) }}$</span>
+                 <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
               @endif
             </div>           
           </div>

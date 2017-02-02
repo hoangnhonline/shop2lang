@@ -107,7 +107,7 @@ class ProductController extends Controller
             'slug_vi' => 'required' ,
             'name_en' => 'required',
             'slug_en' => 'required' ,
-            'price' => 'required|numeric'           
+            'price' => 'numeric'           
         ],
         [
             'code.required' => 'Bạn chưa nhập mã sản phẩm',
@@ -115,11 +115,11 @@ class ProductController extends Controller
             'slug_vi.required' => 'Bạn chưa nhập slug tiếng Việt',
             'name_en.required' => 'Bạn chưa nhập tên sản phẩm tiếng Anh',
             'slug_en.required' => 'Bạn chưa nhập slug tiếng Anh',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
-            'price.required' => 'Bạn chưa nhập giá',
+            'price.numeric' => 'Vui lòng nhập giá hợp lệ'            
         ]);
 
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
+
         $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;        
         
         $dataArr['slug_vi'] = str_replace(".", "-", $dataArr['slug_vi']);
@@ -332,7 +332,7 @@ class ProductController extends Controller
             'slug_vi' => 'required' ,
             'name_en' => 'required',
             'slug_en' => 'required' ,
-            'price' => 'required|numeric'           
+            'price' => 'numeric'           
         ],
         [
             'code.required' => 'Bạn chưa nhập mã sản phẩm',
@@ -340,8 +340,7 @@ class ProductController extends Controller
             'slug_vi.required' => 'Bạn chưa nhập slug tiếng Việt',
             'name_en.required' => 'Bạn chưa nhập tên sản phẩm tiếng Anh',
             'slug_en.required' => 'Bạn chưa nhập slug tiếng Anh',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
-            'price.required' => 'Bạn chưa nhập giá',
+            'price.numeric' => 'Vui lòng nhập giá hợp lệ',            
         ]);
         
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
