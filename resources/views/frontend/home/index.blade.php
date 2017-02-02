@@ -2,31 +2,36 @@
 @include('frontend.partials.meta')
 @section('content')
 <div class="container">
+<?php 
+$lang_id = $lang == 'vi'  ? 1 : 2;
+$bannerArr = DB::table('banner')->where(['object_id' => 1, 'object_type' => 3, 'lang_id' => $lang_id])->orderBy('display_order', 'asc')->get();
+?>
+@if($bannerArr)
   <div class="banner-slider5 simple-owl-slider">
     <div class="wrap-item">
+      <?php $i = 0; ?>
+      @foreach($bannerArr as $banner)
+      <?php $i++; ?>
       <div class="item-banner5">
         <div class="banner-thumb">
-          <a href="#"><img src="{{ URL::asset('assets/images/slide1.jpg') }}" alt="" /></a>
+          @if($banner->ads_url !='')
+          <a href="{{ $banner->ads_url }}">
+          @endif
+          <img alt="decoos slide {{ $i }}" src="{{ Helper::showImage($banner->image_url) }}" title="decoos slide {{ $i }}">
+          @if($banner->ads_url !='')
+          </a>
+          @endif
         </div>
-        <div class="banner-info">
+        <!--<div class="banner-info">
           <h3>happy new year 2016</h3>
           <h2>exta 45% off </h2>
           <a href="#" class="shop-now">shop now</a>
-        </div>
+        </div>-->
       </div>
-      <div class="item-banner5">
-        <div class="banner-thumb">
-          <a href="#"><img src="{{ URL::asset('assets/images/slide2.jpg') }}" alt="" /></a>
-        </div>
-        <div class="banner-info style2">
-          <h3>spectacular</h3>
-          <h2>exta 35% off </h2>
-          <a href="#" class="shop-now">shop now</a>
-        </div>
-      </div>
+      @endforeach
     </div>
   </div>
-  
+@endif
   @foreach($loaiSpList as $loaiSp)
   <!-- End Price Shipping -->
   <div class="content-popular11">
