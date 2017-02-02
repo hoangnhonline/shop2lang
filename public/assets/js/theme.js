@@ -1390,6 +1390,60 @@ $(document).on('keypress', '#popup-register-email, #popup-register-password, #po
   }
 });
 $(document).ready(function () {
+	$('#login_popup_submit_1').click(function() {		
+        var $form = $(this).parents('form');        
+        var error = [];
+        var list_check = ['login_email', 'login_password'];
+        var login_email    = $form.find('#login_email').val();
+        var login_password = $form.find('#login_password').val();
+        if(!login_email) {
+          error.push('login_email');
+        }
+
+        if(!validateEmail(login_email))
+        {
+          error.push('login_email');
+        }
+
+        if(!login_password) {
+          error.push('login_password');
+        }
+
+        for(i in list_check) {
+          $('#'+list_check[i]).parent().removeClass('has-error');
+          $('#'+list_check[i]).next().hide();
+        }
+
+        if(error.length) {
+          for(i in error) {
+            $('#'+error[i]).parent().addClass('has-error');
+            $('#'+error[i]).next().show();
+          }
+          return false;
+        }
+
+        if(!error.length)
+        {
+            $.ajax({
+              url: $('#route-auth-login-ajax').val(),
+              method: "POST",
+              data : {
+                email: login_email,
+                password: login_password
+              },
+              success : function(data){
+               if(data.error == 1)
+               {
+                  $('#login_popup_form #error_captcha').html('Email hoặc mật khẩu không đúng.')
+               }
+               else {
+                    location.reload();
+               }
+              }
+            });
+        }
+
+    });
     $.ajaxSetup({
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1459,7 +1513,7 @@ $(document).ready(function () {
     }
 
     $('#login_popup_submit').click(function() {
-        var $form = $(this).parents('form');
+        var $form = $(this).parents('form');        
         var error = [];
         var list_check = ['popup-login-email', 'popup-login-password'];
         var login_email    = $form.find('#popup-login-email').val();
@@ -1512,7 +1566,7 @@ $(document).ready(function () {
         }
 
     });
-
+    
     $('#register_popup_submit').click(function(){
         var $form = $(this).parents('form');
         var error = [];

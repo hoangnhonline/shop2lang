@@ -5031,9 +5031,7 @@ li.user-name-register a {
   border-color: #ebebeb;
   color: #000
 }
-.shipping-address-page .success .alert-success p {
-  background: url(../images/ico13.png) left center no-repeat;
-  padding-left: 40px;
+.shipping-address-page .success .alert-success p {    
   float: left;
   min-height: 30px;
   padding-top: 5px
