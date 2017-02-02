@@ -69,9 +69,9 @@ class HomeController extends Controller
             
             $settingArr = Settings::whereRaw('1')->lists('value', 'name');
             $seo = $settingArr;
-            $seo['title'] = $settingArr['site_title'];
-            $seo['description'] = $settingArr['site_description'];
-            $seo['keywords'] = $settingArr['site_keywords'];
+            $seo['title'] = $settingArr['site_title_'.$lang];
+            $seo['description'] = $settingArr['site_description_'.$lang];
+            $seo['keywords'] = $settingArr['site_keywords_'.$lang];
             $socialImage = $settingArr['banner'];
         }    
         //$articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();

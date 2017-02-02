@@ -43,8 +43,12 @@
               @endif
                  <!-- text input -->
                 <div class="form-group">
-                  <label>Tên site <span class="red-star">*</span></label>
-                  <input type="text" class="form-control" name="site_name" id="site_name" value="{{ $settingArr['site_name'] }}">
+                  <label>Tên site VI<span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="site_name_vi" id="site_name_vi" value="{{ $settingArr['site_name_vi'] }}">
+                </div>
+                <div class="form-group">
+                  <label>Tên site EN<span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="site_name_en" id="site_name_en" value="{{ $settingArr['site_name_en'] }}">
                 </div>
                 
                 <div class="form-group">
@@ -123,31 +127,68 @@
           <div class="box-header with-border">
             <h3 class="box-title">Thông tin SEO</h3>
           </div>
-          <!-- /.box-header -->
-            <div class="box-body">
-              <div class="form-group">
-                <label>Meta title <span class="red-star">*</span></label>
-                <input type="text" class="form-control" name="site_title" id="site_title" value="{{ $settingArr['site_title'] }}">
-              </div>
-              <!-- textarea -->
-              <div class="form-group">
-                <label>Meta desciption <span class="red-star">*</span></label>
-                <textarea class="form-control" rows="4" name="site_description" id="site_description">{{ $settingArr['site_description'] }}</textarea>
-              </div>  
 
-              <div class="form-group">
-                <label>Meta keywords <span class="red-star">*</span></label>
-                <textarea class="form-control" rows="4" name="site_keywords" id="site_keywords">{{ $settingArr['site_keywords'] }}</textarea>
-              </div>  
-              <div class="form-group">
-                <label>Custom text</label>
-                <textarea class="form-control" rows="4" name="custom_text" id="custom_text">{{ $settingArr['custom_text'] }}</textarea>
-              </div>
+          <!-- /.box-header -->
+            <div class="box-body">              
+               <div>
+
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#seoVi" aria-controls="seoVi" role="tab" data-toggle="tab">VN</a></li>
+                    <li role="presentation"><a href="#seoEn" aria-controls="seoEn" role="tab" data-toggle="tab">EN</a></li>                    
+                  </ul>
+
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="seoVi">
+                         <div class="form-group">
+                            <label>Thẻ title </label>
+                            <input type="text" class="form-control" name="site_title_vi" id="site_title_vi" value="{{ $settingArr['site_title_vi'] }}">
+                          </div>
+                          <!-- textarea -->
+                          <div class="form-group">
+                            <label>Thẻ desciption</label>
+                            <textarea class="form-control" rows="6" name="site_description_vi" id="site_description_vi">{{ $settingArr['site_description_vi'] }}</textarea>
+                          </div>  
+
+                          <div class="form-group">
+                            <label>Thẻ keywords</label>
+                            <textarea class="form-control" rows="4" name="site_keywords_vi" id="site_keywords_vi">{{ $settingArr['site_keywords_vi'] }}</textarea>
+                          </div>  
+                          <div class="form-group">
+                            <label>Nội dung tùy chỉnh</label>
+                            <textarea class="form-control" rows="6" name="custom_text_vi" id="custom_text_vi">{{ $settingArr['custom_text_vi'] }}</textarea>
+                          </div>
+                    </div><!--end thong tin co ban--> 
+                    <div role="tabpanel" class="tab-pane" id="seoEn">                        
+                        <div class="form-group">
+                            <label>Meta title </label>
+                            <input type="text" class="form-control" name="site_title_en" id="site_title_en" value="{{ $settingArr['site_title_en'] }}">
+                          </div>
+                          <!-- textarea -->
+                          <div class="form-group">
+                            <label>Meta desciption</label>
+                            <textarea class="form-control" rows="6" name="site_description_en" id="site_description_en">{{ $settingArr['site_description_en'] }}</textarea>
+                          </div>  
+
+                          <div class="form-group">
+                            <label>Meta keywords</label>
+                            <textarea class="form-control" rows="4" name="site_keywords_en" id="site_keywords_en">{{ $settingArr['site_keywords_en'] }}</textarea>
+                          </div>  
+                          <div class="form-group">
+                            <label>Custom text</label>
+                            <textarea class="form-control" rows="6" name="custom_text_en" id="custom_text_en">{{ $settingArr['custom_text_en'] }}</textarea>
+                          </div>
+                    </div><!--end thong tin co ban--> 
+                   
+                  </div>
+
+                </div>             
             
-        </div>
+          </div>
         <!-- /.box -->     
 
-      </div>
+        </div><!--meta SEO-->        
       <!--/.col (left) -->      
     </div>
 <input type="hidden" name="logo" id="logo" value="{{ $settingArr['logo'] }}"/>          

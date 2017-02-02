@@ -41,8 +41,11 @@ class CateController extends Controller
         $loai_id = $rs->id;
         
         $socialImage = $rs->icon_url;
-        if( $rs->meta_id > 0){            
+        if( $rs->meta_id > 0){                            
            $seo = MetaData::find( $rs->meta_id )->toArray();           
+           $seo['title'] = $seo['title_'.$lang];
+           $seo['description'] = $seo['description_'.$lang];
+           $seo['keywords'] = $seo['keywords_'.$lang];
         }else{
             $seo['title'] = $seo['description'] = $seo['keywords'] = $lang == 'vi' ? $rs->name_vi : $rs->name_en;
         }
@@ -158,8 +161,11 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
         
         $socialImage = $rsCate->icon_url;
-        if( $rsCate->meta_id > 0){            
-           $seo = MetaData::find( $rsCate->meta_id )->toArray();           
+        if( $rsCate->meta_id > 0){                 
+           $seo = MetaData::find( $rsCate->meta_id )->toArray();          
+           $seo['title'] = $seo['title_'.$lang];
+           $seo['description'] = $seo['description_'.$lang];
+           $seo['keywords'] = $seo['keywords_'.$lang];         
         }else{
             $seo['title'] = $seo['description'] = $seo['keywords'] = $lang == 'vi' ? $rsCate->name_vi : $rsCate->name_en;
         }

@@ -1,4 +1,5 @@
 @extends('frontend.layout')
+@include('frontend.partials.meta')
 @section('content')
 <div class="container">
   <div class="banner-slider5 simple-owl-slider">

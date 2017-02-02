@@ -1,5 +1,5 @@
 @extends('frontend.layout')
-
+@include('frontend.partials.meta')
 @section('content')
 <div class="content-shop left-sidebar">
 	<div class="container">

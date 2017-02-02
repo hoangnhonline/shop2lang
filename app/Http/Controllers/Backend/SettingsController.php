@@ -23,17 +23,25 @@ class SettingsController  extends Controller
 
     	$dataArr = $request->all();
 
-    	$this->validate($request,[            
-            'site_name' => 'required',            
-            'site_title' => 'required',            
-            'site_description' => 'required',            
-            'site_keywords' => 'required',                                    
+    	$this->validate($request,[
+            'site_name_vi' => 'required',
+            'site_name_en' => 'required',
+            'site_title_vi' => 'required',                  
+            'site_description_vi' => 'required',            
+            'site_keywords_vi' => 'required',                                    
+            'site_title_en' => 'required',                  
+            'site_description_en' => 'required',            
+            'site_keywords_en' => 'required',                                    
         ],
         [            
-            'site_name.required' => 'Bạn chưa nhập tên site',            
-            'site_title.required' => 'Bạn chưa nhập meta title',
-            'site_description.required' => 'Bạn chưa nhập meta desciption',
-            'site_keywords.unique' => 'Bạn chưa nhập meta keywords.'
+            'site_name_vi.required' => 'Bạn chưa nhập tên site VI',            
+            'site_title_vi.required' => 'Bạn chưa nhập meta title VI',
+            'site_description_vi.required' => 'Bạn chưa nhập meta desciption VI',
+            'site_keywords_vi.required' => 'Bạn chưa nhập meta keywords VI.',
+            'site_name_en.required' => 'Bạn chưa nhập tên site EN',            
+            'site_title_en.required' => 'Bạn chưa nhập meta title EN',
+            'site_description_en.required' => 'Bạn chưa nhập meta desciption EN',
+            'site_keywords_en.required' => 'Bạn chưa nhập meta keywords EN.'
         ]);  
 
     	if($dataArr['logo'] && $dataArr['logo_name']){
