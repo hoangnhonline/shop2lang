@@ -10,7 +10,7 @@
 <div class="container page">
 <div class="row">
 	
-	@include('frontend.detail.sidebar')
+	@include('frontend.pages.sidebar')
 
 	<div class="block-main col-lg-9 col-md-8 col-sm-8">
 		<div class="page-view">

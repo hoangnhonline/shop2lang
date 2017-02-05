@@ -13,8 +13,8 @@ $loaiSpList = DB::table('loai_sp')->where('status', 1)->orderBy('display_order')
         <div class="@if(!Session::get('login')) col-md-6 col-sm-5 @else col-md-5 col-sm-4 @endif col-xs-12" style="padding-top:20px">
           <div class="smart-search search-form3 search-form5">
             
-            <form class="smart-search-form">
-              <input type="text"  name="search" value="{{ trans('text.nhap-ten-san-pham') }}" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" />
+            <form class="smart-search-form" method="GET" action="{{ route('search') }}">
+              <input type="text"  name="keyword" onfocus="if (this.value==this.defaultValue) this.value = ''" onblur="if (this.value=='') this.value = this.defaultValue" value="{{ isset($tu_khoa) ? $tu_khoa : trans('text.nhap-ten-san-pham') }}" />
               <input type="submit" value="" />
             </form>
           </div>

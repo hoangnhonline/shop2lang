@@ -90,13 +90,22 @@ class HomeController extends Controller
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
         $tu_khoa = $request->keyword;       
 
-        $productArr = Product::where('alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')                        
-                        ->select('product_img.image_url', 'product.*')
-                        ->orderBy('id', 'desc')->paginate(20);
-        $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";        
+        if($lang == 'vi'){
+            $sql = Product::where('alias_vi', 'LIKE', '%'.$tu_khoa.'%');    
+        }else{
+            $sql = Product::where('alias_en', 'LIKE', '%'.$tu_khoa.'%');
+        }
         
-        return view('frontend.search.index', compact('productArr', 'tu_khoa', 'seo'));
+        $sql->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                        ->select('product_img.image_url', 'product.*')
+                        ->orderBy('id', 'desc');
+        $productArr = $sql->paginate(6);
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";        
+        $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
+        foreach($loaiSp as $loai){
+            $cateList[$loai->id] = Cate::where('loai_id', $loai->id)->orderBy('display_order')->get();
+        }
+        return view('frontend.search.index', compact('productArr', 'tu_khoa', 'seo', 'lang', 'loaiSp', 'cateList'));
     }
     public function ajaxTab(Request $request){
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
