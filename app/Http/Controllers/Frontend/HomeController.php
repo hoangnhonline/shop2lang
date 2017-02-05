@@ -99,7 +99,7 @@ class HomeController extends Controller
         $sql->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                         ->select('product_img.image_url', 'product.*')
                         ->orderBy('id', 'desc');
-        $productArr = $sql->paginate(6);
+        $productArr = $sql->paginate(24);
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";        
         $loaiSp = LoaiSp::where('status', 1)->orderBy('display_order')->get();
         foreach($loaiSp as $loai){
