@@ -117,7 +117,7 @@
                           <label>Video URL</label>                  
                           <input type="text" class="form-control" name="video_url" id="video_url" value="{{ old('video_url') }}">
                         </div>
-                         <div class="form-group">
+                         <!--<div class="form-group">
                           <label>Tags VI</label>
                           <select class="form-control select2" name="tags_vi[]" id="tags_vi" multiple="multiple" style="width:100% !important;">                  
                             @if( $tagViList->count() > 0)
@@ -126,7 +126,7 @@
                               @endforeach
                             @endif
                           </select>
-                        </div>
+                        </div>-->
                          <div class="form-group">
                           <label>Chi tiết</label>
                           <textarea class="form-control" rows="10" name="content_vi" id="content_vi">{{ old('content_vi') }}</textarea>
@@ -146,7 +146,7 @@
                           <label>Detail</label>
                           <textarea class="form-control" rows="10" name="content_en" id="content_en">{{ old('content_en') }}</textarea>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                           <label>Tags EN</label>
                           <select class="form-control select2" name="tags_en[]" id="tags_en" multiple="multiple" style="width:100% !important;">                  
                             @if( $tagEnList->count() > 0)
@@ -155,7 +155,7 @@
                               @endforeach
                             @endif
                           </select>
-                        </div>
+                        </div>-->
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban--> 
                      <div role="tabpanel" class="tab-pane" id="settings">
