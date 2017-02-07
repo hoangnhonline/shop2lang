@@ -55,7 +55,9 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::post('update-sanpham', ['as' => 'update-sanpham', 'uses' => 'CartController@update']);
         Route::post('them-sanpham', ['as' => 'them-sanpham', 'uses' => 'CartController@addProduct']);
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
-        Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
+        Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);  
+        Route::post('payment', ['as' => 'payment', 'uses' => 'CartController@payment']);  
+              
     });
      Route::group(['prefix' => 'tai-khoan'], function () {
         Route::get('don-hang-cua-toi', ['as' => 'order-history', 'uses' => 'OrderController@history']);

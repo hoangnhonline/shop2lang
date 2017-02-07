@@ -41,7 +41,7 @@
                   <div class="col-md-8 has-padding">
                     <div class="panel panel-default payment">
                       <div class="panel-body">
-                        <form class="form-horizontal hide-block" role="form" id="form-payment" action="{{ route('dat-hang') }}" method="post">
+                        <form class="form-horizontal hide-block" role="form" id="form-payment" action="{{ route('payment') }}" method="post">
                           {{ csrf_field() }}                        
                           <div class="form-group row">
                             <h4 class="col-lg-12 is-mt">{{ trans('text.chon-hinh-thuc-thanh-toan') }}: </h4>
@@ -78,7 +78,9 @@
                              </div>
                           </li>
                             <li class="wc_payment_method payment_method_cod">
-                             
+                              <input id="payment_method_pay" type="radio" class="input-radio" name="payment_method" value="3">
+                             <label for="payment_method_pay">
+                             Internet Banking / Visa / Master Card    </label>
                           </li>
                                                     
                           </ul>
@@ -162,18 +164,24 @@
       $('.btn-checkout').click(function(){
         $(this).attr('disabled', 'disabled').html('<i class="fa fa-spin fa-spinner"></i> Đang xử lý...');        
         var payment_method = $('input[name=payment_method]:checked').val();
-        $.ajax({
-          url: "{{ route('dat-hang') }}",
-          method: "POST",
-          data : {
-            payment_method : payment_method,
-            phi_giao_hang : 0,
-            phi_cod : $('#phi_cod').val()
-          },
-          success : function(data){            
-            location.href = "{{ route('thanh-cong') }}";
-          }
-        });
+        var url = '';
+        if(payment_method == 3){
+          $('#form-payment').submit();
+        }else{
+          $.ajax({
+            url: "{{ route('dat-hang') }}",
+            method: "POST",
+            data : {
+              payment_method : payment_method,
+              phi_giao_hang : 0,
+              phi_cod : $('#phi_cod').val()
+            },
+            success : function(data){            
+              location.href = "{{ route('thanh-cong') }}";
+            }
+          });
+        }
+        
       });     
     })
   </script>
