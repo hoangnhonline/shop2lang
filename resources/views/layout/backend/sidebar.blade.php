@@ -49,6 +49,12 @@
           <span>Video</span>         
         </a>       
       </li>-->
+      <li {{ in_array(\Request::route()->getName(), ['orders.index']) ? "class=active" : "" }}>
+        <a href="{{ route('orders.index') }}">
+          <i class="fa fa-pencil-square-o"></i> 
+          <span>Đơn hàng</span>         
+        </a>       
+      </li>
       <li class="treeview {{ in_array(\Request::route()->getName(), ['articles.index', 'articles.create', 'articles.edit']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-twitch"></i> 

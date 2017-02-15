@@ -27,10 +27,7 @@
                             <p> Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>{{ $customer->email }}</span>. Nếu
                               không tìm thấy vui lòng kiểm tra trong hộp thư <strong>Spam</strong> hoặc <strong>Junk Folder</strong>. </p>
                               @endif
-                              <br>
-                            <div class="alert alert-success" role="alert">
-                              <p>Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, shop.com sẽ không gọi điện cho bạn để xác nhận đơn hàng.</p>
-                            </div>                             
+                              <br>                                                         
                           </div>
                         </div>
                       </div>

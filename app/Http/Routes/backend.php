@@ -35,7 +35,12 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/update', ['as' => 'text.update', 'uses' => 'TextController@update']);
         Route::get('{id}/destroy', ['as' => 'text.destroy', 'uses' => 'TextController@destroy']);
     });
-    
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('/', ['as' => 'orders.index', 'uses' => 'OrderController@index']);
+        Route::post('/update', ['as' => 'orders.update', 'uses' => 'OrderController@update']);
+        Route::get('/{order_id}/chi-tiet', ['as' => 'order.detail', 'uses' => 'OrderController@orderDetail']);
+        Route::post('/delete-order-detail', ['as' => 'order.detail.delete', 'uses' => 'OrderController@orderDetailDelete']);
+    });
     Route::group(['prefix' => 'info-seo'], function () {
         Route::get('/', ['as' => 'info-seo.index', 'uses' => 'InfoSeoController@index']);
         Route::get('/create', ['as' => 'info-seo.create', 'uses' => 'InfoSeoController@create']);
