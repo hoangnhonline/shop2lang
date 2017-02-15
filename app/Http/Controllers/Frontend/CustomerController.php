@@ -9,6 +9,7 @@ use App\Models\Orders;
 use App\Models\OrderDetail;
 use App\Models\Customer;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\CustomerNotification;
 use Helper, File, Session, Auth, Hash, Validator;
 use Mail;
@@ -20,11 +21,8 @@ class CustomerController extends Controller
         $data = $request->all();
 
         $customer_id = Session::get('userId');
-        if(isset($request->vang_lai) && $request->vang_lai == 1){
-            Session::set('vanglai', $data);
-        }else{
-            $customer = Customer::find($customer_id)->update($data);
-        }
+        
+        $customer = Customer::find($customer_id)->update($data);       
 
         if(Session::has('new-register')) {
           Session::forget('new-register');
@@ -79,7 +77,7 @@ class CustomerController extends Controller
         ],[
             'email_reset.required' => 'Vui lòng nhập email.',
             'email_reset.email' => 'Vui lòng nhập email hợp lệ.',
-            'email_reset.exists' => 'Email không tồn tại trong hệ thống iCho.vn.',
+            'email_reset.exists' => 'Email không tồn tại trong hệ thống DN.',
         ]);
         $email = $request->email_reset;
         $key = md5($request->email_reset.time().'iCho.vn');
@@ -160,8 +158,9 @@ class CustomerController extends Controller
         $customer_id = Session::get('userId');
         $customer = Customer::find($customer_id);
         $listCity = City::orderBy('display_order')->get();
+        $listCountry = Country::orderBy('id')->get();
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';
-        return view('frontend.account.update-info', compact('seo', 'customer', 'listCity', 'lang'));
+        return view('frontend.account.update-info', compact('seo', 'customer', 'listCity', 'lang', 'listCountry'));
     }
     public function changePassword(Request $request){
         if(!Session::get('userId')){

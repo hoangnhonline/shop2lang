@@ -16,13 +16,13 @@
                           <div class="col-lg-4 col-md-3 visible-lg-block visible-md-block"> 
                           <img src="{{ URL::asset('assets/images/thanh-cong.png') }}" class="img-responsive" alt="Image" height="178" width="195"></div>
                           <div class="col-lg-8 col-md-9">
-                            <h3>Cảm ơn bạn đã mua hàng tại shop.com!</h3>
+                            <h3>Cảm ơn bạn đã mua hàng tại DN</h3>
                             
                             <!-- BEGIN ORDER INFO -->
                             <p>Mã số đơn hàng của bạn: </p>
                             <div class="well well-sm"> {{ $order_id }} </div>                            
                             <p>Bạn có thể xem lại <a href="{{ route('order-history') }}">đơn hàng của tôi</a></p>
-                            <p> <img src="{{ URL::asset('assets/images/info.png') }}" alt="thong tin" width="30"> Thời gian dự kiến giao hàng vào {{ $arrDate['fromdate']}} - {{ $arrDate['todate'] }}, không giao ngày Thứ Bảy &amp; Chủ Nhật. </p><br>
+                            <p> <img src="{{ URL::asset('assets/images/info.png') }}" alt="thong tin" width="30"> Thời gian dự kiến giao hàng : {{ $arrDate[0] }} </p><br>
                             @if((isset($customer) && $customer->email != ''))
                             <p> Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>{{ $customer->email }}</span>. Nếu
                               không tìm thấy vui lòng kiểm tra trong hộp thư <strong>Spam</strong> hoặc <strong>Junk Folder</strong>. </p>

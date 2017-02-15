@@ -14,6 +14,8 @@ use App\Models\Banner;
 use App\Models\Orders;
 use App\Models\OrderDetail;
 use App\Models\Customer;
+use App\Models\Country;
+
 use Helper, File, Session, Auth;
 use Mail;
 
@@ -142,7 +144,8 @@ class CartController extends Controller
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $listCity = City::orderBy('display_order')->get();
-
+        $listCountry = Country::orderBy('id')->get();
+        
         $userId = Session::get('userId');
         $customer = Customer::find($userId);
      
@@ -150,7 +153,7 @@ class CartController extends Controller
         if(is_null($customer)) $customer = new Customer;
         $seo = Helper::seo();
         
-        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'is_vanglai', 'getlistProduct', 'arrProductInfo', 'lang'));
+        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'is_vanglai', 'getlistProduct', 'arrProductInfo', 'lang', 'listCountry'));
     }
 
     public function updateUserInformation(Request $request)
@@ -205,9 +208,11 @@ class CartController extends Controller
            !$customer->email ||
            !$customer->address ||
            !$customer->phone ||
-           !$customer->district_id ||
+           !$customer->country_id ||
+           ( $customer->country_id == 235 && (!$customer->district_id ||
            !$customer->city_id ||
-           !$customer->ward_id
+           !$customer->ward_id) )
+           
         ) {
             Session::flash('update-information', true);
             return redirect()->route('cap-nhat-thong-tin');
@@ -288,9 +293,14 @@ class CartController extends Controller
         //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $city_id = $customer->city_id;
-        $arrDate = Helper::calDayDelivery( $city_id );
+        if( $customer->country_id == 235){
+            $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
+        }else{
+            $order['ngay_giao_du_kien'] = " từ 7 đến 10 ngày làm việc ";    
+        }
+        $arrDate = [$order['ngay_giao_du_kien']];
         
-        $order['ngay_giao_du_kien'] = implode(" - ", $arrDate);
+        
 
 
         $getOrder = Orders::create($order);
@@ -326,14 +336,12 @@ class CartController extends Controller
         $customer = Customer::find($customer_id);
 
         $email = $customer->email;
-        if($email != ''){
-            $emailArr = array_merge([$email], ['tundq.ipl@gmail.com', 'tundq@icare.center', 'hiepvv.ipl@gmail.com', 'lamhuong77@gmail.com', 'chamsoc@icho.vn', 'hoangnhonline@gmail.com']);
-        }else{
-            $emailArr = ['tundq.ipl@gmail.com', 'tundq@icare.center', 'hiepvv.ipl@gmail.com', 'lamhuong77@gmail.com', 'chamsoc@icho.vn', 'hoangnhonline@gmail.com'];
-        }
+        
+        $emailArr = array_merge([$email], ['hoangnhonline@gmail.com']);
+        
         // send email
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
-        $emailArr = [];
+        
         if(!empty($emailArr)){
             Mail::send('frontend.email.cart',
                 [
@@ -350,8 +358,8 @@ class CartController extends Controller
                 function($message) use ($emailArr, $order_id) {
                     $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
                     $message->to($emailArr);
-                    $message->from('icho.vn@gmail.com', 'iCho.vn');
-                    $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                    $message->from('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
+                    $message->sender('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
             });
         }
        
@@ -462,10 +470,12 @@ class CartController extends Controller
         //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $city_id = isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] :  $customer->city_id;
-        $arrDate = Helper::calDayDelivery( $city_id );
-        
-        $order['ngay_giao_du_kien'] = implode(" - ", $arrDate);
-
+        if( $customer->country_id == 235){
+            $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
+        }else{
+            $order['ngay_giao_du_kien'] = " từ 7 đến 10 ngày làm việc ";    
+        }
+        $arrDate = [$order['ngay_giao_du_kien']];
 
         $getOrder = Orders::create($order);
 
@@ -517,15 +527,13 @@ class CartController extends Controller
         $customer_id = Session::get('userId');
         $customer = Customer::find($customer_id);
 
-        $email = isset($vangLaiArr['email']) ? $vangLaiArr['email'] :  $customer->email;
-        if($email != ''){
-            $emailArr = array_merge([$email], ['tundq.ipl@gmail.com', 'tundq@icare.center', 'hiepvv.ipl@gmail.com', 'lamhuong77@gmail.com', 'chamsoc@icho.vn', 'hoangnhonline@gmail.com']);
-        }else{
-            $emailArr = ['tundq.ipl@gmail.com', 'tundq@icare.center', 'hiepvv.ipl@gmail.com', 'lamhuong77@gmail.com', 'chamsoc@icho.vn', 'hoangnhonline@gmail.com'];
-        }
+        $email = $customer->email;
+        
+        $emailArr = array_merge([$email], ['hoangnhonline@gmail.com']);
+        
         // send email
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
-        $emailArr = [];
+        
         if(!empty($emailArr)){
             Mail::send('frontend.email.cart',
                 [
@@ -537,13 +545,13 @@ class CartController extends Controller
                     //'phi_giao_hang' => $order['phi_giao_hang'],
                     'method_id' => $order['method_id'],
                     'order_id' => $order_id,
-                    'is_vanglai' => $is_vanglai
+                    'is_vanglai' => 0
                 ],
                 function($message) use ($emailArr, $order_id) {
                     $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
                     $message->to($emailArr);
-                    $message->from('icho.vn@gmail.com', 'iCho.vn');
-                    $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                    $message->from('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
+                    $message->sender('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
             });
         }
         
@@ -565,7 +573,12 @@ class CartController extends Controller
         $customer = Customer::find($customer_id);
         $vangLaiArr = Session::get('vanglai');
         $city_id = $is_vanglai == 1 && isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] : $customer->city_id;
-        $arrDate = Helper::calDayDelivery( $city_id );
+        if( $customer->country_id == 235){
+            $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
+        }else{
+            $order['ngay_giao_du_kien'] = " từ 7 đến 10 ngày làm việc ";    
+        }
+        $arrDate = [$order['ngay_giao_du_kien']];
 
         $order_id = Session::get('order_id');
 

@@ -107,17 +107,23 @@
                           
                           <h6>{{ $customer->full_name }}</h6>
                           <p class="end">
-                            @if(isset( $customer->tinh->name ))
-                              {{ $customer->tinh->name }},
-                            @endif
-                            @if(isset( $customer->huyen->name ))
-                              {{ $customer->huyen->name }},
-                            @endif
-                            @if(isset( $customer->xa->name ))
-                              {{ $customer->xa->name }},
-                            @endif
+                            @if($customer->country_id == 235)
+                              @if( isset( $customer->tinh->name ))
+                                {{ $customer->tinh->name }},
+                              @endif
+                              @if( isset( $customer->huyen->name ) )
+                                {{ $customer->huyen->name }},
+                              @endif
+                              @if( isset($customer->xa->name ))
+                                {{ $customer->xa->name }},
+                              @endif
+                              @else
+                                @if( isset($customer->country->name ))
+                                  {{ $customer->country->name }},
+                                @endif
+                              @endif
                             {{ $customer->address }}<br>
-                            ĐT: {{ $customer->phone }}<br>
+                            {{ trans('text.dien-thoai') }}: {{ $customer->phone }}<br>
                             </p>
                        
                         </div>

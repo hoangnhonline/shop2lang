@@ -52,8 +52,22 @@
                               <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{$customer->phone}}" placeholder="Nhập số điện thoại" data-bv-field="telephone">
                               <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Số điện thoại từ 9 - 15 chữ số</small></div>
                           </div>
-
                           <div class="form-group row">
+                            <label for="country_id" class="col-lg-4 control-label visible-lg-block">{{ trans('text.quoc-gia') }}</label>
+                            <div class="col-lg-8 input-wrap has-feedback">
+                              <select name="country_id" class="form-control address" id="country_id" data-bv-field="country_id">
+                                <option value="">{{ trans('text.chon') }} {{ trans('text.quoc-gia') }}</option>
+                                @foreach($listCountry as $country)
+                                  <option value="{{$country->id}}"
+                                  @if($customer->country_id == $country->id)
+                                  selected
+                                  @endif
+                                  >{{$country->name}}</option>
+                                @endforeach
+                              </select>
+                              <small class="help-block" data-bv-validator="notEmpty" data-bv-for="country_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-chon') }} {{ trans('text.quoc-gia') }}</small></div>
+                          </div>
+                          <div class="form-group row viet">
                             <label for="city_id" class="col-lg-4 control-label visible-lg-block">Tỉnh/Thành phố</label>
                             <div class="col-lg-8 input-wrap has-feedback">
                               <select name="city_id" class="form-control address" id="city_id" data-bv-field="city_id">
@@ -68,7 +82,7 @@
                               </select>
                               <small class="help-block" data-bv-validator="notEmpty" data-bv-for="city_id" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn Tỉnh/Thành phố</small></div>
                           </div>
-                          <div class="form-group row">
+                          <div class="form-group row viet">
                             <label for="district_id" class="col-lg-4 control-label visible-lg-block">Quận/Huyện</label>
                             <div class="col-lg-8 input-wrap has-feedback">
                               <select name="district_id" class="form-control address" id="district_id">
@@ -76,7 +90,7 @@
                               </select>
                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="district_id" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng chọn Quận/Huyện</small></div>
                           </div>
-                          <div class="form-group row">
+                          <div class="form-group row viet">
                             <label for="ward_id" class="col-lg-4 control-label visible-lg-block">Phường/Xã</label>
                             <div class="col-lg-8 input-wrap has-feedback">
                               <select name="ward_id" class="form-control address" id="ward_id">
@@ -87,7 +101,7 @@
                           <div class="form-group row">
                             <label for="street" class="col-lg-4 control-label visible-lg-block">Địa chỉ</label>
                             <div class="col-lg-8 input-wrap has-feedback">
-                              <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:50px">{{$customer->address}}</textarea>
+                              <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:100px">{{$customer->address}}</textarea>
                                <span class="help-block"></span> <small class="help-block" data-bv-validator="notEmpty" data-bv-for="street" data-bv-result="NOT_VALIDATED" style="display: none;">Vui lòng nhập Địa chỉ</small></div>
                           </div>
                           <div class="form-group row form-group-radio group-radio-k-address">
@@ -144,7 +158,12 @@
 
       var customer_district_id = '{{ $customer->district_id }}';
       var customer_ward_id = '{{ $customer->ward_id }}';
-
+      var customer_country_id = '{{ $customer->country_id }}';
+      if(customer_country_id == 235){
+        $('div.viet').show();
+      }else{
+        $('div.viet').hide();
+      }
       $('.edit-address').click(function() {
         $('.address-form').show();
       });
@@ -163,31 +182,38 @@
         var error = [];
 
         var full_name = $('#full_name').val();
-        var city_id   = +$('#city_id').val();
+        var city_id   = $('#city_id').val();
+        var country_id   = $('#country_id').val();
         var district_id   = +$('#district_id').val();
         var ward_id   = +$('#ward_id').val();
         var street    = $('#street').val();
         var telephone = $('#telephone').val();
+        var email = $('#email_form').val();
 
         if(!full_name.length)
         {
           error.push('full_name');
         }
-
-        if(!city_id)
+        if(!country_id)
         {
-          error.push('city_id');
+          error.push('country_id');
         }
+        if(country_id == 235){
+          if(!city_id)
+          {
+            error.push('city_id');
+          }
 
-        if(!district_id)
-        {
-          error.push('district_id');
-        }
+          if(!district_id)
+          {
+            error.push('district_id');
+          }
 
-        if(!ward_id)
-        {
-          error.push('ward_id');
-        }
+          if(!ward_id)
+          {
+            error.push('ward_id');
+          }
+        } 
 
         if(!street)
         {
@@ -249,7 +275,14 @@
       if( $('#city_id').val() > 0){
         getDistrict($('#city_id').val());
       }
-
+      $('#country_id').change(function(){
+        var country_id = $(this).val();
+        if( country_id != 235){
+          $('div.viet').hide();
+        }else{
+          $('div.viet').show();
+        }
+      });
       $('#district_id').change(function() {
         var district_id = $(this).val();
 

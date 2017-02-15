@@ -34,6 +34,7 @@ class Orders extends Model  {
       'giam_gia',
       'tien_thanh_toan',
       'phi_giao_hang',
+      'country_id',
       'district_id',
       'city_id',
       'ward_id',

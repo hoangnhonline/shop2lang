@@ -29,8 +29,22 @@
                                 <input type="tel" name="telephone" class="form-control address" id="telephone" value="{{$customer->phone}}" placeholder="{{ trans('text.nhap-so-dien-thoai') }}" data-bv-field="telephone">
                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="telephone" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-nhap') }} {{ trans('text.dien-thoai') }}</small></div>
                             </div>
-
                             <div class="form-group row">
+                              <label for="country_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.quoc-gia') }}</label>
+                              <div class="col-lg-9 input-wrap has-feedback">
+                                <select name="country_id" class="form-control address" id="country_id" data-bv-field="country_id">
+                                  <option value="">{{ trans('text.chon') }} {{ trans('text.quoc-gia') }}</option>
+                                  @foreach($listCountry as $country)
+                                    <option value="{{$country->id}}"
+                                    @if($customer->country_id == $country->id)
+                                    selected
+                                    @endif
+                                    >{{$country->name}}</option>
+                                  @endforeach
+                                </select>
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="country_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-chon') }} {{ trans('text.quoc-gia') }}</small></div>
+                            </div>
+                            <div class="form-group row viet">
                               <label for="city_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.tinh-thanh-pho') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="city_id" class="form-control address" id="city_id" data-bv-field="city_id">
@@ -43,28 +57,28 @@
                                     >{{$city->name}}</option>
                                   @endforeach
                                 </select>
-                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="city_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.tinh-thanh-pho') }}</small></div>
+                                <small class="help-block" data-bv-validator="notEmpty" data-bv-for="city_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-chon') }} {{ trans('text.tinh-thanh-pho') }}</small></div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row viet">
                               <label for="district_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.quan-huyen') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="district_id" class="form-control address" id="district_id">
                                   <option value="0">{{ trans('text.chon') }} {{ trans('text.quan-huyen') }}</option>                              
                                 </select>
-                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="district_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.quan-huyen') }}</small></div>
+                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="district_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-chon') }} {{ trans('text.quan-huyen') }}</small></div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row viet">
                               <label for="ward_id" class="col-lg-3 control-label visible-lg-block">{{ trans('text.phuong-xa') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
                                 <select name="ward_id" class="form-control address" id="ward_id">
                                   <option value="0">{{ trans('text.chon') }} {{ trans('text.phuong-xa') }}</option>
                                 </select>
-                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="ward_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.please-select') }} {{ trans('text.phuong-xa') }}</small></div>
+                                 <small class="help-block" data-bv-validator="notEmpty" data-bv-for="ward_id" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-chon') }} {{ trans('text.phuong-xa') }}</small></div>
                             </div>
                             <div class="form-group row">
                               <label for="street" class="col-lg-3 control-label visible-lg-block">{{ trans('text.dia-chi') }}</label>
                               <div class="col-lg-9 input-wrap has-feedback">
-                                <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:80px">{{ $customer->address }}</textarea>
+                                <textarea name="street" class="form-control address" id="street" placeholder="Ví dụ: 52, đường Trần Hưng Đạo" data-bv-field="street" style="height:100px">{{ $customer->address }}</textarea>
                                  <span class="help-block"></span> <small class="help-block" data-bv-validator="notEmpty" data-bv-for="street" data-bv-result="NOT_VALIDATED" style="display: none;">{{ trans('text.vui-long-nhap') }} {{ trans('text.dia-chi') }}</small></div>
                             </div>                         
                             <div class="form-group row form-group-radio group-radio-k-address">
@@ -131,8 +145,14 @@
    <script type="text/javascript">
     var customer_district_id = '{{ $customer->district_id }}';
     var customer_ward_id = '{{ $customer->ward_id }}';
+    var customer_country_id = '{{ $customer->country_id }}';
+      
     $(document).ready(function() {
-         
+         if(customer_country_id == 235){
+            $('div.viet').show();
+          }else{
+            $('div.viet').hide();
+          }
         $('#btn-address').click(function() {
             $(this).attr('disabled', '');
             validateData();
@@ -155,6 +175,14 @@
           if( $('#district_id').val() > 0){
             getWard($('#district_id').val());
           }
+          $('#country_id').change(function(){
+            var country_id = $(this).val();
+            if( country_id != 235){
+              $('div.viet').hide();
+            }else{
+              $('div.viet').show();
+            }
+          });
     });
 
       function getDistrict(city_id) {
@@ -216,31 +244,38 @@
         var error = [];
 
         var full_name = $('#full_name').val();
-        var city_id   = +$('#city_id').val();
+        var city_id   = $('#city_id').val();
+        var country_id   = $('#country_id').val();
         var district_id   = +$('#district_id').val();
         var ward_id   = +$('#ward_id').val();
         var street    = $('#street').val();
         var telephone = $('#telephone').val();
+        var email = $('#email_form').val();
 
         if(!full_name.length)
         {
           error.push('full_name');
         }
-
-        if(!city_id)
+        if(!country_id)
         {
-          error.push('city_id');
+          error.push('country_id');
         }
+        if(country_id == 235){
+          if(!city_id)
+          {
+            error.push('city_id');
+          }
 
-        if(!district_id)
-        {
-          error.push('district_id');
-        }
+          if(!district_id)
+          {
+            error.push('district_id');
+          }
 
-        if(!ward_id)
-        {
-          error.push('ward_id');
-        }
+          if(!ward_id)
+          {
+            error.push('ward_id');
+          }
+        } 
 
         if(!street)
         {
@@ -273,6 +308,7 @@
               full_name : full_name,
               city_id : city_id,
               district_id : district_id,
+              country_id : country_id,
               ward_id : ward_id,
               address : street,
               phone : telephone,
