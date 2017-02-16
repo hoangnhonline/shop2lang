@@ -77,10 +77,8 @@
                           <label>Tên <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi') }}">
                         </div>
-                        <div class="form-group">                  
-                          <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') }}">
-                        </div>                       
+                         <input type="hidden" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') }}">
+                                            
                         <div class="col-md-6 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" alue="1"> Sản phẩm HOT </label>
@@ -91,14 +89,15 @@
                               <label><input type="checkbox" name="is_sale" alue="1"> Sản phẩm SALE </label>
                           </div>
                         </div>
-                        <div class="form-group col-md-6 none-padding" >                  
+                        <div class="form-group col-md-6  none-padding" >                  
+                            <label>Giá USD ( $ )</label>
+                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
+                        </div> 
+                        <div class="form-group col-md-6" >                  
                             <label>Giá VNĐ</label>
                             <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="{{ old('price_vnd') }}">
                         </div>
-                        <div class="form-group col-md-6" >                  
-                            <label>Giá USD ( $ )</label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
-                        </div>                        
+                                               
                         <div class="form-group" >                  
                           <label>Màu sắc</label>
                           <select name="color_id" class="form-control">
@@ -134,10 +133,7 @@
                           <label>Name <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_en" id="name_en" value="{{ old('name_en') }}">
                         </div>
-                        <div class="form-group">                  
-                          <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') }}">
-                        </div>
+                        <input type="hidden" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') }}">                       
                          <div class="form-group">
                           <label>Detail</label>
                           <textarea class="form-control" rows="10" name="content_en" id="content_en">{{ old('content_en') }}</textarea>

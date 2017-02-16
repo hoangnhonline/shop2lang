@@ -82,10 +82,7 @@
                           <label>Tên <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_vi" id="name_vi" value="{{ old('name_vi') ? old('name_vi') : $detail->name_vi }}">
                         </div>
-                        <div class="form-group">                  
-                          <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') ? old('slug_vi') : $detail->slug_vi }}">
-                        </div>                       
+                        <input type="hidden" class="form-control" name="slug_vi" id="slug_vi" value="{{ old('slug_vi') ? old('slug_vi') : $detail->slug_vi }}">
                         <div class="col-md-6 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" value="1" {{ $detail->is_hot == 1 ? "checked" : "" }}> Sản phẩm HOT </label>
@@ -97,14 +94,6 @@
                           </div>
                         </div>
                         <div class="form-group col-md-6 none-padding" >                  
-                            <label>Giá VNĐ</label>
-                            @if($detail->price_vnd > 0)
-                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="{{ old('price_vnd') ? old('price_vnd') : $detail->price_vnd }}">
-                            @else
-                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="">
-                            @endif
-                        </div>
-                        <div class="form-group col-md-6" >                  
                             <label>Giá USD ( $ )</label>
                             @if($detail->price > 0)
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') ? old('price') : $detail->price }}">
@@ -112,6 +101,15 @@
                             <input type="text" class="form-control" name="price" id="price" value="">
                             @endif
                         </div>
+                        <div class="form-group col-md-6 " >                  
+                            <label>Giá VNĐ</label>
+                            @if($detail->price_vnd > 0)
+                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="{{ old('price_vnd') ? old('price_vnd') : $detail->price_vnd }}">
+                            @else
+                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="">
+                            @endif
+                        </div>
+                        
                        
                         <div class="form-group" >                  
                           <label>Màu sắc</label>
@@ -147,10 +145,7 @@
                           <label>Name <span class="red-star">*</span></label>
                           <input type="text" class="form-control" name="name_en" id="name_en" value="{{ old('name_en') ? old('name_en') : $detail->name_en }}">
                         </div>
-                        <div class="form-group">                  
-                          <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') ? old('slug_en') : $detail->slug_en }}">
-                        </div>
+                        <input type="hidden" class="form-control" name="slug_en" id="slug_en" value="{{ old('slug_en') ? old('slug_en') : $detail->slug_en }}">                        
                         <!--<div class="form-group">
                           <label>Tags EN</label>
                           <select class="form-control select2" name="tags_en[]" id="tags_en" multiple="multiple" style="width:100% !important;">                  
