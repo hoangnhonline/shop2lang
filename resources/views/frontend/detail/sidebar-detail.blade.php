@@ -16,9 +16,11 @@
                 <span>{{ number_format($product->price_sale) }}$</span>
                 <del>{{ number_format($product->price) }}$</del>
               @else
-                 <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
-                 @if($lang == 'en' && $product->price_vnd > 0)<br>
-                  <span>{{ $product->price_vnd > 0 ? number_format($product->price_vnd)." đ" : "Liên hệ" }}</span>
+                  @if($lang == 'en' && $product->price_vnd > 0)
+                  <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span><br>
+                  <span>{{ $product->price_vnd > 0 ? number_format($product->price_vnd)." VND" : "Liên hệ" }}</span>
+                  @else
+                  <span>{{ $product->price_vnd > 0 ? number_format($product->price_vnd) : "Liên hệ" }}</span>
                   @endif
               @endif
             </div>           

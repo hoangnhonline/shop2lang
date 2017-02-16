@@ -49,9 +49,12 @@
                       <span>{{ number_format($detail->price_sale) }}$</span>
                       <del>{{ number_format($detail->price) }}$</del>
                     @else
-                      <span>{{ $detail->price > 0 ? number_format($detail->price)."$" : "Liên hệ" }}</span>
+                      
                       @if($lang == 'en' && $detail->price_vnd > 0)
+                      <span>{{ $detail->price > 0 ? number_format($detail->price)."$" : "Liên hệ" }}</span>
                       <span>~&nbsp;{{ $detail->price_vnd > 0 ? number_format($detail->price_vnd)." VND" : "Liên hệ" }}</span>
+                      @else
+                      <span>{{ $detail->price_vnd > 0 ? number_format($detail->price_vnd)." VND" : "Liên hệ" }}</span>
                       @endif
                     @endif       
                   </div>               
@@ -79,6 +82,7 @@
                 <div role="tabpanel" class="tab-pane active" id="details">
                   <?php $detailContent = $lang == "vi" ? $detail->content_vi : $detail->content_en; ?>
                   @if($detailContent)
+                    <?php echo $detailContent; ?>
                   @else
                   <p style="padding:30px">{{ trans('text.noi-dung-dang-cap-nhat') }}</p>
                   @endif
