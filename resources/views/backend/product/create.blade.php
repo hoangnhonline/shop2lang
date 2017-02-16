@@ -42,8 +42,8 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin VN</a></li>
-                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-toggle="tab">Thông tin EN</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
+                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-toggle="tab">Thông tin English</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                   </ul>
 
@@ -91,18 +91,14 @@
                               <label><input type="checkbox" name="is_sale" alue="1"> Sản phẩm SALE </label>
                           </div>
                         </div>
-                        <div class="form-group" >                  
-                            <label>Giá</label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
-                        </div>
                         <div class="form-group col-md-6 none-padding" >                  
-                            <label>Giá sale</label>
-                            <input type="text" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
+                            <label>Giá VNĐ</label>
+                            <input type="text" class="form-control" name="price_vnd" id="price_vnd" value="{{ old('price_vnd') }}">
                         </div>
-                        <div class="form-group col-md-6 none-padding pleft-5" >                  
-                            <label>Phần trăm sale (%) </label>
-                            <input type="text" class="form-control" name="sale_percent" id="sale_percent" value="{{ old('price_sale') }}">
-                        </div>
+                        <div class="form-group col-md-6" >                  
+                            <label>Giá USD ( $ )</label>
+                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
+                        </div>                        
                         <div class="form-group" >                  
                           <label>Màu sắc</label>
                           <select name="color_id" class="form-control">
