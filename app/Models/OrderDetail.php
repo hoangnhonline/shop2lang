@@ -28,7 +28,9 @@ class OrderDetail extends Model  {
 	  	'sp_id',
 	  	'so_luong',
 	  	'don_gia',
+        'don_gia_vnd',
 	  	'tong_tien',
+        'tong_tien_vnd',
         'so_dich_vu',
         'don_gia_dich_vu',
         'tong_dich_vu'

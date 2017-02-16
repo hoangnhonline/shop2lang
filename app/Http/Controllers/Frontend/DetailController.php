@@ -52,7 +52,7 @@ class DetailController extends Controller
         $lienquanArr = Product::where('product.loai_id', $detail->loai_id)                
                 ->where('product.id', '<>', $detail->id)
                 ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->select('product.id as product_id', 'name_vi', 'slug_vi', 'name_en', 'slug_en', 'price', 'price_sale', 'product_img.image_url')->limit(5)->get();
+                ->select('product.id as product_id', 'name_vi', 'slug_vi', 'name_en', 'slug_en', 'price', 'price_sale', 'product_img.image_url', 'product.price_vnd')->limit(5)->get();
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();

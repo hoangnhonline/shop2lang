@@ -245,6 +245,7 @@ class CartController extends Controller
 
     public function payment(Request $request){
 
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $getlistProduct = Session::get('products');
         $listProductId = array_keys($getlistProduct);
         $customer_id = Session::get('userId');
@@ -261,6 +262,7 @@ class CartController extends Controller
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $order['tong_tien'] = 0;
+        $order['tong_tien_vnd'] = 0;
         $order['tong_sp'] = array_sum($getlistProduct);
         $order['giam_gia'] = 0;
         $order['tien_thanh_toan'] = 0;
@@ -288,15 +290,16 @@ class CartController extends Controller
         foreach ($arrProductInfo as $product) {
             $price = $product->is_sale ? $product->price_sale : $product->price;        
             $order['tong_tien'] += $price * $getlistProduct[$product->id];
+            $order['tong_tien_vnd'] += $product->price_vnd * $getlistProduct[$product->id];
         }
 
         //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $city_id = $customer->city_id;
         if( $customer->country_id == 235){
-            $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
+            $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 3 to 5 working days " : " từ 3 đến 5 ngày làm việc ";    
         }else{
-            $order['ngay_giao_du_kien'] = " từ 7 đến 10 ngày làm việc ";    
+            $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 7 to 10 working days " : " từ 7 đến 10 ngày làm việc ";    
         }
         $arrDate = [$order['ngay_giao_du_kien']];
         
@@ -317,7 +320,9 @@ class CartController extends Controller
             $orderDetail['sp_id']        = $product->id;
             $orderDetail['so_luong']     = $getlistProduct[$product->id];
             $orderDetail['don_gia']      = $product->price;
+            $orderDetail['don_gia_vnd']      = $product->price_vnd;
             $orderDetail['tong_tien']    = $getlistProduct[$product->id]*$product->price;
+            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;
             //$orderDetail['so_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['so_luong'] : 0;
             $orderDetail['so_dich_vu']    =  0;
             //$orderDetail['don_gia_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['don_gia_dich_vu'] : 0;
@@ -373,14 +378,14 @@ class CartController extends Controller
         //
         //
         $arrPay['vpc_AccessCode'] = 'ECAFAB';
-        $arrPay['vpc_Amount'] = ($order['tong_tien']*22650)."00";
+        $arrPay['vpc_Amount'] = ($order['tong_tien_vnd'])."00";
         $arrPay['vpc_BackURL'] = route('shipping-step-3')."?cid=$order_id";
         $arrPay['vpc_Command'] = 'pay';
         $arrPay['vpc_CurrencyCode'] = 'VND';
         $arrPay['vpc_Locale'] = 'vn';
         $arrPay['vpc_MerchTxnRef'] = 'DNO-'.$order_id;
         $arrPay['vpc_Merchant'] = 'SMLTEST';
-        $arrPay['vpc_OrderInfo'] = 'Order ' .$order_id .' at DN';        
+        $arrPay['vpc_OrderInfo'] = 'DH' .$order_id .number_format($order['tong_tien'])." ~ ".number_format($order['tong_tien_vnd']);        
         $arrPay['vpc_ReturnURL'] = route('thanh-cong');        
         $arrPay['vpc_TicketNo']= $request->ip();
         $arrPay['vpc_Version'] = '2.0';
@@ -419,7 +424,7 @@ class CartController extends Controller
     }
     public function order(Request $request)
     {
-        
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
         $getlistProduct = Session::get('products');
         $listProductId = array_keys($getlistProduct);
         $customer_id = Session::get('userId');
@@ -438,6 +443,7 @@ class CartController extends Controller
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
         $order['tong_tien'] = 0;
+        $order['tong_tien_vnd'] = 0;
         $order['tong_sp'] = array_sum($getlistProduct);
         $order['giam_gia'] = 0;
         $order['tien_thanh_toan'] = 0;
@@ -465,15 +471,16 @@ class CartController extends Controller
         foreach ($arrProductInfo as $product) {
             $price = $product->is_sale ? $product->price_sale : $product->price;        
             $order['tong_tien'] += $price * $getlistProduct[$product->id];
+            $order['tong_tien_vnd'] += $product->price_vnd * $getlistProduct[$product->id];
         }
 
         //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
         $city_id = isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] :  $customer->city_id;
         if( $customer->country_id == 235){
-            $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
+            $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 3 to 5 working days " : " từ 3 đến 5 ngày làm việc ";    
         }else{
-            $order['ngay_giao_du_kien'] = " từ 7 đến 10 ngày làm việc ";    
+            $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 7 to 10 working days " : " từ 7 đến 10 ngày làm việc ";    
         }
         $arrDate = [$order['ngay_giao_du_kien']];
 
@@ -491,7 +498,9 @@ class CartController extends Controller
             $orderDetail['sp_id']        = $product->id;
             $orderDetail['so_luong']     = $getlistProduct[$product->id];
             $orderDetail['don_gia']      = $product->price;
+            $orderDetail['don_gia_vnd']      = $product->price_vnd;
             $orderDetail['tong_tien']    = $getlistProduct[$product->id]*$product->price;
+            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;
             //$orderDetail['so_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['so_luong'] : 0;
             $orderDetail['so_dich_vu']    =  0;
             //$orderDetail['don_gia_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['don_gia_dich_vu'] : 0;
@@ -500,28 +509,11 @@ class CartController extends Controller
             $orderDetail['tong_dich_vu']    = 0;
             OrderDetail::create($orderDetail); 
 
-            //  check so luong
-            if($product->is_event == 1){ // san pham event
-                $event_id = Session::get('event_id') ? Session::get('event_id') : 0;
-                if($event_id == 0){
-                    $dt = Carbon::now()->format('Y-m-d H:i:s');
-                    $tmpEvent = Events::where('from_date', '<=', $dt)->where('to_date', '>=', $dt)->where('status', 1)->join('product_event', 'sp_id', '=', 'events.id')->select('event_id')->first();
-                    if($tmpEvent){
-                        $event_id = $tmpEvent->event_id;
-                    }
-                }
-
-                $tmpPE = ProductEvent::where('sp_id', $product->id)->where('event_id', $event_id)->first();
-                if($tmpPE){                    
-                    $tmpSL = $tmpPE->so_luong_tam > 0 ? $tmpPE->so_luong_tam - 1 : 0;
-                    $tmpPE->update(['so_luong_tam' => $tmpSL]);
-                }                
-
-            }else{
-                $tmpModelProduct = Product::find($product->id);
-                $tmpSL = $tmpModelProduct->so_luong_tam > 0 ? $tmpModelProduct->so_luong_tam - 1 : 0;
-                $tmpModelProduct->update(['so_luong_tam' => $tmpSL]);
-            }
+            
+            $tmpModelProduct = Product::find($product->id);
+            $tmpSL = $tmpModelProduct->so_luong_tam > 0 ? $tmpModelProduct->so_luong_tam - 1 : 0;
+            $tmpModelProduct->update(['so_luong_tam' => $tmpSL]);
+            
         }
 
         $customer_id = Session::get('userId');

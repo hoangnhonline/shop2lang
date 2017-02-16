@@ -22,7 +22,7 @@
                     <div class="col-lg-1 col-md-1 end"><h6>{{ trans('text.thanh-tien') }}</h6></div>
                 </div>
                 <?php
-                  $total = 0;
+                  $total = $total_vnd = 0;
                 ?>
 
                 <form id="shopping-cart" method="POST" action="{{ route('shipping-step-1') }}">
@@ -44,11 +44,12 @@
                       </p>
                       <div class="row visible-xs-block visible-sm-block">
                         <div class="col-xs-6 col-sm-8">
-                          @if($product->is_sale)
+                          
                           <p class="price">{{ number_format($price) }}$</p>
-                          @else
-                          <p class="price">{{ number_format($price) }}$</p>
+                          @if($lang == 'en')
+                          <p class="price">{{ number_format($product->price_vnd) }} VND</p>
                           @endif
+
                         </div>
                         <div class="col-xs-6 col-sm-4 cart-col-3 quantity-block">
                            <select data-product-id="{{$product->id}}" class="form-control js-quantity-select quantity js-quantity-product">
@@ -70,10 +71,10 @@
                     </div>
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block">
                       
-                      @if($product->is_sale)
+                      
                       <p class="price">{{number_format($price)}}$</p>
-                      @else
-                      <p class="price">{{number_format($price)}}$</p>
+                      @if($lang == 'en')
+                      <p class="price">{{ number_format($product->price_vnd) }} đ</p>
                       @endif
 
 
@@ -94,9 +95,14 @@
                     </div>                   
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block end">
                       <p class="price3">{{number_format($getlistProduct[$product->id]*$price)}}$</p>
+                      @if($lang == 'en')
+                      <p class="price3">{{number_format($getlistProduct[$product->id]*$product->price_vnd)}} đ</p>                      
+                      @endif
                     </div>
                   </div><!-- end /.shopping-cart-item -->
-                  <?php $total += $getlistProduct[$product->id]*($price); ?>
+                  <?php $total += $getlistProduct[$product->id]*($price); 
+                  $total_vnd += $getlistProduct[$product->id]*($product->price_vnd);
+                  ?>
                   @endforeach
                   @else
                   <p style="text-align:center;margin:15px">Chưa có sản phẩm nào trong giỏ hàng của bạn.</p>
@@ -125,6 +131,9 @@
                       <div class="panel-body">
                         <p class="total">{{ trans('text.tong-cong') }}: <span>{{ number_format($total) }}$</span></p>
                         <p class="total">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
+                        @if($lang == 'en')
+                        <p class="total">{{ trans('text.thanh-tien') }} VND: <span>{{ number_format($total_vnd) }}$ </span></p>
+                        @endif
                         @if($total > 0)
                         <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
                         @endif

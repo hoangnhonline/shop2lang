@@ -402,7 +402,7 @@ blockquote {
 }
 .info-price span {
     color: #28AA4A;
-    margin-right: 10px;
+    margin-right: 0px;
     font-weight: bold;
 }
 .info-price del {
@@ -2784,7 +2784,7 @@ blockquote {
 }
 .info-price.info-price-detail span {
     font-size: 30px;
-    margin-right: 18px;
+    margin-right: 5px;
 }
 .attr-info {
     background: #fafafa none repeat scroll 0 0;
@@ -8612,7 +8612,7 @@ ol.list-post-comment {
 }
 .product-info5 .info-price > span {
     color: #28AA4A;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
 }
 .popular-cat-slider.slider-home5 .product-info5 {

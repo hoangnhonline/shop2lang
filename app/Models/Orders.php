@@ -27,6 +27,7 @@ class Orders extends Model  {
       'id',
       'customer_id',
       'tong_tien',
+      'tong_tien_vnd',
       'tong_sp',
       'status',
       'method_id',

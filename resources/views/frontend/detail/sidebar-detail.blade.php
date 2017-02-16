@@ -17,6 +17,9 @@
                 <del>{{ number_format($product->price) }}$</del>
               @else
                  <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
+                 @if($lang == 'en' && $product->price_vnd > 0)<br>
+                  <span>{{ $product->price_vnd > 0 ? number_format($product->price_vnd)." đ" : "Liên hệ" }}</span>
+                  @endif
               @endif
             </div>           
           </div>

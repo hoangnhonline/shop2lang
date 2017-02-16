@@ -50,6 +50,9 @@
                       <del>{{ number_format($detail->price) }}$</del>
                     @else
                       <span>{{ $detail->price > 0 ? number_format($detail->price)."$" : "Liên hệ" }}</span>
+                      @if($lang == 'en' && $detail->price_vnd > 0)
+                      <span>~&nbsp;{{ $detail->price_vnd > 0 ? number_format($detail->price_vnd)." VND" : "Liên hệ" }}</span>
+                      @endif
                     @endif       
                   </div>               
                   @if($detail->price > 0)
@@ -112,6 +115,9 @@
                           <del>{{ number_format($product->price) }}$</del>
                         @else
                           <span>{{ $product->price > 0 ? number_format($product->price)."$" : "Liên hệ" }}</span>
+                          @if($lang == 'en' && $product->price_vnd > 0)<br>
+                          <span>{{ $product->price_vnd > 0 ? number_format($product->price_vnd)." VND" : "Liên hệ" }}</span>
+                          @endif
                         @endif
                       </div>                     
                     </div>
