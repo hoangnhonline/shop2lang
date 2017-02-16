@@ -45,9 +45,12 @@
                       <div class="row visible-xs-block visible-sm-block">
                         <div class="col-xs-6 col-sm-8">
                           
-                          <p class="price">{{ number_format($price) }}$</p>
+                          
                           @if($lang == 'en')
+                          <p class="price">{{ number_format($price) }}$</p>
                           <p class="price">{{ number_format($product->price_vnd) }} VND</p>
+                          @else
+                          <p class="price">{{ number_format($product->price_vnd) }}</p>
                           @endif
 
                         </div>
@@ -72,9 +75,12 @@
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block">
                       
                       
-                      <p class="price">{{number_format($price)}}$</p>
+                      
                       @if($lang == 'en')
+                      <p class="price">{{number_format($price)}}$</p>
                       <p class="price">{{ number_format($product->price_vnd) }} đ</p>
+                      @else
+                      <p class="price">{{ number_format($product->price_vnd) }}</p>
                       @endif
 
 
@@ -94,9 +100,12 @@
                       </select>
                     </div>                   
                     <div class="col-lg-1 col-md-1 visible-md-block visible-lg-block end">
-                      <p class="price3">{{number_format($getlistProduct[$product->id]*$price)}}$</p>
+                      
                       @if($lang == 'en')
+                      <p class="price3">{{number_format($getlistProduct[$product->id]*$price)}}$</p>
                       <p class="price3">{{number_format($getlistProduct[$product->id]*$product->price_vnd)}} đ</p>                      
+                      @else
+                      <p class="price3">{{number_format($getlistProduct[$product->id]*$product->price_vnd)}}</p>                      
                       @endif
                     </div>
                   </div><!-- end /.shopping-cart-item -->
@@ -129,10 +138,13 @@
                   <div class="visible-lg-block">
                     <div class="panel panel-default fee">
                       <div class="panel-body">
+                        
+                        @if($lang == 'en')
                         <p class="total">{{ trans('text.tong-cong') }}: <span>{{ number_format($total) }}$</span></p>
                         <p class="total">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total) }}$ </span></p>
-                        @if($lang == 'en')
                         <p class="total">{{ trans('text.thanh-tien') }} VND: <span>{{ number_format($total_vnd) }}$ </span></p>
+                        @else
+                        <p class="total">{{ trans('text.thanh-tien') }}: <span>{{ number_format($total_vnd) }} </span></p>
                         @endif
                         @if($total > 0)
                         <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>

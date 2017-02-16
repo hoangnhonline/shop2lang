@@ -10,10 +10,17 @@
         ?>
         <div class="item">
           <p class="title"><strong>{{ $getlistProduct[$product->id] }} x</strong><a href="" target="_blank">{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}</a></p>
+          @if($lang == 'en')
           <p class="price"> <span>
           <?php 
             echo number_format($getlistProduct[$product->id] * $price);            
           ?>$ </span> </p>
+          @else
+          <p class="price"> <span>
+          <?php 
+            echo number_format($getlistProduct[$product->id] * $product->price_vnd);            
+          ?></span> </p>
+          @endif
         </div>
         <?php                             
        
@@ -24,9 +31,12 @@
         ?>
         @endforeach
       </div>
-      <p class="total"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total )}}$ </span> </p>
+      
       @if($lang == 'en')
+      <p class="total"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total )}}$ </span> </p>
       <p class="total"> {{ trans('text.thanh-tien') }} VND: <span>{{number_format( $total_vnd )}}</span> </p>
+      @else
+      <p class="total"> {{ trans('text.thanh-tien') }}: <span>{{number_format( $total_vnd )}}</span> </p>
       @endif
       <p class="text-right"> <i>({{ trans('text.da-bao-gom-vat') }})</i> </p>
     </div>
