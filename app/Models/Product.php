@@ -41,6 +41,7 @@ class Product extends Model  {
         'is_sale',
         'price',
         'price_sale',
+        'price_vnd',
         'views',
         'color_id',
         'display_order',
