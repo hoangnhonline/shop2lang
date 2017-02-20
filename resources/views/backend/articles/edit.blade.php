@@ -166,6 +166,7 @@
       $(".select2").select2();
       var editor = CKEDITOR.replace( 'content',{
           language : 'vi',
+          removeButtons : 'Image',
           filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
           filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",

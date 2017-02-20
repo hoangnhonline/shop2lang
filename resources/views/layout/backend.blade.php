@@ -81,6 +81,7 @@
 
 <!-- jQuery 2.2.3 -->
 <script src="{{ URL::asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="{{ URL::asset('admin/bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ URL::asset('https://code.jquery.com/ui/1.10.0/jquery-ui.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -88,7 +89,7 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{ URL::asset('admin/bootstrap/js/bootstrap.min.js') }}"></script>
+
 <script src="{{ URL::asset('admin/dist/js/ajax-upload.js') }}"></script>
 <script src="{{ URL::asset('admin/dist/js/form.js') }}"></script>
 <script src="{{ URL::asset('admin/dist/js/sweetalert2.min.js') }}"></script>

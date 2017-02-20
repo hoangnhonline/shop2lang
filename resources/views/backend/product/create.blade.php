@@ -317,6 +317,7 @@ function validateData(){
       var editor = CKEDITOR.replace( 'content_vi',{
           language : 'vi',
           height: 300,
+          removeButtons : 'Image',
           filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
           filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
@@ -327,6 +328,7 @@ function validateData(){
       var editor2 = CKEDITOR.replace( 'content_en',{
           language : 'vi',
           height: 300,
+          removeButtons : 'Image',
           filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
           filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
