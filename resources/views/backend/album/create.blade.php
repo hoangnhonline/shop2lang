@@ -215,7 +215,7 @@
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
-    background-color: #3C8DBC !important;
+    background-color: #28AA4A !important;
   }
 
 </style>

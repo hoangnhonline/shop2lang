@@ -132,6 +132,9 @@ class ProductController extends Controller
 
         $dataArr['alias_vi'] = Helper::stripUnicode($dataArr['name_vi']);
         $dataArr['alias_en'] = Helper::stripUnicode($dataArr['name_en']); 
+
+        $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
+        $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
         
         $dataArr['status'] = 1;
 
@@ -357,7 +360,9 @@ class ProductController extends Controller
         $dataArr['alias_en'] = Helper::stripUnicode($dataArr['name_en']);
 
         $dataArr['updated_user'] = Auth::user()->id;
-
+        
+        $dataArr['content_vi'] = str_replace("[Caption]", "", $dataArr['content_vi']);
+        $dataArr['content_en'] = str_replace("[Caption]", "", $dataArr['content_en']);
         
         $model = Product::find($dataArr['id']);
 

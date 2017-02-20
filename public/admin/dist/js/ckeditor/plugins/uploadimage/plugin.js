@@ -80,10 +80,19 @@ CKEDITOR.plugins.add('uploadimage',
                         percent.html(percentVal);
                         var response = jQuery.parseJSON($.trim(xhr.responseText));
                         var files = response.fileList,                            
-                            html = "",                            
-                            editorTemp = CKEDITOR.instances['content'],
-                            edi_parent = $(CKEDITOR.instances['content'].document.getBody().$),
-                        get_html,
+                            html = "";
+                        var lang = $('#editor_active').val();
+                            if(lang == 'en'){
+                                var    editorTemp = CKEDITOR.instances['content_en'];        
+                                var   edi_parent = $(CKEDITOR.instances['content_en'].document.getBody().$);
+                            }else if(lang == 'vi'){
+                                var    editorTemp = CKEDITOR.instances['content_vi'];        
+                                var   edi_parent = $(CKEDITOR.instances['content_vi'].document.getBody().$);
+                            }else{
+                                var    editorTemp = CKEDITOR.instances['content'];        
+                                var   edi_parent = $(CKEDITOR.instances['content'].document.getBody().$);
+                            }                            
+                            var  get_html,
                             count_img = edi_parent.find('img').length,
                             getParentNode = editorTemp.getSelection().getRanges()[0].startContainer,
                             table = $('<div></div>'),

@@ -15,6 +15,7 @@
 
   <!-- Main content -->
   <section class="content">
+  <input type="hidden" id="editor_active" value="vi" />
     <a class="btn btn-default btn-sm" href="{{ route('product.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('product.update') }}" id="dataForm">
     <input type="hidden" name="id" value="{{ $detail->id }}">
@@ -47,8 +48,8 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
-                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-toggle="tab">Thông tin English</a></li>
+                    <li role="presentation" class="active"><a href="#home" data-editor="vi" class="tab_editor" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
+                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-editor="en" class="tab_editor" data-toggle="tab">Thông tin English</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                   </ul>
 
@@ -288,7 +289,7 @@
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
-    background-color: #3C8DBC !important;
+    background-color: #28AA4A !important;
   }
 
 </style>
@@ -334,6 +335,10 @@ function validateData(){
         $('#btnSave').hide();
         $('#btnLoading').show();
       });
+      CKEDITOR.editorConfig = function( config ) {     
+
+      config.removeButtons = 'Image';
+    };
       var editor = CKEDITOR.replace( 'content_vi',{
           language : 'vi',
           height: 300,
@@ -342,11 +347,13 @@ function validateData(){
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
           filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
           filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
+          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}",
+          removeButtons : 'Image'
       });
       var editor2 = CKEDITOR.replace( 'content_en',{
           language : 'vi',
           height: 300,
+          removeButtons : 'Image',
           filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
           filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
           filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
@@ -449,6 +456,10 @@ function validateData(){
               }
             });
          }
+      });
+      $('.tab_editor').click(function(){
+        var active = $(this).attr('data-editor');
+        $('#editor_active').val(active);
       });
     });
     

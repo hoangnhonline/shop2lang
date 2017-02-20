@@ -42,8 +42,8 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
-                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" role="tab" data-toggle="tab">Thông tin English</a></li>
+                    <li role="presentation" class="active"><a href="#home" data-editor="vi" class="tab_editor" aria-controls="home" role="tab" data-toggle="tab">Thông tin tiếng Việt</a></li>
+                    <li role="presentation"><a href="#homeEn" aria-controls="homeEn" data-editor="en" class="tab_editor" role="tab" data-toggle="tab">Thông tin English</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                   </ul>
 
@@ -178,7 +178,7 @@
             
         </div>
         <!-- /.box -->     
-
+<input type="hidden" id="editor_active" value="vi" />
       </div>
       <div class="col-md-4">      
         <div class="box box-primary">
@@ -265,7 +265,7 @@
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
-    background-color: #3C8DBC !important;
+    background-color: #28AA4A !important;
   }
 
 </style>
@@ -284,7 +284,10 @@ function validateData(){
   return true;  
 }
     $(document).ready(function(){
-         
+      $('.tab_editor').click(function(){
+        var active = $(this).attr('data-editor');
+        $('#editor_active').val(active);
+      });
       $('#loai_id').change(function(){
         var loai_id = $(this).val();
         

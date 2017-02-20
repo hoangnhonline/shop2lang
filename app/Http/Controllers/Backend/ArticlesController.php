@@ -108,7 +108,7 @@ class ArticlesController extends Controller
         $dataArr['updated_user'] = Auth::user()->id;
         
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
-
+        $dataArr['content'] = str_replace("[Caption]", "", $dataArr['content']);
         $rs = Articles::create($dataArr);
 
         $object_id = $rs->id;
@@ -208,7 +208,7 @@ class ArticlesController extends Controller
             
             $dataArr['image_url'] = $destionation;
         }
-
+        $dataArr['content'] = str_replace("[Caption]", "", $dataArr['content']);
         $dataArr['updated_user'] = Auth::user()->id;
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;  
         //$dataArr['status'] = isset($dataArr['status']) ? 1 : 0;  
