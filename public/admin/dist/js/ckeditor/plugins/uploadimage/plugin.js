@@ -5,7 +5,7 @@ CKEDITOR.plugins.add('uploadimage',
             editor.ui.addButton('uploadimage', {
                 label: 'Insert Image',
                 command: commandName,
-                icon: 'images/icon_upload.png'
+                icon: this.path + 'images/icon.png',
             });
 
             function addButtonAndItem(definition, execCode, listener) {
