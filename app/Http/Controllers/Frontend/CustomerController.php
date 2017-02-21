@@ -67,8 +67,6 @@ class CustomerController extends Controller
         Session::put('userId', $customer->id);
         Session::put('username', $customer->full_name);
         Session::put('new-register', true);
-        Session::forget('vanglai');
-        Session::forget('is_vanglai');
         return "1";
     }
     public function forgetPassword(Request $request){        
@@ -126,8 +124,6 @@ class CustomerController extends Controller
         Session::put('userId', $customer->id);
         Session::put('new-register', true);
         Session::put('username', $customer->full_name);
-        Session::forget('vanglai');
-        Session::forget('is_vanglai');
         return response()->json(['error' => 0]);
     }
 

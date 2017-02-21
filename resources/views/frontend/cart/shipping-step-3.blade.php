@@ -39,8 +39,15 @@
 
                 <div class="row row-style-2">
                   <div class="col-md-8 has-padding">
+                  @if($status == 'error')
+                        <div class="alert alert-danger fade in alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            Quý khách vui lòng thực hiện thanh toán lại hoặc chọn hình thức thanh toán khác.
+                        </div>
+                        @endif
                     <div class="panel panel-default payment">
                       <div class="panel-body">
+
                         <form class="form-horizontal hide-block" role="form" id="form-payment" action="{{ route('payment') }}" method="post">
                           {{ csrf_field() }}                        
                           <div class="form-group row">

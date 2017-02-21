@@ -130,14 +130,13 @@ class CartController extends Controller
 
     public function shippingStep2(Request $request)
     {
-         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
-        $is_vanglai = Session::get('is_vanglai') ? Session::get('is_vanglai') : 0;
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';    
         $getlistProduct = Session::get('products');
-        if($is_vanglai == 0){
-            if((empty($getlistProduct) || !Session::get('login')) && !Session::has('new-register') )  {
-                return redirect()->route('home');
-            }
+        
+        if((empty($getlistProduct) || !Session::get('login')) && !Session::has('new-register') )  {
+            return redirect()->route('home');
         }
+        
 
         $listProductId = $getlistProduct ? array_keys($getlistProduct) : [];
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
@@ -153,7 +152,7 @@ class CartController extends Controller
         if(is_null($customer)) $customer = new Customer;
         $seo = Helper::seo();
         
-        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'is_vanglai', 'getlistProduct', 'arrProductInfo', 'lang', 'listCountry'));
+        return view('frontend.cart.shipping-step-2', compact('customer', 'listCity', 'seo', 'getlistProduct', 'arrProductInfo', 'lang', 'listCountry'));
     }
 
     public function updateUserInformation(Request $request)
@@ -172,15 +171,11 @@ class CartController extends Controller
         $seo = Helper::seo();
         return view('frontend.cart.register-infor', compact('customer', 'listCity', 'seo', 'lang'));
     }
-
-    public function setService(Request $request){
-        
-        Session::set('is_vanglai', 1);
-
-    }
+  
 
     public function shippingStep3(Request $request)
     {
+        $status = $request->status ? $request->status : null;
         $cid = (int) $request->cid;
         
         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
@@ -191,12 +186,10 @@ class CartController extends Controller
             $rs = Orders::where('customer_id', $userId)->where('id', $cid)->delete();
             if($rs){
                 OrderDetail::where('order_id', $cid)->delete();
-            }
-            
+            }            
         }
 
-        $customer = Customer::find($userId);
-        
+        $customer = Customer::find($userId);        
 
         $getlistProduct = Session::get('products');
             
@@ -216,19 +209,14 @@ class CartController extends Controller
         ) {
             Session::flash('update-information', true);
             return redirect()->route('cap-nhat-thong-tin');
-        }
-        
-        // end
+        }       
+
 
         $listProductId = array_keys($getlistProduct);
 
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                            ->select('product_img.image_url', 'product.*')->get();
-
-        $vangLaiArr = Session::get('vanglai');
-        $city_id = $customer->city_id;
-        $district_id = $customer->district_id;    
+                            ->select('product_img.image_url', 'product.*')->get();         
 
         $total = $phi_giao_hang = $totalServiceFee = $phi_cod = 0;
         
@@ -240,7 +228,7 @@ class CartController extends Controller
 
         $seo = Helper::seo();
         
-        return view('frontend.cart.shipping-step-3', compact('arrProductInfo', 'getlistProduct', 'customer', 'phi_giao_hang', 'seo', 'is_vanglai', 'phi_cod', 'totalAmount', 'lang'));
+        return view('frontend.cart.shipping-step-3', compact('arrProductInfo', 'getlistProduct', 'customer', 'phi_giao_hang', 'seo', 'phi_cod', 'totalAmount', 'lang', 'status'));
     }
 
     public function payment(Request $request){
@@ -250,14 +238,11 @@ class CartController extends Controller
         $listProductId = array_keys($getlistProduct);
         $customer_id = Session::get('userId');
         $customer = Customer::find($customer_id);
-        $is_vanglai = 0;
-        if($is_vanglai == 0){
-            if(empty($listProductId) || !Session::get('login') || Session::has('new-register')) {
-                return redirect()->route('home');
-            }
+ 
+        if(empty($listProductId) || !Session::get('login') || Session::has('new-register')) {
+            return redirect()->route('home');
         }
-
-        $vangLaiArr = Session::get('vanglai');
+  
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
@@ -302,9 +287,6 @@ class CartController extends Controller
             $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 7 to 10 working days " : " từ 7 đến 10 ngày làm việc ";    
         }
         $arrDate = [$order['ngay_giao_du_kien']];
-        
-        
-
 
         $getOrder = Orders::create($order);
 
@@ -312,8 +294,7 @@ class CartController extends Controller
 
         Session::put('order_id', $order_id);
 
-        $orderDetail['order_id'] = $order_id;
-        //$service_fee = Session::get('service_fee');
+        $orderDetail['order_id'] = $order_id;        
        
         foreach ($arrProductInfo as $product) {            
             # code...
@@ -322,12 +303,9 @@ class CartController extends Controller
             $orderDetail['don_gia']      = $product->price;
             $orderDetail['don_gia_vnd']      = $product->price_vnd;
             $orderDetail['tong_tien']    = $getlistProduct[$product->id]*$product->price;
-            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;
-            //$orderDetail['so_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['so_luong'] : 0;
-            $orderDetail['so_dich_vu']    =  0;
-            //$orderDetail['don_gia_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['don_gia_dich_vu'] : 0;
-            $orderDetail['don_gia_dich_vu']    = 0;
-            //$orderDetail['tong_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['fee'] : 0;
+            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;            
+            $orderDetail['so_dich_vu']    =  0;           
+            $orderDetail['don_gia_dich_vu']    = 0;            
             $orderDetail['tong_dich_vu']    = 0;
             OrderDetail::create($orderDetail);
             
@@ -347,26 +325,6 @@ class CartController extends Controller
         // send email
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
         
-        if(!empty($emailArr)){
-            Mail::send('frontend.email.cart',
-                [
-                    'customer'          => $customer,
-                    'order'             => $getOrder,
-                    'arrProductInfo'    => $arrProductInfo,
-                    'getlistProduct'    => $getlistProduct,
-                    'arrDate' => $arrDate,
-                    //'phi_giao_hang' => $order['phi_giao_hang'],
-                    'method_id' => $order['method_id'],
-                    'order_id' => $order_id,
-                    'is_vanglai' => 0
-                ],
-                function($message) use ($emailArr, $order_id) {
-                    $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
-                    $message->to($emailArr);
-                    $message->from('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
-                    $message->sender('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
-            });
-        }
        
         $SECURE_SECRET = "198BE3F2E8C75A53F38C1C4A5B6DBA27";
 
@@ -374,9 +332,7 @@ class CartController extends Controller
         $vpcURL = 'https://sandbox.napas.com.vn/gateway/vpcpay.do';
         
         $md5HashData = $SECURE_SECRET;
-        //ksort ($_POST);
-        //
-        //
+   
         $arrPay['vpc_AccessCode'] = 'ECAFAB';
         $arrPay['vpc_Amount'] = ($order['tong_tien_vnd'])."00";
         $arrPay['vpc_BackURL'] = route('shipping-step-3')."?cid=$order_id";
@@ -385,8 +341,8 @@ class CartController extends Controller
         $arrPay['vpc_Locale'] = 'vn';
         $arrPay['vpc_MerchTxnRef'] = 'DNO-'.$order_id;
         $arrPay['vpc_Merchant'] = 'SMLTEST';
-        $arrPay['vpc_OrderInfo'] = 'DH' .$order_id .number_format($order['tong_tien'])." ~ ".number_format($order['tong_tien_vnd']);        
-        $arrPay['vpc_ReturnURL'] = route('thanh-cong');        
+        $arrPay['vpc_OrderInfo'] = 'DH' .$order_id." " .number_format($order['tong_tien'])." ~ ".number_format($order['tong_tien_vnd']);        
+        $arrPay['vpc_ReturnURL'] = route('thanh-cong')."?cid=$order_id";        
         $arrPay['vpc_TicketNo']= $request->ip();
         $arrPay['vpc_Version'] = '2.0';
 
@@ -429,16 +385,10 @@ class CartController extends Controller
         $listProductId = array_keys($getlistProduct);
         $customer_id = Session::get('userId');
         $customer = Customer::find($customer_id);
-        $is_vanglai = Session::get('is_vanglai') ? Session::get('is_vanglai') : 0;
-        if($is_vanglai == 0){
-            if(empty($listProductId) || !Session::get('login') || Session::has('new-register')) {
-                return redirect()->route('home');
-            }
-        }
-        
-        
-
-        $vangLaiArr = Session::get('vanglai');
+  
+        if(empty($listProductId) || !Session::get('login') || Session::has('new-register')) {
+            return redirect()->route('home');
+        }   
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
@@ -450,33 +400,26 @@ class CartController extends Controller
         $order['customer_id'] = Session::get('userId') ?  Session::get('userId') : 0;
         $order['status'] = 0;
         $order['coupon_id'] = 0;
-        $order['district_id'] = isset($vangLaiArr['district_id']) ? $vangLaiArr['district_id'] : $customer->district_id;
-        $order['city_id']  = isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] : $customer->city_id;
-        $order['ward_id']  = isset($vangLaiArr['ward_id']) ? $vangLaiArr['ward_id'] : $customer->ward_id;
-        $order['address']  = isset($vangLaiArr['address']) ? $vangLaiArr['address'] : $customer->address;        
-        $order['full_name']  = isset($vangLaiArr['full_name']) ? $vangLaiArr['full_name'] : $customer->full_name;
-        $order['email']  = isset($vangLaiArr['email']) ? $vangLaiArr['email'] : $customer->email;
-        $order['phone']  = isset($vangLaiArr['phone']) ? $vangLaiArr['phone'] : $customer->phone;
-        $order['address_type']  = isset($vangLaiArr['address_type']) ? $vangLaiArr['address_type'] : $customer->address_type;
-        $order['method_id'] = isset($vangLaiArr['payment_method']) ? $vangLaiArr['payment_method'] : $request->payment_method;
-
-        // check if ho chi minh free else 150k
-
-        //$order['phi_giao_hang'] = (int) $request->phi_giao_hang;
-        $order['phi_giao_hang'] = 0;
-        //$order['phi_cod'] = (int) $request->phi_cod;
-        $order['phi_cod'] = 0;
-        //$order['service_fee'] = Session::get('totalServiceFee') ? Session::get('totalServiceFee') : 0;
+        $order['district_id'] = $customer->district_id;
+        $order['city_id']  = $customer->city_id;
+        $order['ward_id']  = $customer->ward_id;
+        $order['address']  = $customer->address;        
+        $order['full_name']  = $customer->full_name;
+        $order['email']  = $customer->email;
+        $order['phone']  = $customer->phone;
+        $order['address_type']  = $customer->address_type;
+        $order['method_id'] = $request->payment_method;
+        $order['phi_giao_hang'] = 0;      
+        $order['phi_cod'] = 0;       
         $order['service_fee'] = 0;
         foreach ($arrProductInfo as $product) {
             $price = $product->is_sale ? $product->price_sale : $product->price;        
             $order['tong_tien'] += $price * $getlistProduct[$product->id];
             $order['tong_tien_vnd'] += $product->price_vnd * $getlistProduct[$product->id];
         }
-
-        //$order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
+      
         $order['tong_tien'] = $order['tien_thanh_toan'] = $order['tong_tien'] + $order['phi_giao_hang'] + $order['service_fee'] + $order['phi_cod'];
-        $city_id = isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] :  $customer->city_id;
+
         if( $customer->country_id == 235){
             $order['ngay_giao_du_kien'] = $lang == 'en' ? " from 3 to 5 working days " : " từ 3 đến 5 ngày làm việc ";    
         }else{
@@ -500,12 +443,9 @@ class CartController extends Controller
             $orderDetail['don_gia']      = $product->price;
             $orderDetail['don_gia_vnd']      = $product->price_vnd;
             $orderDetail['tong_tien']    = $getlistProduct[$product->id]*$product->price;
-            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;
-            //$orderDetail['so_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['so_luong'] : 0;
-            $orderDetail['so_dich_vu']    =  0;
-            //$orderDetail['don_gia_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['don_gia_dich_vu'] : 0;
-            $orderDetail['don_gia_dich_vu']    = 0;
-            //$orderDetail['tong_dich_vu']    = isset($service_fee[$product->id]) ? $service_fee[$product->id]['fee'] : 0;
+            $orderDetail['tong_tien_vnd']    = $getlistProduct[$product->id]*$product->price_vnd;        
+            $orderDetail['so_dich_vu']    =  0;            
+            $orderDetail['don_gia_dich_vu']    = 0;            
             $orderDetail['tong_dich_vu']    = 0;
             OrderDetail::create($orderDetail); 
 
@@ -533,11 +473,9 @@ class CartController extends Controller
                     'order'             => $getOrder,
                     'arrProductInfo'    => $arrProductInfo,
                     'getlistProduct'    => $getlistProduct,
-                    'arrDate' => $arrDate,
-                    //'phi_giao_hang' => $order['phi_giao_hang'],
+                    'arrDate' => $arrDate,                    
                     'method_id' => $order['method_id'],
-                    'order_id' => $order_id,
-                    'is_vanglai' => 0
+                    'order_id' => $order_id                    
                 ],
                 function($message) use ($emailArr, $order_id) {
                     $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
@@ -552,19 +490,22 @@ class CartController extends Controller
     }
 
     public function success(Request $request){
-
-         $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
-        $getlistProduct = Session::get('products');
-        $is_vanglai = Session::get('is_vanglai') ? Session::get('is_vanglai') : 0;
-        $vangLaiArr = Session::get('vanglai');
+        $data = $request->all();
+        //echo "<pre>";
+        //print_r($data);die;
+        $lang = Session::get('locale') ? Session::get('locale') : 'vi';   
+        // kiem tra coi co san pham ko, ko thi ve home
+        $getlistProduct = Session::get('products');        
+        
         if(empty($getlistProduct)) {
             return redirect()->route('home');
         }
+        // lay thong tin customer
         $customer_id = Session::get('userId');
 
         $customer = Customer::find($customer_id);
-        $vangLaiArr = Session::get('vanglai');
-        $city_id = $is_vanglai == 1 && isset($vangLaiArr['city_id']) ? $vangLaiArr['city_id'] : $customer->city_id;
+        
+        
         if( $customer->country_id == 235){
             $order['ngay_giao_du_kien'] = " từ 3 đến 5 ngày làm việc ";    
         }else{
@@ -573,21 +514,50 @@ class CartController extends Controller
         $arrDate = [$order['ngay_giao_du_kien']];
 
         $order_id = Session::get('order_id');
-
+        $getOrder = Orders::find($order_id);       
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
+        if(isset($data['vpc_ResponseCode'])){
+            if($data['vpc_ResponseCode'] != 0){
+                 return redirect()->route('shipping-step-3', ['cid' => $data['cid'], 'status'=> 'error']);
+            }else{
+                $order_id = $data['cid'];                
+                $email = $customer->email;        
+                $emailArr = array_merge([$email], ['hoangnhonline@gmail.com']);
+                if(!empty($emailArr)){
+
+                    $getlistProduct = Session::get('products');
+                    $listProductId = array_keys($getlistProduct);
+                    $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                                        ->select('product_img.image_url', 'product.*')->get();
+
+                    Mail::send('frontend.email.cart',
+                        [
+                            'customer'          => $customer,
+                            'order'             => $getOrder,
+                            'arrProductInfo'    => $arrProductInfo,
+                            'getlistProduct'    => $getlistProduct,
+                            'arrDate' => $arrDate,                    
+                            'method_id' => $getOrder->method_id,
+                            'order_id' => $order_id                    
+                        ],
+                        function($message) use ($emailArr, $order_id) {
+                            $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
+                            $message->to($emailArr);
+                            $message->from('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
+                            $message->sender('sanphamlamdepcaocap2017@gmail.com', 'sanphamlamdepcaocap.com');
+                    });
+                }
+            }
+        }
+        
         Session::put('products', []);
         Session::put('order_id', '');
-        Session::forget('is_vanglai');
-        Session::forget('vanglai');
-        //Session::forget('service_fee');
-        //Session::forget('totalServiceFee');
-        Session::forget('event_id');
         Session::forget('order_id');
-
 
         $seo = Helper::seo();
 
-        return view('frontend.cart.success', compact('order_id', 'customer', 'arrDate', 'seo', 'is_vanglai', 'vangLaiArr', 'lang'));
+        return view('frontend.cart.success', compact('order_id', 'customer', 'arrDate', 'seo', 'lang'));
     }
 
     public function deleteAll(){
