@@ -58,7 +58,7 @@
                       @endif
                     @endif       
                   </div>               
-                  @if($detail->price > 0)
+                  @if($detail->price > 0 || $detail->price_vnd > 0)
                   <div class="attr-info">                              
                     <a class="addcart-link" href="javascript:;" data-id="{{ $detail->id }}"><i class="fa fa-shopping-cart"></i> {{ trans('text.mua-hang') }}</a>
                   <!-- End Attr Info -->

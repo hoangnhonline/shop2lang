@@ -24,7 +24,7 @@
 													<img class="first-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >	
 													<img class="second-thumb" src="{{ Helper::showImage($product->image_url) }}" alt="{{ $lang == 'vi' ? $product->name_vi : $product->name_en }}" >	
 												</a>
-												@if($product->price > 0)
+												@if($product->price > 0 || $product->price_vnd > 0)
 												<div class="product-info-cart">													
 													 <a class="addcart-link" href="javascript:void(0)" data-id="{{ $product->id }}"><i class="fa fa-shopping-basket"></i> {{ trans('text.mua-hang') }}</a>
 												</div>
