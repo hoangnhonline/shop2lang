@@ -35,16 +35,18 @@
         <div class="footer-bottom5">
           <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="copyright">
-                <p>All Rights Reserved. Powered by <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a></p>
-              </div>
+              <ul>
+                <li>
+                  <span class=" fa fa-bar-chart"></span>&nbsp;Hôm nay: <strong style="color:#28AA4A">{{ number_format($counter['day']) }}</strong>
+                </li>
+                <li>
+                  <span class=" fa fa-bar-chart"></span>&nbsp;Tổng truy cập: <strong style="color:#28AA4A">{{ number_format($counter['all']) }}</strong>
+                </li>
+              </ul>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <div class="payment2 payment-method">
-                <a href="#"><img alt="" src="{{ URL::asset('assets/images/pay1.png') }}"></a>
-                <a href="#"><img alt="" src="{{ URL::asset('assets/images/pay2.png') }}"></a>
-                <a href="#"><img alt="" src="{{ URL::asset('assets/images/pay3.png') }}"></a>
-                <a href="#"><img alt="" src="{{ URL::asset('assets/images/pay4.png') }}"></a>
+              <div class="copyright" style="text-align:right">
+                <p>All Rights Reserved. Powered by <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a></p>
               </div>
             </div>
           </div>

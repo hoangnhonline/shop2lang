@@ -1,3 +1,7 @@
+<?php 
+Helper::counter();
+$counter = Helper::showCounter();
+?>
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
