@@ -42,7 +42,43 @@
                   
                   <div class="product-code">
                     <label>{{ trans('text.ma-sp') }}: </label> <span>#{{ $detail->code }}</span>
-                  </div>                     
+                  </div>        
+                  <!-- I got these buttons from simplesharebuttons.com -->
+                  <div id="share-buttons" style="margin-top:10px">
+                      
+                     
+                      <!-- Facebook -->
+                      <a href="http://www.facebook.com/sharer.php?u={{ url()->current() }}" target="_blank">
+                          <img src="https://simplesharebuttons.com/images/somacro/facebook.png" alt="Facebook" />
+                      </a>
+                      
+                      <!-- Google+ -->
+                      <a href="https://plus.google.com/share?url={{ url()->current() }}" target="_blank">
+                          <img src="https://simplesharebuttons.com/images/somacro/google.png" alt="Google" />
+                      </a>                      
+                      <!-- Pinterest -->
+                      <a href="javascript:void((function()%7Bvar%20e=document.createElement('script');e.setAttribute('type','text/javascript');e.setAttribute('charset','UTF-8');e.setAttribute('src','http://assets.pinterest.com/js/pinmarklet.js?r='+Math.random()*99999999);document.body.appendChild(e)%7D)());">
+                          <img src="https://simplesharebuttons.com/images/somacro/pinterest.png" alt="Pinterest" />
+                      </a> 
+                       
+                      <!-- Twitter -->
+                      <a href="https://twitter.com/share?url={{ url()->current() }}&amp;text={{ $lang == 'vi' ? $detail->name_vi : $detail->name_en }}&amp;hashtags=sanphamlamdepcaocap" target="_blank">
+                          <img src="https://simplesharebuttons.com/images/somacro/twitter.png" alt="Twitter" />
+                      </a>                     
+                   
+
+                  </div>   
+                  <style type="text/css">
+ 
+#share-buttons img {
+width: 35px;
+padding: 5px;
+border: 0;
+box-shadow: 0;
+display: inline;
+}
+ 
+</style>          
                   <div class="info-price info-price-detail">
                     <label>{{ trans('text.gia') }}:</label> 
                     @if($detail->is_sale == 1 && $detail->price_sale > 0)
