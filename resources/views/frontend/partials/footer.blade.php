@@ -22,7 +22,7 @@
         <div class="list-footer-box5">
           <div class="row">
             @foreach($footerArr as $footer)
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-4 col-sm-6 col-xs-12">
               <div class="footer-box">
                 <h2>{{ $lang == 'vi' ? $footer->name_vi : $footer->name_en }}</h2>
                 <?php echo $lang == 'vi' ? $footer->content_vi  : $footer->content_en; ?>
