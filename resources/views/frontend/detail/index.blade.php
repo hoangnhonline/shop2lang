@@ -71,7 +71,7 @@
                   <style type="text/css">
  
 #share-buttons img {
-width: 35px;
+width: 45px;
 padding: 5px;
 border: 0;
 box-shadow: 0;
