@@ -88,6 +88,12 @@
                               <input id="payment_method_pay" type="radio" class="input-radio" name="payment_method" value="3">
                              <label for="payment_method_pay">
                              Internet Banking / Visa / Master Card    </label>
+                             <div>
+                             <p style="padding-left:30px; margin-top:15px">
+                               <a style="color:#28AA4A;cursor:pointer" href="http://shop.dev/assets/hdsd-ecom.pdf" target="_blank">Hướng dẫn thanh toán bằng thẻ nội địa qua cổng NAPAS</a>
+                             </p>
+                               <img src="{{ URL::asset('assets/images/logo-ecom.jpg')}}" class="img-responsive">
+                             </div>
                           </li>
                                                     
                           </ul>

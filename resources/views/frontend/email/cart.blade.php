@@ -66,9 +66,16 @@
                              <td valign="top" style="padding:7px 9px 0px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444" colspan="2"><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"> <strong>Phương thức thanh toán: </strong> 
                             <?php if($method_id == 2) {
                               echo "Chuyển khoản ngân hàng";
+
                             }elseif( $method_id == 3){
                               echo "INTERNET BANKING / VISA / MASTER CARD";
                             }
+                            echo " - ";
+                              if(isset($da_thanh_toan) && $da_thanh_toan == 1){
+                                echo " ĐÃ THANH TOÁN";
+                              }else{
+                                echo " CHƯA THANH TOÁN";
+                              }
                               ?>
 
                                <br>
@@ -95,15 +102,15 @@
                               <?php $total = 0 ?>
                               @foreach($arrProductInfo as $product)
                                 <?php
-                                  $price = $product->is_sale ? $product->price_sale : $product->price;
+                                  $price = $product->is_sale ? $product->price_sale : $product->price_vnd;
                                 ?>
                               <tr>
                               <td align="left" valign="top" style="padding:3px 9px"><span>{{
                                 $product->name_vi
                                 }}</span><br>
-                              <td align="left" valign="top" style="padding:3px 9px"><span>{{ number_format($price) }}$</span></td>
+                              <td align="left" valign="top" style="padding:3px 9px"><span>{{ number_format($price) }}</span></td>
                               <td align="left" valign="top" style="padding:3px 9px">{{ $getlistProduct[$product->id] }}</td>                              
-                              <td align="right" valign="top" style="padding:3px 9px"><span>{{ number_format($price * $getlistProduct[$product->id]) }}$</span></td>
+                              <td align="right" valign="top" style="padding:3px 9px"><span>{{ number_format($price * $getlistProduct[$product->id]) }}</span></td>
                               <?php $total += $price * $getlistProduct[$product->id] ?>
                                </tr>
                               @endforeach
@@ -111,7 +118,7 @@
                           <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">                                                       
                             <tr bgcolor="#eee">
                               <td colspan="3" align="right" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big></strong></td>
-                              <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($order->tong_tien) }}$</span></big></strong></td>
+                              <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($total) }}</span></big></strong></td>
                             </tr>
                           </tfoot>
                         </table>                        

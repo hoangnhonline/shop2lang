@@ -517,10 +517,14 @@ class CartController extends Controller
         $getOrder = Orders::find($order_id);       
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
         if(isset($data['vpc_ResponseCode'])){
+
             if($data['vpc_ResponseCode'] != 0){
                  return redirect()->route('shipping-step-3', ['cid' => $data['cid'], 'status'=> 'error']);
             }else{
-                $order_id = $data['cid'];                
+                $order_id = $data['cid'];
+                $getOrder->da_thanh_toan = 1;
+                $getOrder->save();               
+                
                 $email = $customer->email;        
                 $emailArr = array_merge([$email], ['hoangnhonline@gmail.com']);
                 if(!empty($emailArr)){
@@ -539,7 +543,8 @@ class CartController extends Controller
                             'getlistProduct'    => $getlistProduct,
                             'arrDate' => $arrDate,                    
                             'method_id' => $getOrder->method_id,
-                            'order_id' => $order_id                    
+                            'order_id' => $order_id,
+                            'da_thanh_toan' => 1                 
                         ],
                         function($message) use ($emailArr, $order_id) {
                             $message->subject('Xác nhận đơn hàng hàng #'.$order_id);
