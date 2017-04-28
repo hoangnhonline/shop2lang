@@ -50,7 +50,7 @@
                               INTERNET BANKING / VISA / MASTER CARD
                               @endif
                               <?php
-                              echo " - ";
+                              echo "<br/>";
                               if($order->da_thanh_toan == 1){
                                 echo " <span style='color:red'>ĐÃ THANH TOÁN</span>";
                               }else{
