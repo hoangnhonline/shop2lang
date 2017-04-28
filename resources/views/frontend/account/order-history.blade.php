@@ -30,6 +30,7 @@
                                     <span class="hidden-xs hidden-sm hidden-md">Trạng thái thanh toán</span>
                                     <span class="hidden-lg">Thanh toán</span>
                                 </th>
+                                <th>Chi tiết</th>
                                 <!--                            <th></th>-->
                             </tr>
                             </thead>
@@ -54,6 +55,9 @@
                                         <span class="order-status">
                                             {{ $order->da_thanh_toan == 1  ? "Đã thanh toán" : "Chưa thanh toán" }}
                                         </span>
+                                    </td>
+                                    <td>
+                                        <a style="color:#ec1c24" href="{{ route('order-detail', $order->id)}}">Xem chi tiết</a>
                                     </td>
                                 </tr>
                             @endforeach
