@@ -44,11 +44,20 @@
                           <div class="col-sm-5">
                             <div class="payment-2 has-padding">
                               <h4 class="mb20">{{ trans('text.hinh-thuc-thanh-toan') }}</h4>
-                              @if($order->method_id == 1)
-                              <p>Giao hàng và thu tiền tại nhà </p>                            
+                              <p>@if($order->method_id == 1)
+                              Chuyển khoản ngân hàng
                               @elseif($order->method_id == 2)
-                              <p>Chuyển khoản ngân hàng</p>
+                              INTERNET BANKING / VISA / MASTER CARD
                               @endif
+                              <?php
+                              echo " - ";
+                              if($order->da_thanh_toan == 1){
+                                echo " <span style='color:red'>ĐÃ THANH TOÁN</span>";
+                              }else{
+                                echo " <span style='color:red'>CHƯA THANH TOÁN</span>";
+                              }
+                              ?>
+
                             </div>
                           </div>
                         </div>
