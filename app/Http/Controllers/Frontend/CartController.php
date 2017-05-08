@@ -326,21 +326,21 @@ class CartController extends Controller
         $order_id =str_pad($order_id, 6, "0", STR_PAD_LEFT);
         
        
-        $SECURE_SECRET = "198BE3F2E8C75A53F38C1C4A5B6DBA27";
+        $SECURE_SECRET = "0C528E5DFBA988E657E1FBFFF5C5DB65";
 
         // add the start of the vpcURL querystring parameters
-        $vpcURL = 'https://sandbox.napas.com.vn/gateway/vpcpay.do';
+        $vpcURL = 'https://payment.napas.com.vn/gateway/vpcpay.do';
         
         $md5HashData = $SECURE_SECRET;
    
-        $arrPay['vpc_AccessCode'] = 'ECAFAB';
+        $arrPay['vpc_AccessCode'] = 'D1N2TR3A4DI5NG';
         $arrPay['vpc_Amount'] = ($order['tong_tien_vnd'])."00";
         $arrPay['vpc_BackURL'] = route('shipping-step-3')."?cid=$order_id";
         $arrPay['vpc_Command'] = 'pay';
         $arrPay['vpc_CurrencyCode'] = 'VND';
         $arrPay['vpc_Locale'] = 'vn';
         $arrPay['vpc_MerchTxnRef'] = 'DNO-'.$order_id;
-        $arrPay['vpc_Merchant'] = 'SMLTEST';
+        $arrPay['vpc_Merchant'] = 'DNTRADING';
         $arrPay['vpc_OrderInfo'] = 'DH' .$order_id." " .number_format($order['tong_tien'])." ~ ".number_format($order['tong_tien_vnd']);        
         $arrPay['vpc_ReturnURL'] = route('thanh-cong')."?cid=$order_id";        
         $arrPay['vpc_TicketNo']= $request->ip();
