@@ -57,7 +57,7 @@
                                 echo " <span style='color:red'>CHƯA THANH TOÁN</span>";
                               }
                               ?>
-
+                              </p>
                             </div>
                           </div>
                         </div>

@@ -27,7 +27,7 @@
           <div class="col-md-4">
               <h4>Chi tiết chung</h4>
             <p>
-              <span>Thời gian đặt hàng :</span><br> {{ date('d-m-Y H:i', strtotime($order->created_at )) }} <br>
+              <span>Thời gian đặt hàng :</span><br> <b>{{ date('d-m-Y H:i', strtotime($order->created_at )) }} </b><br>
               <div class="clearfix" style="margin-bottom:5px"></div>
               <span>Tình trạng đơn hàng : </span><br />
               <select class="select-change-status form-control" order-id="{{ $order->id }}" style="width:200px;" >
@@ -41,14 +41,16 @@
                 </select>                  
              <div class="clearfix" style="margin:5px"></div>
               <span>Khách hàng : <span><br>
-              <span>{{ $order->full_name }}( # {{ $order->email }})</span>
+              <span><b>{{ $order->full_name }}( # {{ $order->email }})</b></span>
               
             </p>
           </div>
           <div class="col-md-4">
             <h4>Thông tin thanh toán</h4>
             <p>
-              <span>Địa chỉ :</span><br> {{ $order->address }} 
+              <span>Địa chỉ :</span><br> 
+<b>
+              {{ $order->address }} 
               @if($order->order_id), {{ $order->ward_id ? Helper::getName($order->ward_id, 'ward') : "" }}
               @endif
               @if($order->district_id)
@@ -59,21 +61,37 @@
               @endif
               @if($order->country_id)
               , {{ $order->country_id ? Helper::getName($order->country_id, 'country') : "" }}
-              @endif
+              @endif</b>
               <br>
               <div class="clearfix" style="margin-bottom:5px"></div>
               <span>Email : </span><br />
-              <span>{{ $order->email }}</span>                  
+              <span><b>{{ $order->email }}</b></span>                  
              <div class="clearfix" style="margin:5px"></div>
               <span>Điện thoại : <span><br>
-              <span>{{ $order->phone }}</span>
+              <span><b>{{ $order->phone }}</b></span><br>  <br>            
+              <span>Phương thức thanh toán : <span><br>
+              <p>@if($order->method_id == 1)
+                <b>Chuyển khoản ngân hàng</b>
+                @else
+                <b>INTERNET BANKING / VISA / MASTER CARD</b>
+                @endif
+                <?php
+                echo "<br/>";
+                if($order->da_thanh_toan == 1){
+                  echo " <span style='color:red'><b>ĐÃ THANH TOÁN</b></span>";
+                }else{
+                  echo " <span style='color:red'><b>CHƯA THANH TOÁN</b></span>";
+                }
+                ?>
+                </p>
               
             </p>
           </div>
           <div class="col-md-4">
             <h4>Chi tiết giao nhận hàng</h4>
             <p>
-              <span>Địa chỉ :</span><br> {{ $order->address }} 
+              <span>Địa chỉ :</span><br> <b>
+{{ $order->address }} 
               @if($order->order_id), {{ $order->ward_id ? Helper::getName($order->ward_id, 'ward') : "" }}
               @endif
               @if($order->district_id)
@@ -85,7 +103,7 @@
               @if($order->country_id)
               , {{ $order->country_id ? Helper::getName($order->country_id, 'country') : "" }}
               @endif       
-              
+              </b>
             </p>
           </div>
 
@@ -109,8 +127,8 @@
                   <td style="text-align:center">{{ $i }}</td>
                   <td class="product_name">{{$detail->product->name_vi}}</td>
                   <td style="text-align:right">{{$detail->so_luong}}</td>
-                  <td style="text-align:right">{{number_format($detail->don_gia)}} đ</td>
-                  <td style="text-align:right">{{number_format($detail->tong_tien)}} đ</td>
+                  <td style="text-align:right">{{number_format($detail->don_gia_vnd)}} đ</td>
+                  <td style="text-align:right">{{number_format($detail->tong_tien_vnd)}} đ</td>
                  
               </tr>
             @endforeach
@@ -127,7 +145,7 @@
                   <td></td>
                   <td style="text-align:right"><b>Tổng chi phí</b></td>
                   <td style="text-align:right">
-                    <strong>{{number_format($order->tong_tien)}}</strong> đ</td>
+                    <strong>{{number_format($order->tong_tien_vnd)}}</strong> đ</td>
               </tr>
           </tbody>
           </table>

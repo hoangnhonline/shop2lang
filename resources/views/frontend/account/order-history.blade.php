@@ -31,7 +31,6 @@
                                     <span class="hidden-lg">Thanh toán</span>
                                 </th>
                                 <th>Chi tiết</th>
-                                <!--                            <th></th>-->
                             </tr>
                             </thead>
                             <tbody>
