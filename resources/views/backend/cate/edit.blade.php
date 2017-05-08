@@ -1,5 +1,8 @@
 @extends('layout.backend')
 @section('content')
+<?php 
+$loai_id = old('loai_id', $detail->loai_id);
+?>
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">

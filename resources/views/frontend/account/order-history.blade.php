@@ -26,7 +26,11 @@
                                     <span class="hidden-xs hidden-sm hidden-md">{{ trans('text.trang-thai-don-hang') }}</span>
                                     <span class="hidden-lg">{{ trans('text.trang-thai') }}</span>
                                 </th>
-                                <!--                            <th></th>-->
+                                <th style="text-align:center">
+                                    <span class="hidden-xs hidden-sm hidden-md">Trạng thái thanh toán</span>
+                                    <span class="hidden-lg">Thanh toán</span>
+                                </th>
+                                <th>Chi tiết</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -40,11 +44,19 @@
                                     <p>{{ Helper::getName($detail->sp_id, 'product') }}</p>
                                     @endforeach
                                     </td>
-                                    <td style="text-align:right">{{ number_format($order->tong_tien) }}$</td>                                    
+                                    <td style="text-align:right">{{ number_format($order->tong_tien_vnd) }}</td>                                    
                                     <td style="text-align:center">
                                         <span class="order-status">
                                             {{ $status[$order->status] }}
                                         </span>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <span class="order-status">
+                                            {{ $order->da_thanh_toan == 1  ? "Đã thanh toán" : "Chưa thanh toán" }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a style="color:#ec1c24" href="{{ route('order-detail', $order->id)}}">Xem chi tiết</a>
                                     </td>
                                 </tr>
                             @endforeach

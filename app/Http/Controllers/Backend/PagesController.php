@@ -59,15 +59,13 @@ class PagesController extends Controller
             'title_vi' => 'required',
             'slug_vi' => 'required',
             'title_en' => 'required',
-            'slug_en' => 'required',
-            'pages_url' => 'required'
+            'slug_en' => 'required'            
         ],
         [
             'title_vi.required' => 'Bạn chưa nhập tên trang VI',
             'slug_vi.required' => 'Bạn chưa nhập slug VI',
             'title_en.required' => 'Bạn chưa nhập tên trang EN',
-            'slug_en.required' => 'Bạn chưa nhập slug EN',
-            'pages_url.required' => 'Bạn chưa nhập VIDEO URL',
+            'slug_en.required' => 'Bạn chưa nhập slug EN'            
         ]);        
         
         if($dataArr['image_url'] && $dataArr['image_name']){

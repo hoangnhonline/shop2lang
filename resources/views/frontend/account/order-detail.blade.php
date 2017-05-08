@@ -44,11 +44,20 @@
                           <div class="col-sm-5">
                             <div class="payment-2 has-padding">
                               <h4 class="mb20">{{ trans('text.hinh-thuc-thanh-toan') }}</h4>
-                              @if($order->method_id == 1)
-                              <p>Giao hàng và thu tiền tại nhà </p>                            
+                              <p>@if($order->method_id == 1)
+                              Chuyển khoản ngân hàng
                               @elseif($order->method_id == 2)
-                              <p>Chuyển khoản ngân hàng</p>
+                              INTERNET BANKING / VISA / MASTER CARD
                               @endif
+                              <?php
+                              echo "<br/>";
+                              if($order->da_thanh_toan == 1){
+                                echo " <span style='color:red'>ĐÃ THANH TOÁN</span>";
+                              }else{
+                                echo " <span style='color:red'>CHƯA THANH TOÁN</span>";
+                              }
+                              ?>
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -71,17 +80,17 @@
                             <tr>
                               <td><a href="#" target="_blank" class="link">{{ Helper::getName($rowOrder->sp_id, "product" ) }}</a> </td>
                              
-                              <td><strong class="hidden-lg hidden-md">{{ trans('text.gia') }}: </strong>{{ number_format($rowOrder->don_gia) }}$</td>
+                              <td><strong class="hidden-lg hidden-md">{{ trans('text.gia') }}: </strong>{{ number_format($rowOrder->don_gia_vnd) }}</td>
                               <td><strong class="hidden-lg hidden-md">{{ trans('text.so-luong') }}: </strong>{{ $rowOrder['so_luong'] }} </td>
                              
-                              <td><strong class="hidden-lg hidden-md">{{ trans('text.tong-cong') }}: </strong>{{ number_format($rowOrder->tong_tien) }}$</td>
+                              <td><strong class="hidden-lg hidden-md">{{ trans('text.tong-cong') }}: </strong>{{ number_format($rowOrder->tong_tien_vnd) }}</td>
                             </tr>
                             @endforeach                         
                           </tbody>
                           <tfoot>                                                                            
                             <tr>
                               <td colspan="3" class="text-right"><strong>{{ trans('text.tong-tien') }}</strong></td>
-                              <td><strong>{{ number_format($order->tong_tien)}}$</strong></td>
+                              <td><strong>{{ number_format($order->tong_tien_vnd)}}</strong></td>
                             </tr>
                           </tfoot>
                         </table>

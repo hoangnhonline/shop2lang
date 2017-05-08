@@ -47,7 +47,8 @@ class Orders extends Model  {
       'phi_cod',
       'full_name',
       'email',
-      'phone'
+      'phone',
+      'da_thanh_toan'
     ];
 
     public function order_detail()
