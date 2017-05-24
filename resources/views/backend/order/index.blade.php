@@ -74,6 +74,7 @@
               <th style="text-align:center;width:150px">Ngày đặt hàng</th>
               <th style="text-align:right;width:200px">Giao hàng đến</th>           
               <th style="text-align:right;width:100px">Tổng hoá đơn</th>
+              <th style="text-align:right;width:200px">Thanh toán</th>
               <th width="120px" style="white-space:nowrap">Trạng thái</th>
               <th width="230px" style="white-space:nowrap"> </th>
             </tr>
@@ -104,7 +105,23 @@
                 {{ $order->full_name }}, {{ $order->address }}, {{ $order->ward_id ? Helper::getName($order->ward_id, 'ward') : "" }}, {{ $order->district_id ? Helper::getName($order->district_id, 'district') : "" }}, {{ $order->city_id ? Helper::getName($order->city_id, 'city') : "" }}</a>
                 </td>
                              
-                <td style="text-align:right;width:100px">{{number_format($order->tong_tien)}}</td>
+                <td style="text-align:right;width:100px">{{number_format($order->tong_tien_vnd)}}</td>
+                <td>
+                  <p>@if($order->method_id == 1)
+                  <b>Chuyển khoản ngân hàng</b>
+                  @else
+                  <b>INTERNET BANKING / VISA / MASTER CARD</b>
+                  @endif
+                  <?php
+                  echo "<br/>";
+                  if($order->da_thanh_toan == 1){
+                    echo " <span style='color:red'><b>ĐÃ THANH TOÁN</b></span>";
+                  }else{
+                    echo " <span style='color:red'><b>CHƯA THANH TOÁN</b></span>";
+                  }
+                  ?>
+                  </p>
+                </td>
                 <td>
                   <select class="select-change-status form-control" order-id="{{$order->id}}" customer-id="{{$order->customer_id}}" >
                     @foreach($list_status as $index => $status)
