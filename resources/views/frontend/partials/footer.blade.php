@@ -46,7 +46,7 @@
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <div class="copyright" style="text-align:right">
-                <p>All Rights Reserved. Powered by <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a></p>
+                <p>All Rights Reserved. Powered by <a href="http://iweb247.vn/" target="_blank">iweb247.vn</a></p>
               </div>
             </div>
           </div>
